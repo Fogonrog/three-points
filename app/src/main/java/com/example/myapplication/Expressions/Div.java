@@ -1,15 +1,14 @@
 package com.example.myapplication.Expressions;
 
-public class Div extends Expr {
-    public Expr function1;
-    public Expr function2;
+public class Div implements Function {
+    public Function numerator;
+    public Function denominator;
 
-    public Div(Expr func1, Expr func2) {
-        this.function1 = func1;
-        this.function2 = func2;
+    public Div(Function numerator, Function denominator) {
+        this.numerator = numerator;
+        this.denominator = denominator;
     }
-    @Override
-    public float eval(float x) {
-        return function1.eval(x) / function2.eval(x);
+    public float evaluate(float x) {
+        return numerator.evaluate(x) / denominator.evaluate(x);
     }
 }

@@ -1,15 +1,14 @@
 package com.example.myapplication.Expressions;
 
-public class Multi extends Expr {
-    public Expr function1;
-    public Expr function2;
+public class Multi implements Function {
+    public Function numerator;
+    public Function denominator;
 
-    public Multi(Expr func1, Expr func2) {
-        this.function1 = func1;
-        this.function2 = func2;
+    public Multi(Function numerator, Function denominator) {
+        this.numerator = numerator;
+        this.denominator = denominator;
     }
-    @Override
-    public float eval(float x) {
-        return function1.eval(x) * function2.eval(x);
+    public float evaluate(float x) {
+        return numerator.evaluate(x) * denominator.evaluate(x);
     }
 }

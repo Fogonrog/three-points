@@ -1,81 +1,81 @@
 package com.example.myapplication;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
-import android.widget.ImageView;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class Draw2D extends View {
+    private static Paint paint = new Paint();
+    private static Bitmap bitmap;
+    private static Canvas canvas;
 
-    private Paint mPaint = new Paint();
-    public Bitmap mBitmap;
-    public final int WIDTH;
-    public final int HEIGHT;
-    public Canvas canvas;
-
-
-
-
-    public Draw2D(Context context,int width,int height) {
+    public Draw2D(Context context) {
         super(context);
-        this.WIDTH = width;
-        this.HEIGHT = height;
         // Выводим значок из ресурсов
         Resources res = this.getResources();
-        mBitmap = BitmapFactory.decodeResource(res, R.drawable.first);
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.first);
     }
 
     @Override
-    protected void onDraw(Canvas canva) {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        this.canvas = canva;
-        this.canvas.translate(WIDTH/2,HEIGHT/2);
-        this.canvas.rotate(180);
+        this.canvas = canvas;
 
-        // стиль Заливка
-        mPaint.setStyle(Paint.Style.FILL);
+        int width = canvas.getWidth();
+        int height = canvas.getHeight();
 
-        // закрашиваем холст белым цветом
-        mPaint.setColor(Color.WHITE);
-        canvas.drawPaint(mPaint);
+        moveStartingPoin(width,height);
+        initialСanvasPreparation();
 
-        // Рисуем жёлтый круг
-        mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.BLACK);
+        drawBackground(rotateBitmap(bitmap),width,height);
 
-        //Рисуем фон
-        Rect srcRect = new Rect( 0, 0,mBitmap.getWidth()/2, mBitmap.getHeight()/2);
-        Rect dstRect = new Rect(0, 0,WIDTH/2, HEIGHT/2);
-        canvas.drawBitmap(mBitmap, srcRect, dstRect, null);
-        
-        mPaint.setColor(Color.RED);
-        canvas.drawCircle(-20,-20, 10, mPaint);
+        drawAxes(Color.BLACK,width,height);
 
-        mPaint.setColor(Color.GREEN);
-        canvas.drawCircle(20,20, 10, mPaint);
+        drawParabola(Color.RED);
 
-        mPaint.setColor(Color.BLUE);
-        canvas.drawCircle(-20,20, 10, mPaint);
+    }
 
-        mPaint.setColor(Color.YELLOW);
-        canvas.drawCircle(20,-20, 10, mPaint);
+    private void drawBackground(Bitmap bitmap, int width, int height) {
+        Rect dstRect = new Rect(-width/2, -height/2,width/2, height/2);
+        canvas.drawBitmap(bitmap, null, dstRect, null);
+    }
 
-        //Рисуем параболу
-        mPaint.setColor(Color.RED);
-        for (float i = 0F; i < 25; i+=0.01F) {
-            canvas.drawCircle(i*10, (float) (i*i), 3, mPaint);
-            canvas.drawCircle(-i*10, (float) (i*i), 3, mPaint);
+    private Bitmap rotateBitmap(Bitmap bitmap) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(180);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+    private void drawAxes(int color,int width,int height) {
+        paint.setColor(color);
+        canvas.drawRect(1,height/2,-1,-height/2,paint);
+        canvas.drawRect(width/2,1,-width/2,-1,paint);
+    }
+
+    private void initialСanvasPreparation() {
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.WHITE);
+        canvas.drawPaint(paint);
+        paint.setAntiAlias(true);
+    }
+
+    private void moveStartingPoin(int width,int height) {
+        canvas.translate(width/2,height/2);
+        canvas.scale(1f, -1f);
+    }
+
+    private void drawParabola(int color) {
+        paint.setColor(color);
+        for (float i = 0F; i < 25; i += 0.01F) {
+            canvas.drawCircle(i*10, (float) (i*i), 3, paint);
+            canvas.drawCircle(-i*10, (float) (i*i), 3, paint);
         }
     }
 }

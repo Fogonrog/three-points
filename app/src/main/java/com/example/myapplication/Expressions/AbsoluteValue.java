@@ -1,11 +1,12 @@
 package com.example.myapplication.Expressions;
 
-public class Sqrt implements Function {
+public class AbsoluteValue implements Function {
     public Function function;
-    public Sqrt(Function func) {
+    public AbsoluteValue(Function func) {
         this.function = func;
     }
+    @Override
     public float evaluate(float x) {
-        return (float) Math.sqrt(function.evaluate(x));
+        return Math.abs(function.evaluate(x));
     }
 }
