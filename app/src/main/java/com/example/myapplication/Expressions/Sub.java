@@ -1,14 +1,15 @@
 package com.example.myapplication.Expressions;
 
 public class Sub implements Function {
-    public Function numerator;
-    public Function denominator;
+    public Function left;
+    public Function right;
 
-    public Sub(Function numerator, Function denominator) {
-        this.numerator = numerator;
-        this.denominator = denominator;
+    public Sub(Function left, Function right) {
+        this.left = left;
+        this.right = right;
     }
+    @Override
     public float evaluate(float x) {
-        return numerator.evaluate(x) - denominator.evaluate(x);
+        return left.evaluate(x) - right.evaluate(x);
     }
 }

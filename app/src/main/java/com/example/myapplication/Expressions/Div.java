@@ -8,6 +8,7 @@ public class Div implements Function {
         this.numerator = numerator;
         this.denominator = denominator;
     }
+    @Override
     public float evaluate(float x) {
         return numerator.evaluate(x) / denominator.evaluate(x);
     }

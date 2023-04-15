@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.example.myapplication.Expressions.Function;
-import com.example.myapplication.Expressions.Multi;
+import com.example.myapplication.Expressions.Multiplication;
 import com.example.myapplication.Expressions.Argument;
 import com.example.myapplication.Expressions.Num;
 import com.example.myapplication.Expressions.Power;
@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
         Function func = new Argument();
         func = new Sub(func,new Num(2));
         func = new Power(func,2);
-        func = new Multi(func, new Num(-1));
+        func = new Multiplication(func, new Num(-1));
         for (float i = 0; i < 10; i += 0.5) {
             float y = func.evaluate(i);
             System.out.println("x->" + i);

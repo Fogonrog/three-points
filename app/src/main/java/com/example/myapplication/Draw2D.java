@@ -12,9 +12,9 @@ import android.graphics.Rect;
 import android.view.View;
 
 public class Draw2D extends View {
-    private static Paint paint = new Paint();
-    private static Bitmap bitmap;
-    private static Canvas canvas;
+    private final Paint paint = new Paint();
+    private final Bitmap bitmap;
+    private Canvas canvas;
 
     public Draw2D(Context context) {
         super(context);
@@ -34,7 +34,7 @@ public class Draw2D extends View {
         moveStartingPoin(width,height);
         initialСanvasPreparation();
 
-        drawBackground(rotateBitmap(bitmap),width,height);
+        drawBackground(rotatedBitmap(bitmap),width,height);
 
         drawAxes(Color.BLACK,width,height);
 
@@ -47,7 +47,7 @@ public class Draw2D extends View {
         canvas.drawBitmap(bitmap, null, dstRect, null);
     }
 
-    private Bitmap rotateBitmap(Bitmap bitmap) {
+    private Bitmap rotatedBitmap(Bitmap bitmap) {
         Matrix matrix = new Matrix();
         matrix.postRotate(180);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);

@@ -5,6 +5,7 @@ public class Sqrt implements Function {
     public Sqrt(Function func) {
         this.function = func;
     }
+    @Override
     public float evaluate(float x) {
         return (float) Math.sqrt(function.evaluate(x));
     }

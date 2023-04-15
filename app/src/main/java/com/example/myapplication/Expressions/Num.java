@@ -5,6 +5,7 @@ public class Num implements Function {
     public Num(float num) {
         this.number = num;
     }
+    @Override
     public float evaluate(float x) {
         return this.number;
     }
