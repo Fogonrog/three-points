@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/probel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:background="@color/white" />
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageButton
+            android:id="@+id/runbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/run_icon"
+            android:background="@color/white" />
+        <ImageButton
+            android:id="@+id/probel2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@color/white"
+            android:textColorHint="@color/white"/>
+        <ImageButton
+            android:id="@+id/pausebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:src="@drawable/pause_icon" />
+    </LinearLayout>
+    <ImageButton
+        android:id="@+id/probel6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/white" />
+    <com.example.myapplication.Draw2D
+        android:id="@+id/canvas"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_weight="10" />
+
+    <ImageButton
+        android:id="@+id/menuline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/line"
+        android:background="@color/white" />
+    <ImageButton
+        android:id="@+id/probel5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:background="@color/white" />
+    <ImageButton
+        android:id="@+id/add_function"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/add_function_icon"
+        android:background="@color/white"/>
+    <ImageButton
+        android:id="@+id/probel4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:background="@color/white" />
+</LinearLayout>

@@ -1,12 +1,11 @@
 package com.example.myapplication.Expressions;
 
-public class AbsoluteValue implements Function {
-    public Function function;
-    public AbsoluteValue(Function func) {
-        this.function = func;
-    }
+public final class AbsoluteValue extends UnaryOperation {
     @Override
-    public float evaluate(float x) {
-        return Math.abs(function.evaluate(x));
+    public String asString(){
+        return symbol + function.asString() + symbol;
+    }
+    public AbsoluteValue(Function function) {
+        super(function, (a) -> (float) Math.abs(a), "|");
     }
 }

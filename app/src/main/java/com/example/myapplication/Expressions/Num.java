@@ -1,12 +1,19 @@
 package com.example.myapplication.Expressions;
 
-public class Num implements Function {
-    public float number;
-    public Num(float num) {
-        this.number = num;
+public final class Num extends UnaryOperation {
+    private float number;
+    @Override
+    public String asString(){
+        return "" + number;
     }
+
     @Override
     public float evaluate(float x) {
-        return this.number;
+        return number;
+    }
+
+    public Num(float number) {
+        super(null, (a) -> a, "");
+        this.number = number;
     }
 }

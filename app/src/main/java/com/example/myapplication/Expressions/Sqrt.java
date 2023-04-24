@@ -1,12 +1,11 @@
 package com.example.myapplication.Expressions;
 
-public class Sqrt implements Function {
-    public Function function;
-    public Sqrt(Function func) {
-        this.function = func;
-    }
+public final class Sqrt extends UnaryOperation {
     @Override
-    public float evaluate(float x) {
-        return (float) Math.sqrt(function.evaluate(x));
+    public String asString(){
+        return symbol+"(" + function.asString()+")";
+    }
+    public Sqrt(Function function) {
+        super(function, (a) -> (float) Math.sqrt(a), "√");
     }
 }

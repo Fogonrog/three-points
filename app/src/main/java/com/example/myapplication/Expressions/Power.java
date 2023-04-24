@@ -1,14 +1,11 @@
 package com.example.myapplication.Expressions;
 
-public class Power implements Function {
-    public float power;
-    public Function function;
-    public Power(Function function, float power) {
-        this.function = function;
-        this.power = power;
-    }
+public final class Power extends BinaryOperation {
     @Override
-    public float evaluate(float x) {
-        return (float) Math.pow(function.evaluate(x),power);
+    public String asString(){
+        return "(" +left.asString() + ")"+ symbol + right.asString() ;
+    }
+    public Power(Function left, Function right) {
+        super(left, right, (a, b) -> (float) Math.pow(a,b), "^");
     }
 }

@@ -9,7 +9,11 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
+
+import androidx.annotation.Nullable;
 
 public class Draw2D extends View {
     private final Paint paint = new Paint();
@@ -23,18 +27,24 @@ public class Draw2D extends View {
         bitmap = BitmapFactory.decodeResource(res, R.drawable.first);
     }
 
+    public Draw2D(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        Resources res = this.getResources();
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.first);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         this.canvas = canvas;
 
-        int width = canvas.getWidth();
-        int height = canvas.getHeight();
 
+        int width = getWidth();
+        int height = getHeight();
         moveStartingPoin(width,height);
         initialСanvasPreparation();
 
-        drawBackground(rotatedBitmap(bitmap),width,height);
+        //drawBackground(rotatedBitmap(bitmap),width,height);
 
         drawAxes(Color.BLACK,width,height);
 
@@ -73,7 +83,7 @@ public class Draw2D extends View {
 
     private void drawParabola(int color) {
         paint.setColor(color);
-        for (float i = 0F; i < 25; i += 0.01F) {
+        for (float i = 0F; i < 20; i += 0.01F) {
             canvas.drawCircle(i*10, (float) (i*i), 3, paint);
             canvas.drawCircle(-i*10, (float) (i*i), 3, paint);
         }

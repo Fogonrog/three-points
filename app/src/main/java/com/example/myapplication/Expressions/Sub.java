@@ -1,15 +1,7 @@
 package com.example.myapplication.Expressions;
 
-public class Sub implements Function {
-    public Function left;
-    public Function right;
-
+public final class Sub extends BinaryOperation {
     public Sub(Function left, Function right) {
-        this.left = left;
-        this.right = right;
-    }
-    @Override
-    public float evaluate(float x) {
-        return left.evaluate(x) - right.evaluate(x);
+        super(left, right, (a, b) -> a - b, "-");
     }
 }
