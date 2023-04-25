@@ -1,9 +1,9 @@
 package com.example.myapplication.Expressions;
 
-public final class Sqrt extends UnaryOperation {
+public final class Cosinus extends UnaryOperation {
 
-    public Sqrt(Function function) {
-        super(function, (a) -> (float) Math.sqrt(a), "√");
+    public Cosinus(Function function) {
+        super(function, (a) -> (float) Math.cos(a), "cos");
     }
 
     @Override

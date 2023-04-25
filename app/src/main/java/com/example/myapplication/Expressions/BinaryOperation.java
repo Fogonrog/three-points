@@ -9,9 +9,9 @@ public abstract class BinaryOperation implements Function {
 
     protected final Function left;
     protected final Function right;
-
-    protected final Combine combine;
     protected final String symbol;
+
+    private final Combine combine;
 
     public BinaryOperation(
             Function left,

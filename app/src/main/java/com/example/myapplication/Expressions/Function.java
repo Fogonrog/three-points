@@ -1,5 +1,6 @@
 package com.example.myapplication.Expressions;
-public interface Function { ;
-    public float evaluate(float x);
-    public  String asString();
+public interface Function {
+    float evaluate(float x);
+
+    String asString();
 }

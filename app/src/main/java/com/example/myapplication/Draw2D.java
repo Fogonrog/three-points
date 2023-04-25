@@ -53,7 +53,7 @@ public class Draw2D extends View {
     }
 
     private void drawBackground(Bitmap bitmap, int width, int height) {
-        Rect dstRect = new Rect(-width/2, -height/2,width/2, height/2);
+        Rect dstRect = new Rect(width / -2, height / -2,width / 2, height / 2);
         canvas.drawBitmap(bitmap, null, dstRect, null);
     }
 

@@ -1,9 +1,16 @@
 package com.example.myapplication;
 
 
+import static com.example.myapplication.Expressions.Functions.div;
+import static com.example.myapplication.Expressions.Functions.mul;
+import static com.example.myapplication.Expressions.Functions.n;
+import static com.example.myapplication.Expressions.Functions.pow;
+import static com.example.myapplication.Expressions.Functions.sub;
+import static com.example.myapplication.Expressions.Functions.sum;
+import static com.example.myapplication.Expressions.Functions.x;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,28 +20,22 @@ import android.widget.TextView;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.myapplication.Expressions.Argument;
-import com.example.myapplication.Expressions.Division;
 import com.example.myapplication.Expressions.Function;
-import com.example.myapplication.Expressions.Multiplication;
-import com.example.myapplication.Expressions.Num;
-import com.example.myapplication.Expressions.Power;
-import com.example.myapplication.Expressions.Sub;
-import com.example.myapplication.Expressions.Sum;
 
 public class MyDialogFragment extends DialogFragment {
     public Function function;
-    private TextView TextFunction;
-    private Button Btn_с;
-    private Button Btn_2;
-    private Button Btn_3;
-    private Button Btn_4;
-    private Button Btn_5;
-    private Button Btn_6;
-    private Button Btn_7;
-    private Button Btn_8;
-    private Button Btn_9;
-    private Button Btn_ok;
-    private Button Btn_no_ok;
+    private TextView textFunction;
+    private Button btnC;
+    private Button btn2;
+    private Button btn3;
+    private Button btn4;
+    private Button btn5;
+    private Button btn6;
+    private Button btn7;
+    private Button btn8;
+    private Button btn9;
+    private Button btnOk;
+    private Button btnNoOk;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -42,102 +43,67 @@ public class MyDialogFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_custom, null);
         builder.setView(view);
-        // Остальной код
-        TextFunction = view.findViewById(R.id.x);
 
-        Btn_ok = view.findViewById(R.id.button_ok);
-        Btn_ok.setOnClickListener(v -> builder.cancel());
+        textFunction = view.findViewById(R.id.x);
 
-        Btn_no_ok = view.findViewById(R.id.button_nook);
-        Btn_no_ok.setOnClickListener(v -> builder.cancel());
+        btnOk = view.findViewById(R.id.button_ok);
+        btnOk.setOnClickListener(v -> {
+            System.out.println(function.evaluate(1));
+            builder.cancel();
+        });
 
-        Btn_с = view.findViewById(R.id.button1);
-        Btn_с.setText("C");
+        btnNoOk = view.findViewById(R.id.button_nook);
+        btnNoOk.setOnClickListener(v -> builder.cancel());
 
-        Btn_2 = view.findViewById(R.id.button2);
-        Btn_2.setText("..²");
+        btnC = view.findViewById(R.id.button1);
+        btnC.setText("C");
+        btnC.setOnClickListener(v -> setFunction(x));
 
-        Btn_3 = view.findViewById(R.id.button3);
-        Btn_3.setText("..³");
+        btn2 = view.findViewById(R.id.button2);
+        btn2.setText("..²");
+        btn2.setOnClickListener(v -> setFunction(pow(function,n(2))));
 
-        Btn_4 = view.findViewById(R.id.button4);
-        Btn_4.setText("+2");
+        btn3 = view.findViewById(R.id.button3);
+        btn3.setText("..³");
+        btn3.setOnClickListener(v -> setFunction(pow(function,n(3))));
 
-        Btn_5 = view.findViewById(R.id.button5);
-        Btn_5.setText("-7");
+        btn4 = view.findViewById(R.id.button4);
+        btn4.setText("+2");
+        btn4.setOnClickListener(v -> setFunction(sum(function,n(2))));
 
-        Btn_6 = view.findViewById(R.id.button6);
-        Btn_6.setText("÷2");
+        btn5 = view.findViewById(R.id.button5);
+        btn5.setText("-7");
+        btn5.setOnClickListener(v -> setFunction(sub(function,n(7))));
 
-        Btn_7 = view.findViewById(R.id.button7);
-        Btn_7.setText("-2х");
+        btn6 = view.findViewById(R.id.button6);
+        btn6.setText("/2");
+        btn6.setOnClickListener(v -> setFunction(div(function,n(2))));
 
-        Btn_8 = view.findViewById(R.id.button8);
-        Btn_8.setText("+5х");
+        btn7 = view.findViewById(R.id.button7);
+        btn7.setText("-2х");
+        btn7.setOnClickListener(v -> setFunction(sub(function,mul(x,n(2)))));
 
-        Btn_9= view.findViewById(R.id.button9);
-        Btn_9.setText("×7");
+        btn8 = view.findViewById(R.id.button8);
+        btn8.setText("+5х");
+        btn8.setOnClickListener(v -> setFunction(sum(function,mul(x,n(5)))));
 
-        Button[] list_of_button = {Btn_с,Btn_2,Btn_3,Btn_4,Btn_5,Btn_6,Btn_7,Btn_8,Btn_9};
-        for (Button btn : list_of_button) {
-            btn.setOnClickListener(v -> setFunction(v));
-        }
+        btn9= view.findViewById(R.id.button9);
+        btn9.setText("×7");
+        btn9.setOnClickListener(v -> setFunction(mul(function,n(7))));
+
         function = new Argument();
         updateTextView();
 
         return builder;
     }
 
-    private void updateTextView() {
-        TextFunction.setText(function.asString());
+    private void setFunction(Function function) {
+        this.function = function;
+        System.out.println(function.asString());
+        updateTextView();
     }
 
-    public void setFunction(View view) {
-        switch (view.getId()) {
-            case R.id.button1:
-                function = new Argument();
-                updateTextView();
-                break;
-            case R.id.button2:
-                function = new Power(function,new Num(2));
-                System.out.println(function.asString());
-                updateTextView();
-                break;
-            case R.id.button3:
-                function = new Power(function,new Num(3));
-                System.out.println(function.asString());
-                updateTextView();
-                break;
-            case R.id.button4:
-                function = new Sum(function,new Num(2));
-                System.out.println(function.asString());
-                updateTextView();
-                break;
-            case R.id.button5:
-                function = new Sub(function,new Num(7));
-                System.out.println(function.asString());
-                updateTextView();
-                break;
-            case R.id.button6:
-                function = new Division(function,new Num(2));
-                System.out.println(function.asString());
-                updateTextView();
-                break;
-            case R.id.button7:
-                function = new Sub(function,new Multiplication(new Argument(),new Num(2)));
-                System.out.println(function.asString());
-                updateTextView();
-                break;
-            case R.id.button8:
-                function = new Sum(function,new Multiplication(new Argument(),new Num(5)));
-                System.out.println(function.asString());
-                updateTextView();
-                break;
-            case R.id.button9:
-                function = new Multiplication(function,new Num(7));
-                System.out.println(function.asString());
-                updateTextView();
-                break;
-        }
+    private void updateTextView() {
+        textFunction.setText(function.asString());
     }
 }

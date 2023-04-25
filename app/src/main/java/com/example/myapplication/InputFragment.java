@@ -14,22 +14,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.example.myapplication.R;
 
-public class InputFragment extends Fragment implements View.OnClickListener{
+public class InputFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_input, container, false);
         ImageButton button_add_function = view.findViewById(R.id.add_function);
-        button_add_function.setOnClickListener(this);
+        button_add_function.setOnClickListener(v -> {
+            FragmentManager manager = InputFragment.this.getParentFragmentManager();
+            MyDialogFragment myDialogFragment = new MyDialogFragment();
+            myDialogFragment.show(manager, "myDialog");
+        });
         return view;
-    }
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.add_function:
-                FragmentManager manager = getParentFragmentManager();
-                MyDialogFragment myDialogFragment = new MyDialogFragment();
-                myDialogFragment.show(manager, "myDialog");
-                break;
-        }
     }
 }
