@@ -1,10 +1,8 @@
 package com.example.myapplication.Expressions;
-
-public final class Num extends UnaryOperation {
+public final class Num implements Function {
     private float number;
 
     public Num(float number) {
-        super(null, (a) -> a, "");
         this.number = number;
     }
 
@@ -14,7 +12,7 @@ public final class Num extends UnaryOperation {
     }
 
     @Override
-    public float evaluate(float x) {
+    public float evaluate(float number) {
         return number;
     }
 }
