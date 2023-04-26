@@ -1,12 +1,18 @@
 package com.example.myapplication.Expressions;
+public final class Num implements Function {
+    private float number;
 
-public class Num extends Expr {
-    public float number;
-    public Num(float num) {
-        this.number = num;
+    public Num(float number) {
+        this.number = number;
     }
+
     @Override
-    public float eval(float x) {
-        return this.number;
+    public String asString(){
+        return "" + number;
+    }
+
+    @Override
+    public float evaluate(float number) {
+        return number;
     }
 }
