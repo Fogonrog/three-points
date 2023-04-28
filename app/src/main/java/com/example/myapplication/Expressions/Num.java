@@ -12,7 +12,7 @@ public final class Num implements Function {
     }
 
     @Override
-    public float evaluate(float number) {
-        return number;
+    public float evaluate(float argument) {
+        return this.number;
     }
 }

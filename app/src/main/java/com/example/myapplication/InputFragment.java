@@ -15,10 +15,12 @@ import androidx.fragment.app.FragmentManager;
 import com.example.myapplication.R;
 
 public class InputFragment extends Fragment{
+    public static View canvas;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_input, container, false);
         ImageButton button_add_function = view.findViewById(R.id.add_function);
+        canvas = view.findViewById(R.id.canvas);
         button_add_function.setOnClickListener(v -> {
             FragmentManager manager = InputFragment.this.getParentFragmentManager();
             MyDialogFragment myDialogFragment = new MyDialogFragment();

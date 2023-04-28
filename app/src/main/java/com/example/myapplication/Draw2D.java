@@ -15,14 +15,17 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
+import com.example.myapplication.Expressions.Function;
+
 public class Draw2D extends View {
-    private final Paint paint = new Paint();
-    private final Bitmap bitmap;
+    public static boolean functionOnTheLayout = false;
+    public static Function function;
+    private Paint paint = new Paint();
+    private Bitmap bitmap;
     private Canvas canvas;
 
     public Draw2D(Context context) {
         super(context);
-        // Выводим значок из ресурсов
         Resources res = this.getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.first);
     }
@@ -38,18 +41,20 @@ public class Draw2D extends View {
         super.onDraw(canvas);
         this.canvas = canvas;
 
-
-        int width = getWidth();
-        int height = getHeight();
-        moveStartingPoin(width,height);
+        moveStartingPoint();
         initialСanvasPreparation();
+        drawAxes(Color.BLACK);
+        drawFunction(Color.RED);
+    }
 
-        //drawBackground(rotatedBitmap(bitmap),width,height);
-
-        drawAxes(Color.BLACK,width,height);
-
-        drawParabola(Color.RED);
-
+    private void drawFunction(int color){
+        if (functionOnTheLayout) {
+            paint.setColor(color);
+            for (float i = 0F; i < 30; i += 0.001F) {
+                canvas.drawCircle(i * 10, (float) (function.evaluate(i) * 10), 2, paint);
+                canvas.drawCircle(-i * 10, (float) (function.evaluate(-i) * 10), 2, paint);
+            }
+        }
     }
 
     private void drawBackground(Bitmap bitmap, int width, int height) {
@@ -63,10 +68,27 @@ public class Draw2D extends View {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
-    private void drawAxes(int color,int width,int height) {
+    private void drawAxes(int color) {
         paint.setColor(color);
-        canvas.drawRect(1,height/2,-1,-height/2,paint);
-        canvas.drawRect(width/2,1,-width/2,-1,paint);
+        for (int i = 30; i < getWidth()/2-58; i+=30) {
+            canvas.drawLine(i,5,i,-5,paint);
+
+        }
+        for (int i = 30; i < getWidth()/2; i+=30) {
+            canvas.drawLine(-i,5,-i,-5,paint);
+        }
+        for (int i = 30; i < getHeight()/2-58; i+=30) {
+            canvas.drawLine(-5, i, 5, i, paint);
+        }
+        for (int i = 30; i < getHeight()/2; i+=30) {
+            canvas.drawLine(-5, -i, 5, -i, paint);
+        }
+        canvas.drawLine(20,(getHeight()/2)-20,0,getHeight()/2,paint);
+        canvas.drawLine(-20,(getHeight()/2)-20,0,getHeight()/2,paint);
+        canvas.drawLine((getWidth()/2)-20,-20,(getWidth()/2),0,paint);
+        canvas.drawLine((getWidth()/2)-20,20,(getWidth()/2),0,paint);
+        canvas.drawRect(1,getHeight()/2,-1,-getHeight()/2,paint);
+        canvas.drawRect(getWidth()/2,0.5F,-getWidth()/2,-0.5F,paint);
     }
 
     private void initialСanvasPreparation() {
@@ -76,16 +98,8 @@ public class Draw2D extends View {
         paint.setAntiAlias(true);
     }
 
-    private void moveStartingPoin(int width,int height) {
-        canvas.translate(width/2,height/2);
+    private void moveStartingPoint() {
+        canvas.translate(getWidth() / 2, getHeight() / 2);
         canvas.scale(1f, -1f);
-    }
-
-    private void drawParabola(int color) {
-        paint.setColor(color);
-        for (float i = 0F; i < 20; i += 0.01F) {
-            canvas.drawCircle(i*10, (float) (i*i), 3, paint);
-            canvas.drawCircle(-i*10, (float) (i*i), 3, paint);
-        }
     }
 }
