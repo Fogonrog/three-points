@@ -36,7 +36,7 @@ public class MyDialogFragment extends DialogFragment {
     private Button btn9;
     private Button btnOk;
     private Button btnNoOk;
-
+    private View miniCanvas;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
@@ -46,14 +46,22 @@ public class MyDialogFragment extends DialogFragment {
 
         textFunction = view.findViewById(R.id.x);
 
+        miniCanvas = view.findViewById(R.id.minicanvas);
+
         btnOk = view.findViewById(R.id.button_ok);
         btnOk.setOnClickListener(v -> {
-            System.out.println(function.evaluate(1));
-            builder.cancel();
+            Draw2D.functionOnTheLayout = true;
+            Draw2D.function = this.function;
+            InputFragment.canvas.invalidate();
+            builder.dismiss();
         });
 
         btnNoOk = view.findViewById(R.id.button_nook);
-        btnNoOk.setOnClickListener(v -> builder.cancel());
+        btnNoOk.setOnClickListener(v -> {
+            MiniDraw2D.function = x;
+            builder.dismiss();
+        });
+
 
         btnC = view.findViewById(R.id.button1);
         btnC.setText("C");
@@ -99,6 +107,8 @@ public class MyDialogFragment extends DialogFragment {
 
     private void setFunction(Function function) {
         this.function = function;
+        MiniDraw2D.function = this.function;
+        miniCanvas.invalidate();
         System.out.println(function.asString());
         updateTextView();
     }

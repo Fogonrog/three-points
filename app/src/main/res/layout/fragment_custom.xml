@@ -21,7 +21,7 @@
             android:background="@color/white" />
         <com.example.myapplication.MiniDraw2D
             android:id="@+id/minicanvas"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
