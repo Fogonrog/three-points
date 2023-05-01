@@ -44,13 +44,14 @@ public class MyDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_custom, null);
         builder.setView(view);
 
+        Draw2D.functionOnTheCanvas = true;
+
         textFunction = view.findViewById(R.id.x);
 
         miniCanvas = view.findViewById(R.id.minicanvas);
 
         btnOk = view.findViewById(R.id.button_ok);
         btnOk.setOnClickListener(v -> {
-            Draw2D.functionOnTheLayout = true;
             Draw2D.function = this.function;
             InputFragment.canvas.invalidate();
             builder.dismiss();
@@ -58,7 +59,7 @@ public class MyDialogFragment extends DialogFragment {
 
         btnNoOk = view.findViewById(R.id.button_nook);
         btnNoOk.setOnClickListener(v -> {
-            MiniDraw2D.function = x;
+            Draw2D.function = x;
             builder.dismiss();
         });
 
@@ -107,7 +108,7 @@ public class MyDialogFragment extends DialogFragment {
 
     private void setFunction(Function function) {
         this.function = function;
-        MiniDraw2D.function = this.function;
+        Draw2D.function = this.function;
         miniCanvas.invalidate();
         System.out.println(function.asString());
         updateTextView();

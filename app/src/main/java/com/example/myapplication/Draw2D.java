@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.Expressions.Functions.x;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -11,15 +13,22 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.Expressions.Function;
+import com.example.myapplication.Graphics.Container;
+import com.example.myapplication.Graphics.Drawable;
+import com.example.myapplication.Graphics.FunctionGraph;
+import com.example.myapplication.Graphics.Line;
+import com.example.myapplication.Graphics.Point;
+
+import java.util.List;
 
 public class Draw2D extends View {
-    public static boolean functionOnTheLayout = false;
-    public static Function function;
+    public static boolean functionOnTheCanvas = false;
+
+    public static Function function = x;
     private Paint paint = new Paint();
     private Bitmap bitmap;
     private Canvas canvas;
@@ -43,52 +52,23 @@ public class Draw2D extends View {
 
         moveStartingPoint();
         initialСanvasPreparation();
-        drawAxes(Color.BLACK);
-        drawFunction(Color.RED);
-    }
+        com.example.myapplication.Graphics.Canvas mainCanvas = new com.example.myapplication.Graphics.Canvas(canvas, paint);
 
-    private void drawFunction(int color){
-        if (functionOnTheLayout) {
-            paint.setColor(color);
-            for (float i = 0F; i < 30; i += 0.001F) {
-                canvas.drawCircle(i * 10, (float) (function.evaluate(i) * 10), 2, paint);
-                canvas.drawCircle(-i * 10, (float) (function.evaluate(-i) * 10), 2, paint);
-            }
-        }
-    }
+        Drawable axes = new Container(List.of(
+                new Line(new Point(0F, (float)getHeight()/2), new Point(0F, (float)getHeight()/-2), Color.BLACK),
+                new Line(new Point((float)getWidth()/2, 0F), new Point((float)getWidth()/-2, 0F), Color.BLACK),
+                new Line(new Point(20F,(float)getHeight()/2-20), new Point(0F,(float)getHeight()/2), Color.BLACK),
+                new Line(new Point(-20F,(float)getHeight()/2-20), new Point(0F,(float)getHeight()/2), Color.BLACK),
+                new Line(new Point((float)(getWidth()/2)-20,-20F), new Point((float)(getWidth()/2),0F), Color.BLACK),
+                new Line(new Point((float)(getWidth()/2)-20,20F), new Point((float)(getWidth()/2),0F), Color.BLACK)
+        ));
+        mainCanvas.draw(axes);
 
-    private void drawBackground(Bitmap bitmap, int width, int height) {
-        Rect dstRect = new Rect(width / -2, height / -2,width / 2, height / 2);
-        canvas.drawBitmap(bitmap, null, dstRect, null);
-    }
+        Drawable func = new FunctionGraph(function,Color.RED);
 
-    private Bitmap rotatedBitmap(Bitmap bitmap) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(180);
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-    }
-
-    private void drawAxes(int color) {
-        paint.setColor(color);
-        for (int i = 30; i < getWidth()/2-58; i+=30) {
-            canvas.drawLine(i,5,i,-5,paint);
-
+        if (functionOnTheCanvas) {
+            mainCanvas.draw(func);
         }
-        for (int i = 30; i < getWidth()/2; i+=30) {
-            canvas.drawLine(-i,5,-i,-5,paint);
-        }
-        for (int i = 30; i < getHeight()/2-58; i+=30) {
-            canvas.drawLine(-5, i, 5, i, paint);
-        }
-        for (int i = 30; i < getHeight()/2; i+=30) {
-            canvas.drawLine(-5, -i, 5, -i, paint);
-        }
-        canvas.drawLine(20,(getHeight()/2)-20,0,getHeight()/2,paint);
-        canvas.drawLine(-20,(getHeight()/2)-20,0,getHeight()/2,paint);
-        canvas.drawLine((getWidth()/2)-20,-20,(getWidth()/2),0,paint);
-        canvas.drawLine((getWidth()/2)-20,20,(getWidth()/2),0,paint);
-        canvas.drawRect(1,getHeight()/2,-1,-getHeight()/2,paint);
-        canvas.drawRect(getWidth()/2,0.5F,-getWidth()/2,-0.5F,paint);
     }
 
     private void initialСanvasPreparation() {
