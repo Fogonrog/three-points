@@ -31,10 +31,6 @@ public class Draw2D extends View {
     public static Function function = x;
     private Paint paint = new Paint();
     private Canvas canvas;
-    private float height;
-    private float width;
-
-
 
     public Draw2D(Context context, Function func, boolean flag) {
         super(context);
@@ -50,8 +46,8 @@ public class Draw2D extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         this.canvas = canvas;
-        this.width = (float)getWidth();
-        this.height = (float)getHeight();
+        float width = (float)getWidth();
+        float height = (float)getHeight();
 
         moveStartingPoint();
         initialСanvasPreparation();
