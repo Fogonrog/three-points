@@ -1,10 +1,10 @@
 package com.example.myapplication.Graphics;
 
 public class Point {
-    final Float x;
-    final Float y;
+    final float x;
+    final float y;
 
-    public Point(Float x,Float y) {
+    public Point(float x,float y) {
         this.x = x;
         this.y = y;
     }

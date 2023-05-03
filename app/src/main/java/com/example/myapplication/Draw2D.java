@@ -17,6 +17,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.Expressions.Function;
+import com.example.myapplication.Graphics.Colored;
 import com.example.myapplication.Graphics.Container;
 import com.example.myapplication.Graphics.Drawable;
 import com.example.myapplication.Graphics.FunctionGraph;
@@ -27,47 +28,50 @@ import java.util.List;
 
 public class Draw2D extends View {
     public static boolean functionOnTheCanvas = false;
-
     public static Function function = x;
     private Paint paint = new Paint();
-    private Bitmap bitmap;
     private Canvas canvas;
+    private float height;
+    private float width;
 
-    public Draw2D(Context context) {
+
+
+    public Draw2D(Context context, Function func, boolean flag) {
         super(context);
-        Resources res = this.getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.first);
+        this.function = func;
+        this.functionOnTheCanvas = flag;
     }
 
     public Draw2D(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        Resources res = this.getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.first);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         this.canvas = canvas;
+        this.width = (float)getWidth();
+        this.height = (float)getHeight();
 
         moveStartingPoint();
         initialСanvasPreparation();
         com.example.myapplication.Graphics.Canvas mainCanvas = new com.example.myapplication.Graphics.Canvas(canvas, paint);
 
         Drawable axes = new Container(List.of(
-                new Line(new Point(0F, (float)getHeight()/2), new Point(0F, (float)getHeight()/-2), Color.BLACK),
-                new Line(new Point((float)getWidth()/2, 0F), new Point((float)getWidth()/-2, 0F), Color.BLACK),
-                new Line(new Point(20F,(float)getHeight()/2-20), new Point(0F,(float)getHeight()/2), Color.BLACK),
-                new Line(new Point(-20F,(float)getHeight()/2-20), new Point(0F,(float)getHeight()/2), Color.BLACK),
-                new Line(new Point((float)(getWidth()/2)-20,-20F), new Point((float)(getWidth()/2),0F), Color.BLACK),
-                new Line(new Point((float)(getWidth()/2)-20,20F), new Point((float)(getWidth()/2),0F), Color.BLACK)
+                new Line(new Point(0F, (height/2)), new Point(0F, (height/-2))),
+                new Line(new Point((width/2), 0F), new Point((width/-2), 0F)),
+                new Line(new Point(20F,(height/2-20)), new Point(0F,(height/2))),
+                new Line(new Point(-20F,(height/2-20)), new Point(0F,(height/2))),
+                new Line(new Point((width/2-20),-20F), new Point((width/2),0F)),
+                new Line(new Point((width/2-20),20F), new Point((width/2),0F))
         ));
-        mainCanvas.draw(axes);
-
-        Drawable func = new FunctionGraph(function,Color.RED);
+        Drawable func = new FunctionGraph(function);
+        Drawable redFunc = new Colored(Color.RED,func);
+        Drawable blackAxes = new Colored(Color.BLACK, axes);
+        mainCanvas.draw(blackAxes);
 
         if (functionOnTheCanvas) {
-            mainCanvas.draw(func);
+            mainCanvas.draw(redFunc);
         }
     }
 
@@ -79,7 +83,7 @@ public class Draw2D extends View {
     }
 
     private void moveStartingPoint() {
-        canvas.translate(getWidth() / 2, getHeight() / 2);
+        canvas.translate(getWidth()/ 2, getHeight()/ 2);
         canvas.scale(1f, -1f);
     }
 }

@@ -9,9 +9,9 @@ public final class Num implements Function {
     @Override
     public String asString(){
         if ((int)number == number) {
-            return "" + (int) number;
+            return String.valueOf((int) number);
         }else {
-            return "" + number;
+            return String.valueOf(number);
         }
     }
 

@@ -4,19 +4,18 @@ import com.example.myapplication.Expressions.Function;
 
 public class FunctionGraph implements Drawable {
     private final Function function;
-    private final Integer color;
 
-    public FunctionGraph(Function function,Integer color) {
+    public FunctionGraph(Function function) {
         this.function = function;
-        this.color = color;
     }
 
     @Override
     public void drawOn(Canvas canvas) {
-        canvas.paint.setColor(color);
-        for (float i = 0F; i < 30; i += 0.001F) {
-            canvas.origin.drawCircle(i * 10, (float) (function.evaluate(i) * 10), 2, canvas.paint);
-            canvas.origin.drawCircle(-i * 10, (float) (function.evaluate(-i) * 10), 2, canvas.paint);
+        canvas.paint.setStrokeWidth(8);
+        for (float i = 0F; i < 500; i += 0.01F) {
+            canvas.origin.drawLine(i, (float) (function.evaluate(i)),i + 0.01F, (float) (function.evaluate(i+ 0.01F)),canvas.paint);
+            canvas.origin.drawLine(-i, (float) (function.evaluate(-i)),-i - 0.01F, (float) (function.evaluate(-i - 0.01F)),canvas.paint);
         }
+        canvas.paint.setStrokeWidth(1);
     }
 }

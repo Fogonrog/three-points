@@ -5,6 +5,7 @@ import static com.example.myapplication.Expressions.Functions.div;
 import static com.example.myapplication.Expressions.Functions.mul;
 import static com.example.myapplication.Expressions.Functions.n;
 import static com.example.myapplication.Expressions.Functions.pow;
+import static com.example.myapplication.Expressions.Functions.sin;
 import static com.example.myapplication.Expressions.Functions.sub;
 import static com.example.myapplication.Expressions.Functions.sum;
 import static com.example.myapplication.Expressions.Functions.x;
@@ -44,9 +45,9 @@ public class MyDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_custom, null);
         builder.setView(view);
 
-        Draw2D.functionOnTheCanvas = true;
-
         textFunction = view.findViewById(R.id.x);
+
+        Draw2D.functionOnTheCanvas = true;
 
         miniCanvas = view.findViewById(R.id.minicanvas);
 
@@ -60,6 +61,7 @@ public class MyDialogFragment extends DialogFragment {
         btnNoOk = view.findViewById(R.id.button_nook);
         btnNoOk.setOnClickListener(v -> {
             Draw2D.function = x;
+            miniCanvas.invalidate();
             builder.dismiss();
         });
 
@@ -100,9 +102,10 @@ public class MyDialogFragment extends DialogFragment {
         btn9.setText("×7");
         btn9.setOnClickListener(v -> setFunction(mul(function,n(7))));
 
-        function = new Argument();
+        function = x;
+        Draw2D.function = this.function;
         updateTextView();
-
+        miniCanvas.invalidate();
         return builder;
     }
 
