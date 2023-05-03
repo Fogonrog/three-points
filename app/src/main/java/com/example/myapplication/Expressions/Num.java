@@ -8,7 +8,11 @@ public final class Num implements Function {
 
     @Override
     public String asString(){
-        return "" + number;
+        if ((int)number == number) {
+            return String.valueOf((int) number);
+        }else {
+            return String.valueOf(number);
+        }
     }
 
     @Override
