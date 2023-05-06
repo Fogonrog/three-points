@@ -1,6 +1,6 @@
-package com.example.myapplication.Graphics;
+package com.example.myapplication.graphics;
 
-public class Circle implements Drawable{
+public final class Circle implements Drawable {
     private final Point center;
     private final float radius;
 
@@ -11,6 +11,8 @@ public class Circle implements Drawable{
 
     @Override
     public void drawOn(Canvas canvas) {
-        canvas.origin.drawCircle(center.x, center.y, radius,canvas.paint);
+        canvas.getCanvas()
+                .drawCircle(center.x(), center.y(),
+                            radius, canvas.getPaint());
     }
 }

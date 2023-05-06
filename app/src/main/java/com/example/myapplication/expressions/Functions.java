@@ -1,7 +1,10 @@
-package com.example.myapplication.Expressions;
+package com.example.myapplication.expressions;
 
-public class Functions {
-    public static final Argument x = new Argument();
+public final class Functions {
+    private Functions() { }
+    public static Argument x() {
+        return new Argument();
+    }
 
     public static Num n(float value) {
         return new Num(value);
@@ -15,8 +18,8 @@ public class Functions {
         return new AbsoluteValue(function);
     }
 
-    public static Cosinus cos(Function function) {
-        return new Cosinus(function);
+    public static Cosine cos(Function function) {
+        return new Cosine(function);
     }
 
     public static Cotangent ctg(Function function) {
@@ -31,11 +34,11 @@ public class Functions {
         return new Power(left, right);
     }
 
-    public static Sinus sin (Function function) {
+    public static Sinus sin(Function function) {
         return new Sinus(function);
     }
 
-    public static Sqrt sqrt (Function function) {
+    public static Sqrt sqrt(Function function) {
         return new Sqrt(function);
     }
 

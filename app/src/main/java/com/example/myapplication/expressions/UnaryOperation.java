@@ -1,4 +1,4 @@
-package com.example.myapplication.Expressions;
+package com.example.myapplication.expressions;
 
 public abstract class UnaryOperation implements Function {
 
@@ -7,9 +7,9 @@ public abstract class UnaryOperation implements Function {
         float apply(float func);
     }
 
-    protected final Function function;
-    protected final Combine combine;
-    protected final String symbol;
+    private final Function function;
+    private final Combine combine;
+    private final String symbol;
 
     public UnaryOperation(
             Function function,
@@ -21,15 +21,21 @@ public abstract class UnaryOperation implements Function {
         this.symbol = symbol;
     }
 
+    public final String getSymbol() {
+        return symbol;
+    }
+
+    public final Function getFunction() {
+        return function;
+    }
+
     @Override
-    public float evaluate(float x) {
+    public final float evaluate(float x) {
         return combine.apply(
                 function.evaluate(x)
         );
     }
 
     @Override
-    public String asString() {
-        return function.asString();
-    }
+    public abstract String asString();
 }

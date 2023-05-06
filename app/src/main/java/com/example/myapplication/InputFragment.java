@@ -1,29 +1,26 @@
 package com.example.myapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import com.example.myapplication.R;
 
-public class InputFragment extends Fragment{
-    public static View canvas;
+public final class InputFragment extends Fragment {
+    private static View canvas;
+
+    public static View getCanvas() {
+        return canvas;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_input, container, false);
-        ImageButton button_add_function = view.findViewById(R.id.add_function);
+        var view = inflater.inflate(R.layout.fragment_input, container, false);
+        var buttonAddFunction = view.findViewById(R.id.add_function);
         canvas = view.findViewById(R.id.canvas);
-        button_add_function.setOnClickListener(v -> {
-            FragmentManager manager = InputFragment.this.getParentFragmentManager();
-            MyDialogFragment myDialogFragment = new MyDialogFragment();
+        buttonAddFunction.setOnClickListener(v -> {
+            var manager = InputFragment.this.getParentFragmentManager();
+            var myDialogFragment = new MyDialogFragment();
             myDialogFragment.show(manager, "myDialog");
         });
         return view;
