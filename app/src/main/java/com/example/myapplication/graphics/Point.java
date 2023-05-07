@@ -16,7 +16,7 @@ public final class Point {
     public float y() {
         return y;
     }
-    public static Point from(float x, float y) {
+    public static Point of(float x, float y) {
         return new Point(x, y);
     }
 }

@@ -19,15 +19,15 @@ public abstract class BinaryOperation implements Function {
         this.symbol = symbol;
     }
 
-    public final Function getLeft() {
+    protected final Function left() {
         return left;
     }
 
-    public final Function getRight() {
+    protected final Function right() {
         return right;
     }
 
-    public final String getSymbol() {
+    protected final String symbol() {
         return symbol;
     }
 

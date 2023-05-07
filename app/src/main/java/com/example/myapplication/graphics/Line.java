@@ -9,14 +9,14 @@ public final class Line implements Drawable {
         this.b = b;
     }
 
-    public static Line from(Point a, Point b) {
+    public static Line of(Point a, Point b) {
         return new Line(a, b);
     }
 
     @Override
-    public void drawOn(Canvas canvas) {
-        canvas.getCanvas()
+    public void drawOn(Canva canvas) {
+        canvas.origin
                 .drawLine(a.x(), a.y(),
-                        b.x(), b.y(), canvas.getPaint());
+                        b.x(), b.y(), canvas.paint);
     }
 }

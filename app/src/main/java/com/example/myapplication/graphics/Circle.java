@@ -10,9 +10,9 @@ public final class Circle implements Drawable {
     }
 
     @Override
-    public void drawOn(Canvas canvas) {
-        canvas.getCanvas()
+    public void drawOn(Canva canvas) {
+        canvas.origin
                 .drawCircle(center.x(), center.y(),
-                            radius, canvas.getPaint());
+                            radius, canvas.paint);
     }
 }

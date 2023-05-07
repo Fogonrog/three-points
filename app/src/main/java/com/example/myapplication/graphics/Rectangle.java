@@ -10,9 +10,9 @@ public final class Rectangle implements Drawable {
     }
 
     @Override
-    public void drawOn(Canvas canvas) {
-        canvas.getCanvas()
+    public void drawOn(Canva canvas) {
+        canvas.origin
                 .drawRect(a.x(), a.y(),
-                          b.x(), b.y(), canvas.getPaint());
+                          b.x(), b.y(), canvas.paint);
     }
 }

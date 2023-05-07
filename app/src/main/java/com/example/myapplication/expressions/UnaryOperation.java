@@ -21,11 +21,11 @@ public abstract class UnaryOperation implements Function {
         this.symbol = symbol;
     }
 
-    public final String getSymbol() {
+    protected final String getSymbol() {
         return symbol;
     }
 
-    public final Function getFunction() {
+    protected final Function getFunction() {
         return function;
     }
 

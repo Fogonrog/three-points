@@ -8,8 +8,8 @@ public final class Division extends BinaryOperation {
 
     @Override
     public String asString() {
-        return getLeft().asString() + " "
-                + getSymbol() + " "
-                + getRight().asString();
+        return left().asString() + " "
+                + symbol() + " "
+                + right().asString();
     }
 }

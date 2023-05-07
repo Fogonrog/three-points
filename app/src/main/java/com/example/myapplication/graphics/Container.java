@@ -12,7 +12,7 @@ public final class Container implements Drawable {
     public static Container from(Collection<Drawable> children) {
         return new Container(children);
     }
-    public void drawOn(Canvas canvas) {
+    public void drawOn(Canva canvas) {
         for (Drawable child : children) {
             child.drawOn(canvas);
         }
