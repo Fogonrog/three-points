@@ -1,4 +1,4 @@
-package com.example.myapplication.Expressions;
+package com.example.myapplication.expressions;
 
 public final class Multiplication extends BinaryOperation {
     public Multiplication(Function left, Function right) {
@@ -7,6 +7,8 @@ public final class Multiplication extends BinaryOperation {
 
     @Override
     public String asString() {
-        return left.asString() + " " + symbol + " " + right.asString();
+        return left().asString() + " "
+                + symbol() + " "
+                + right().asString();
     }
 }

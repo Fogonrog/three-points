@@ -1,16 +1,16 @@
-package com.example.myapplication.Expressions;
+package com.example.myapplication.expressions;
 public final class Num implements Function {
-    private float number;
+    private final float number;
 
     public Num(float number) {
         this.number = number;
     }
 
     @Override
-    public String asString(){
-        if ((int)number == number) {
+    public String asString() {
+        if ((int) number == number) {
             return String.valueOf((int) number);
-        }else {
+        } else {
             return String.valueOf(number);
         }
     }

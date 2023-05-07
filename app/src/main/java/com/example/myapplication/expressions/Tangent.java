@@ -1,4 +1,4 @@
-package com.example.myapplication.Expressions;
+package com.example.myapplication.expressions;
 
 public final class Tangent extends UnaryOperation {
 
@@ -7,7 +7,7 @@ public final class Tangent extends UnaryOperation {
     }
 
     @Override
-    public String asString(){
-        return symbol+"(" + function.asString()+")";
+    public String asString() {
+        return getSymbol() + "(" + getFunction().asString() + ")";
     }
 }

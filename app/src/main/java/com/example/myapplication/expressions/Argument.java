@@ -1,8 +1,8 @@
-package com.example.myapplication.Expressions;
+package com.example.myapplication.expressions;
 
 public final class Argument implements Function {
     @Override
-    public String asString(){
+    public String asString() {
         return "x";
     }
 

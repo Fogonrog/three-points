@@ -1,15 +1,18 @@
-package com.example.myapplication.Graphics;
+package com.example.myapplication.graphics;
 
 import java.util.Collection;
 
-public class Container implements Drawable {
+public final class Container implements Drawable {
     private final Collection<Drawable> children;
 
     public Container(Collection<Drawable> children) {
         this.children = children;
     }
 
-    public void drawOn(Canvas canvas) {
+    public static Container from(Collection<Drawable> children) {
+        return new Container(children);
+    }
+    public void drawOn(Canva canvas) {
         for (Drawable child : children) {
             child.drawOn(canvas);
         }

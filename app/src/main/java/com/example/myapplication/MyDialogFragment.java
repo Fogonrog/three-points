@@ -1,14 +1,13 @@
 package com.example.myapplication;
 
 
-import static com.example.myapplication.Expressions.Functions.div;
-import static com.example.myapplication.Expressions.Functions.mul;
-import static com.example.myapplication.Expressions.Functions.n;
-import static com.example.myapplication.Expressions.Functions.pow;
-import static com.example.myapplication.Expressions.Functions.sin;
-import static com.example.myapplication.Expressions.Functions.sub;
-import static com.example.myapplication.Expressions.Functions.sum;
-import static com.example.myapplication.Expressions.Functions.x;
+import static com.example.myapplication.expressions.Functions.div;
+import static com.example.myapplication.expressions.Functions.mul;
+import static com.example.myapplication.expressions.Functions.n;
+import static com.example.myapplication.expressions.Functions.pow;
+import static com.example.myapplication.expressions.Functions.sub;
+import static com.example.myapplication.expressions.Functions.sum;
+import static com.example.myapplication.expressions.Functions.x;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,93 +16,88 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import com.example.myapplication.expressions.Function;
 
-import com.example.myapplication.Expressions.Argument;
-import com.example.myapplication.Expressions.Function;
-
-public class MyDialogFragment extends DialogFragment {
-    public Function function;
+public final class MyDialogFragment extends DialogFragment {
+    private static final float NUM_TWO = 2F;
+    private static final float NUM_THREE = 3F;
+    private static final float NUM_SEVEN = 7F;
+    private static final float NUM_FIVE = 5F;
+    private Function function;
     private TextView textFunction;
-    private Button btnC;
-    private Button btn2;
-    private Button btn3;
-    private Button btn4;
-    private Button btn5;
-    private Button btn6;
-    private Button btn7;
-    private Button btn8;
-    private Button btn9;
-    private Button btnOk;
-    private Button btnNoOk;
     private View miniCanvas;
+
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_custom, null);
         builder.setView(view);
 
         textFunction = view.findViewById(R.id.x);
 
-        Draw2D.functionOnTheCanvas = true;
+        Draw2D.setFunctionOnTheCanvas(true);
 
         miniCanvas = view.findViewById(R.id.minicanvas);
 
-        btnOk = view.findViewById(R.id.button_ok);
+        Button btnOk = view.findViewById(R.id.button_ok);
         btnOk.setOnClickListener(v -> {
-            Draw2D.function = this.function;
-            InputFragment.canvas.invalidate();
+            Draw2D.setFunction(this.function);
+            InputFragment.getCanvas().invalidate();
             builder.dismiss();
         });
 
-        btnNoOk = view.findViewById(R.id.button_nook);
+        Button btnNoOk = view.findViewById(R.id.button_nook);
         btnNoOk.setOnClickListener(v -> {
-            Draw2D.function = x;
+            Draw2D.setFunction(x());
             miniCanvas.invalidate();
             builder.dismiss();
         });
 
 
-        btnC = view.findViewById(R.id.button1);
+        Button btnC = view.findViewById(R.id.button1);
         btnC.setText("C");
-        btnC.setOnClickListener(v -> setFunction(x));
+        btnC.setOnClickListener(v -> setFunction(x()));
 
-        btn2 = view.findViewById(R.id.button2);
+        Button btn2 = view.findViewById(R.id.button2);
         btn2.setText("..²");
-        btn2.setOnClickListener(v -> setFunction(pow(function,n(2))));
+        btn2.setOnClickListener(v -> setFunction(pow(function, n(NUM_TWO))));
 
-        btn3 = view.findViewById(R.id.button3);
+        Button btn3 = view.findViewById(R.id.button3);
         btn3.setText("..³");
-        btn3.setOnClickListener(v -> setFunction(pow(function,n(3))));
+        btn3.setOnClickListener(v -> setFunction(pow(function, n(NUM_THREE))));
 
-        btn4 = view.findViewById(R.id.button4);
+        Button btn4 = view.findViewById(R.id.button4);
         btn4.setText("+2");
-        btn4.setOnClickListener(v -> setFunction(sum(function,n(2))));
+        btn4.setOnClickListener(v -> setFunction(sum(function, n(NUM_TWO))));
 
-        btn5 = view.findViewById(R.id.button5);
+        Button btn5 = view.findViewById(R.id.button5);
         btn5.setText("-7");
-        btn5.setOnClickListener(v -> setFunction(sub(function,n(7))));
+        btn5.setOnClickListener(v -> setFunction(sub(function, n(NUM_SEVEN))));
 
-        btn6 = view.findViewById(R.id.button6);
+        Button btn6 = view.findViewById(R.id.button6);
         btn6.setText("/2");
-        btn6.setOnClickListener(v -> setFunction(div(function,n(2))));
+        btn6.setOnClickListener(v -> setFunction(div(function, n(NUM_TWO))));
 
-        btn7 = view.findViewById(R.id.button7);
+        Button btn7 = view.findViewById(R.id.button7);
         btn7.setText("-2х");
-        btn7.setOnClickListener(v -> setFunction(sub(function,mul(x,n(2)))));
+        btn7.setOnClickListener(v -> setFunction(
+                sub(function, mul(x(), n(NUM_TWO)))));
 
-        btn8 = view.findViewById(R.id.button8);
+        Button btn8 = view.findViewById(R.id.button8);
         btn8.setText("+5х");
-        btn8.setOnClickListener(v -> setFunction(sum(function,mul(x,n(5)))));
+        btn8.setOnClickListener(v -> setFunction(
+                sum(function, mul(x(), n(NUM_FIVE)))));
 
-        btn9= view.findViewById(R.id.button9);
+        Button btn9 = view.findViewById(R.id.button9);
         btn9.setText("×7");
-        btn9.setOnClickListener(v -> setFunction(mul(function,n(7))));
+        btn9.setOnClickListener(v -> setFunction(mul(function, n(NUM_SEVEN))));
 
-        function = x;
-        Draw2D.function = this.function;
+        function = x();
+        Draw2D.setFunction(this.function);
         updateTextView();
         miniCanvas.invalidate();
         return builder;
@@ -111,7 +105,7 @@ public class MyDialogFragment extends DialogFragment {
 
     private void setFunction(Function function) {
         this.function = function;
-        Draw2D.function = this.function;
+        Draw2D.setFunction(this.function);
         miniCanvas.invalidate();
         System.out.println(function.asString());
         updateTextView();

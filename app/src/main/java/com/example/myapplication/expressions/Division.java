@@ -1,4 +1,4 @@
-package com.example.myapplication.Expressions;
+package com.example.myapplication.expressions;
 
 public final class Division extends BinaryOperation {
 
@@ -7,7 +7,9 @@ public final class Division extends BinaryOperation {
     }
 
     @Override
-    public String asString(){
-        return left.asString() + " " + symbol + " " + right.asString() ;
+    public String asString() {
+        return left().asString() + " "
+                + symbol() + " "
+                + right().asString();
     }
 }
