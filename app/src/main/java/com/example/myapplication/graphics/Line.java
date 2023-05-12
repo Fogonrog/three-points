@@ -1,12 +1,20 @@
 package com.example.myapplication.graphics;
 
+import android.graphics.Path;
+
 public final class Line implements Drawable {
     private final Point a;
     private final Point b;
+    private final Path path;
 
-    public Line(Point a, Point b) {
+    private Line(Point a, Point b) {
         this.a = a;
         this.b = b;
+        this.path = new Path();
+    }
+
+    public Path getPath() {
+        return path;
     }
 
     public static Line of(Point a, Point b) {
@@ -15,8 +23,8 @@ public final class Line implements Drawable {
 
     @Override
     public void drawOn(Canva canvas) {
-        canvas.origin
-                .drawLine(a.x(), a.y(),
-                        b.x(), b.y(), canvas.paint);
+        path.moveTo(a.x(), a.y());
+        path.lineTo(b.x(), b.y());
+        canvas.origin.drawPath(path, canvas.paint);
     }
 }

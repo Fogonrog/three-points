@@ -5,7 +5,7 @@ import java.util.Collection;
 public final class Container implements Drawable {
     private final Collection<Drawable> children;
 
-    public Container(Collection<Drawable> children) {
+    private Container(Collection<Drawable> children) {
         this.children = children;
     }
 
