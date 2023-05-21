@@ -8,7 +8,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.myapplication.graphics.Drawable;
+
 public final class RunFragment extends DialogFragment {
+
+    private final Draw2D bigCanvas;
+
+    public RunFragment(Draw2D bigCanvas) {
+        super();
+        this.bigCanvas = bigCanvas;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -19,7 +29,7 @@ public final class RunFragment extends DialogFragment {
         builder.setTitle("Подтверждение");
         builder.setMessage("Вы хотите продолжить?");
         builder.setPositiveButton(yes, (dialog, id) -> {
-            Toast.makeText(getActivity(), "" + Draw2D.getCorrectFunction(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "" + bigCanvas.isRightFunction(), Toast.LENGTH_LONG).show();
             dialog.cancel();
         });
         builder.setNegativeButton(no, (dialog, id) -> dialog.cancel());
