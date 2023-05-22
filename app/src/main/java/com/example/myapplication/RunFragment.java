@@ -8,8 +8,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.myapplication.graphics.Drawable;
-
 public final class RunFragment extends DialogFragment {
 
     private final Draw2D bigCanvas;
@@ -26,14 +24,14 @@ public final class RunFragment extends DialogFragment {
         String no = "Нет";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Подтверждение");
-        builder.setMessage("Вы хотите продолжить?");
-        builder.setPositiveButton(yes, (dialog, id) -> {
-            Toast.makeText(getActivity(), "" + bigCanvas.isRightFunction(), Toast.LENGTH_LONG).show();
-            dialog.cancel();
-        });
-        builder.setNegativeButton(no, (dialog, id) -> dialog.cancel());
-        builder.setCancelable(true);
+        builder.setTitle("Подтверждение")
+                .setMessage("Вы хотите продолжить?")
+                .setPositiveButton(yes, (dialog, id) -> {
+                    Toast.makeText(getActivity(), "" + bigCanvas.isRightFunction(), Toast.LENGTH_LONG).show();
+                    dialog.cancel();
+                })
+                .setNegativeButton(no, (dialog, id) -> dialog.cancel())
+                .setCancelable(true);
 
         return builder.create();
     }

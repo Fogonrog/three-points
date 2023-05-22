@@ -1,5 +1,7 @@
 package com.example.myapplication.graphics;
 
+import org.locationtech.jts.geom.Geometry;
+
 import java.util.Collection;
 
 public final class Container implements Drawable {

@@ -21,17 +21,16 @@ public final class MainFragment extends Fragment {
         canvas = view.findViewById(R.id.canvas);
 
         var btnAddFunction = view.findViewById(R.id.add_function);
+        var manager = MainFragment.this.getParentFragmentManager();
         btnAddFunction.setOnClickListener(v -> {
-            var manager = MainFragment.this.getParentFragmentManager();
             var inputFragment = new InputFragment(canvas);
-            inputFragment.show(manager, "myDialog");
+            inputFragment.show(manager, "inputFragment");
         });
 
         var btnRun = view.findViewById(R.id.runbutton);
         btnRun.setOnClickListener(v -> {
-            var manager = MainFragment.this.getParentFragmentManager();
             var runFragment = new RunFragment(canvas);
-            runFragment.show(manager, "myDialog");
+            runFragment.show(manager, "runFragment");
         });
 
         return view;

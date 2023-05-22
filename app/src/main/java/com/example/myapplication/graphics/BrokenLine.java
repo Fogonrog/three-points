@@ -3,13 +3,14 @@ package com.example.myapplication.graphics;
 import android.graphics.Path;
 
 import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 
 import java.util.List;
 
-public final class BrokenLine implements Drawable {
+public final class BrokenLine extends Figure implements Drawable {
     private final Path path;
-    private final org.locationtech.jts.geom.LineString jts;
+    private final Geometry jts;
 
     private BrokenLine(List<Point> points) {
         this.path = new Path();
@@ -18,27 +19,33 @@ public final class BrokenLine implements Drawable {
         path.moveTo(points.get(0).x(), points.get(0).y());
         for (int i = 1; i < points.size(); i++) {
             path.lineTo(points.get(i).x(), points.get(i).y());
-            coordinates[i]= new Coordinate(points.get(i).x(), points.get(i).y());
+            coordinates[i] = new Coordinate(points.get(i).x(), points.get(i).y());
         }
         path.close();
         this.jts = geometryFactory.createLineString(coordinates);
     }
 
-    public Path getPath() {
-        return path;
-    }
-    public org.locationtech.jts.geom.LineString getJts() {
-        return jts;
-    }
-
-
     public static BrokenLine of(List<Point> points) {
         return new BrokenLine(points);
+    }
+
+    public Path getPath() {
+        return path;
     }
 
     @Override
     public void drawOn(Canva canvas) {
         canvas.origin.drawPath(path, canvas.paint);
+    }
+
+    @Override
+    Geometry jst() {
+        return jts;
+    }
+
+    @Override
+    public boolean intersects(Figure other) {
+        return jts.intersects(other.jst());
     }
 }
 

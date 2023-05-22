@@ -3,44 +3,52 @@ package com.example.myapplication.graphics;
 import android.graphics.Path;
 
 import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
-import java.util.List;
 
-public final class Polygon implements Drawable {
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
+public final class Polygon extends Figure implements Drawable {
     private final Path path;
-    private final org.locationtech.jts.geom.Polygon jts;
+    private final Geometry jts;
 
     private Polygon(List<Point> points) {
-        path = new Path();
-        var startPointAdded = false;
-        var geometryFactory = new GeometryFactory();
-        var coordinateList = new Coordinate[points.size()];
-        var iterator = 0;
-        for (Point point : points) {
-            if (!startPointAdded) {
-                path.moveTo(point.x(), point.y());
-                coordinateList[iterator] = new Coordinate(point.x(), point.y());
-                startPointAdded = true;
-                iterator++;
-                continue;
+            path = new Path();
+            GeometryFactory geometryFactory = new GeometryFactory();
+
+            Coordinate[] coordinateList = points.stream()
+                    .map(p -> new Coordinate(p.x(), p.y()))
+                    .toArray(Coordinate[]::new);
+
+            if (coordinateList.length > 0) {
+                path.moveTo((float) coordinateList[0].x, (float) coordinateList[0].y);
+
+                Arrays.stream(coordinateList).skip(1)
+                        .forEach(c -> path.lineTo((float) c.x, (float) c.y));
             }
-            path.lineTo(point.x(), point.y());
-            coordinateList[iterator] = new Coordinate(point.x(), point.y());
-            iterator++;
-        }
-        this.jts = geometryFactory.createPolygon(coordinateList);
+
+            this.jts = geometryFactory.createPolygon(coordinateList);
+
     }
 
     public Path getPath() {
         return path;
     }
 
-    public org.locationtech.jts.geom.Polygon getJts() {
+    public static Polygon from(List<Point> points) {
+        return new Polygon(points);
+    }
+
+    @Override
+    Geometry jst() {
         return jts;
     }
 
-    public static Polygon from(List<Point> points) {
-        return new Polygon(points);
+    @Override
+    public boolean intersects(Figure other) {
+        return jts.intersects(other.jst());
     }
 
     @Override

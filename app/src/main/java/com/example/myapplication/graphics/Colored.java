@@ -1,5 +1,7 @@
 package com.example.myapplication.graphics;
 
+import org.locationtech.jts.geom.Geometry;
+
 public final class Colored implements Drawable {
     private final Drawable child;
     private final int color;
