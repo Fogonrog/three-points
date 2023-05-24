@@ -5,11 +5,11 @@ import android.graphics.Paint;
 
 public final class Canva {
     //CHECKSTYLE:OFF
-    final android.graphics.Canvas origin;
-    final android.graphics.Paint paint;
+    final Canvas origin;
+    final Paint paint;
     //CHECKSTYLE:ON
 
-    public Canva(android.graphics.Canvas canvas, Paint paint) {
+    private Canva(Canvas canvas, Paint paint) {
         this.origin = canvas;
         this.paint = paint;
     }

@@ -5,19 +5,28 @@ import android.graphics.Path;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.operation.buffer.BufferOp;
 
-public final class Circle extends Figure implements Drawable {
-    private static final int DEFINITION = 20;
+import java.util.List;
+
+public final class BrokenLine extends Figure implements Drawable {
     private final Path path;
     private final Geometry jts;
 
-    private Circle(Point center, float radius) {
-        path = new Path();
-        path.addCircle(center.x(), center.y(), radius, Path.Direction.CW);
+    private BrokenLine(List<Point> points) {
+        this.path = new Path();
         var geometryFactory = new GeometryFactory();
-        var centerPoint = geometryFactory.createPoint(new Coordinate(center.x(), center.y()));
-        this.jts = BufferOp.bufferOp(centerPoint, radius, DEFINITION);
+        var coordinates = new Coordinate[points.size()];
+        path.moveTo(points.get(0).x(), points.get(0).y());
+        for (int i = 1; i < points.size(); i++) {
+            path.lineTo(points.get(i).x(), points.get(i).y());
+            coordinates[i] = new Coordinate(points.get(i).x(), points.get(i).y());
+        }
+        path.close();
+        this.jts = geometryFactory.createLineString(coordinates);
+    }
+
+    public static BrokenLine of(List<Point> points) {
+        return new BrokenLine(points);
     }
 
     public Path getPath() {
@@ -39,3 +48,4 @@ public final class Circle extends Figure implements Drawable {
         return jts.intersects(other.jst());
     }
 }
+

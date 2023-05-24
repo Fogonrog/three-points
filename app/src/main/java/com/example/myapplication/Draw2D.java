@@ -15,47 +15,92 @@ import com.example.myapplication.expressions.Function;
 import com.example.myapplication.graphics.Canva;
 import com.example.myapplication.graphics.Colored;
 import com.example.myapplication.graphics.Container;
+import com.example.myapplication.graphics.Figure;
 import com.example.myapplication.graphics.FunctionGraph;
 import com.example.myapplication.graphics.Line;
 import com.example.myapplication.graphics.Point;
+import com.example.myapplication.graphics.Polygon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class Draw2D extends View {
-    private static final float INDENT =  20F;
-    private static boolean functionOnTheCanvas = false;
-    private static Function function = x();
+
+    private static final float A = 7.0f;
+    private static final float B = 10.0f;
+    private static final float INDENT = 20F;
+    private static final float NUM_THREE = 3F;
+    private static final float NUM_FOUR = 4F;
+    private static final int LARGE_WIDTH = 8;
+    private final boolean isBigCanvas;
     private final Paint paint = new Paint();
+    private float widthMlt;
+    private Function function = x();
+    private Container axes;
+    private Polygon leftCoast;
+    private Polygon rightCoast;
+    private FunctionGraph func;
+    private List<Figure> obstacles = new ArrayList<>();
+
     public Draw2D(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public Draw2D(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        this.isBigCanvas = getId() == R.id.canvas;
     }
 
-    public static void setFunction(Function function) {
-        Draw2D.function = function;
+    public Function getFunction() {
+        return this.function;
     }
 
-    public static void setFunctionOnTheCanvas(boolean functionOnTheCanvas) {
-        Draw2D.functionOnTheCanvas = functionOnTheCanvas;
+    public void setFunction(Function function) {
+        this.function = function;
+        invalidate();
+    }
+
+    public boolean isRightFunction() {
+        var result = true;
+        for(var obstacle : obstacles){
+            result = result && obstacle.intersects(func);
+        }
+        return result;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float width = getWidth();
-        float height = getHeight();
+
+        if (axes == null) {
+            lazyInit();
+        }
 
         moveStartingPoint(canvas);
         initialCanvasPreparation(canvas);
-        // TODO: IDEA swear at the fact that the code below is not optimized,
-        //  need to fix it
         var mainCanvas = Canva.from(canvas, paint);
-        var func = FunctionGraph.from(function);
-        var redFunc = Colored.from(Color.RED, func);
-        var axes = Container.from(List.of(
+        var func = FunctionGraph.from(function, widthMlt);
+        this.func = func;
+
+        mainCanvas.draw(Colored.from(Color.BLACK, 1, axes));
+        if (isBigCanvas) {
+            mainCanvas.draw(Colored.from(Color.BLACK, LARGE_WIDTH, leftCoast));
+            mainCanvas.draw(Colored.from(Color.BLACK, LARGE_WIDTH, rightCoast));
+        }
+        mainCanvas.draw(Colored.from(Color.RED, LARGE_WIDTH, func));
+    }
+
+    private void initialCanvasPreparation(Canvas canvas) {
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.WHITE);
+        canvas.drawPaint(paint);
+        paint.setAntiAlias(true);
+    }
+    private void lazyInit() {
+        float width = getWidth();
+        float height = getHeight();
+        axes = Container.from(List.of(
                 Line.of(Point.of(0F, height / 2),
                         Point.of(0F, -height / 2)),
                 Line.of(Point.of(width / 2, 0F),
@@ -69,19 +114,36 @@ public final class Draw2D extends View {
                 Line.of(Point.of((width / 2 - INDENT), INDENT),
                         Point.of(width / 2, 0F))
         ));
-        var blackAxes = Colored.from(Color.BLACK, axes);
-        mainCanvas.draw(blackAxes);
+        leftCoast = Polygon.from(List.of(
+                Point.of(-width / 2, -INDENT),
+                Point.of(-width / NUM_FOUR - NUM_FOUR, -INDENT),
+                Point.of(-width / NUM_THREE, -height / NUM_THREE),
+                Point.of(-width / NUM_FOUR - NUM_FOUR, -INDENT),
+                Point.of(-width / NUM_THREE, -height / NUM_THREE),
+                Point.of(-width / NUM_FOUR - 2 * INDENT, -height / 2),
+                Point.of(-width / 2, -height / 2),
+                Point.of(-width / 2, -INDENT)));
+        rightCoast = Polygon.from(List.of(
+                Point.of(width / 2, -INDENT),
+                Point.of(width / NUM_FOUR + NUM_FOUR, -INDENT),
+                Point.of(width / NUM_THREE, -height / NUM_THREE),
+                Point.of(width / NUM_FOUR + NUM_FOUR, -INDENT),
+                Point.of(width / NUM_THREE, -height / NUM_THREE),
+                Point.of(width / NUM_FOUR + 2 * INDENT, -height / 2),
+                Point.of(width / 2, -height / 2),
+                Point.of(width / 2, -INDENT)));
+        var leftLine = Line.of(Point.of(-width / 2, -INDENT),
+                Point.of(-width / NUM_FOUR - NUM_FOUR, -INDENT));
+        var rightLine = Line.of(Point.of(width / 2, -INDENT),
+                Point.of(width / NUM_FOUR - NUM_FOUR, -INDENT));
+        obstacles.add(leftLine);
+        obstacles.add(rightLine);
 
-        if (functionOnTheCanvas) {
-            mainCanvas.draw(redFunc);
-        }
-    }
-
-    private void initialCanvasPreparation(Canvas canvas) {
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.WHITE);
-        canvas.drawPaint(paint);
-        paint.setAntiAlias(true);
+        // посчитаем масштаб
+        var l = -width / NUM_FOUR - NUM_FOUR;
+        // пусть мы считаем, что в точке l должнa быть координаты x = -a
+        // тогда масштаб
+        widthMlt = -l / A;
     }
 
     private void moveStartingPoint(Canvas canvas) {
