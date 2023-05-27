@@ -4,24 +4,24 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-@JsonTypeName("Colored")
-public final class Colored implements Drawable {
+
+@JsonTypeName("Scaled")
+public final class Scaled implements Drawable {
     private final Drawable child;
-    private final int color;
+    private final int width;
 
     @JsonCreator
-    public Colored(@JsonProperty("color") int color,
-                   @JsonProperty("child") Drawable child) {
-        this.color = color;
+    public Scaled(@JsonProperty("width") int width, @JsonProperty("child") Drawable child) {
+        this.width = width;
         this.child = child;
     }
 
-    public static Colored from(int color, Drawable child) {
-        return new Colored(color, child);
+    public static Scaled from(int width, Drawable child) {
+        return new Scaled(width, child);
     }
 
     public void drawOn(Canva canvas) {
-        canvas.paint.setColor(color);
+        canvas.paint.setStrokeWidth(width);
         canvas.draw(child);
     }
 
@@ -29,7 +29,7 @@ public final class Colored implements Drawable {
         return child;
     }
 
-    public int getColor() {
-        return color;
+    public int getWidth() {
+        return width;
     }
 }

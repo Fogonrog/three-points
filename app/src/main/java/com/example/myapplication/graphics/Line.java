@@ -2,18 +2,23 @@ package com.example.myapplication.graphics;
 
 import android.graphics.Path;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.LineString;
 
+@JsonTypeName("Line")
 public final class Line extends Figure implements Drawable {
     private final Point a;
     private final Point b;
     private final Path path;
     private final Geometry jts;
 
-    private Line(Point a, Point b) {
+    @JsonCreator
+    private Line(@JsonProperty("a") Point a, @JsonProperty("b") Point b) {
         this.a = a;
         this.b = b;
         this.path = new Path();
@@ -48,5 +53,13 @@ public final class Line extends Figure implements Drawable {
     @Override
     public boolean intersects(Figure other) {
         return jts.intersects(other.jst());
+    }
+
+    public Point getA() {
+        return a;
+    }
+
+    public Point getB() {
+        return b;
     }
 }

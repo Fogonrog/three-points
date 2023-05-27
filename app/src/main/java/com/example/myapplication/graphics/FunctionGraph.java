@@ -30,7 +30,8 @@ public final class FunctionGraph extends Figure implements Drawable {
             path.lineTo(i * widthMlt, function.evaluate(i) * widthMlt);
             pointList.add(new Coordinate(i * widthMlt, function.evaluate(i) * widthMlt));
         }
-        this.jts = geometryFactory.createLineString(new CoordinateArraySequence(pointList.toArray(new Coordinate[0])));
+        this.jts = geometryFactory.createLineString(
+                new CoordinateArraySequence(pointList.toArray(new Coordinate[0])));
     }
 
     public static FunctionGraph from(Function function, float widthMlt) {

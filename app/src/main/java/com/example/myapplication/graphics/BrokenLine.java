@@ -2,18 +2,26 @@ package com.example.myapplication.graphics;
 
 import android.graphics.Path;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 
 import java.util.List;
 
+@JsonTypeName("BrokenLine")
 public final class BrokenLine extends Figure implements Drawable {
     private final Path path;
     private final Geometry jts;
+    private final List<Point> points;
 
-    private BrokenLine(List<Point> points) {
+    @JsonCreator
+    public BrokenLine(@JsonProperty("points") List<Point> points) {
         this.path = new Path();
+        this.points = points;
         var geometryFactory = new GeometryFactory();
         var coordinates = new Coordinate[points.size()];
         path.moveTo(points.get(0).x(), points.get(0).y());
@@ -46,6 +54,10 @@ public final class BrokenLine extends Figure implements Drawable {
     @Override
     public boolean intersects(Figure other) {
         return jts.intersects(other.jst());
+    }
+
+    public List<Point> getPoints() {
+        return points;
     }
 }
 

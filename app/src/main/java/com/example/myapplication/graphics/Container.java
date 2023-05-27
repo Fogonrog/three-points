@@ -1,13 +1,15 @@
 package com.example.myapplication.graphics;
 
-import org.locationtech.jts.geom.Geometry;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.Collection;
 
+@JsonTypeName("Container")
 public final class Container implements Drawable {
     private final Collection<Drawable> children;
-
-    private Container(Collection<Drawable> children) {
+    @JsonCreator
+    private Container(@JsonProperty("children") Collection<Drawable> children) {
         this.children = children;
     }
 
@@ -18,5 +20,9 @@ public final class Container implements Drawable {
         for (Drawable child : children) {
             child.drawOn(canvas);
         }
+    }
+
+    public Collection<Drawable> getChildren() {
+        return children;
     }
 }
