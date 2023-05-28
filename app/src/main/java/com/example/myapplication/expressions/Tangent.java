@@ -1,8 +1,13 @@
 package com.example.myapplication.expressions;
 
-public final class Tangent extends UnaryOperation {
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-    public Tangent(Function function) {
+@JsonTypeName("Tangent")
+public final class Tangent extends UnaryOperation {
+    @JsonCreator
+    public Tangent(@JsonProperty("function") Function function) {
         super(function, (a) -> (float) Math.tan(a), "tg");
     }
 

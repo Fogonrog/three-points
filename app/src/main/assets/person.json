@@ -1,0 +1,10 @@
+{
+  "class": "Power",
+  "left": {
+    "class": "Argument"
+  },
+  "right": {
+    "class": "Num",
+    "number": 2.0
+  }
+}

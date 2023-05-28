@@ -1,8 +1,13 @@
 package com.example.myapplication.expressions;
 
-public final class AbsoluteValue extends UnaryOperation {
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-    public AbsoluteValue(Function function) {
+@JsonTypeName("AbsoluteValue")
+public final class AbsoluteValue extends UnaryOperation {
+    @JsonCreator
+    public AbsoluteValue(@JsonProperty("function") Function function) {
         super(function, (a) -> (float) Math.abs(a), "|");
     }
 

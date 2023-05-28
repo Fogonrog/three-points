@@ -1,8 +1,13 @@
 package com.example.myapplication.expressions;
 
-public final class Sinus extends UnaryOperation {
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-    public Sinus(Function function) {
+@JsonTypeName("Sinus")
+public final class Sinus extends UnaryOperation {
+    @JsonCreator
+    public Sinus(@JsonProperty("function") Function function) {
         super(function, (a) -> (float) Math.sin(a), "sin");
     }
 

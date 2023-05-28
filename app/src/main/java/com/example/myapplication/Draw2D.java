@@ -21,8 +21,10 @@ import com.example.myapplication.graphics.Line;
 import com.example.myapplication.graphics.Point;
 import com.example.myapplication.graphics.Polygon;
 import com.example.myapplication.graphics.Scaled;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,37 +85,12 @@ public final class Draw2D extends View {
         var mainCanvas = Canva.from(canvas, paint);
         var func = FunctionGraph.from(function, widthMlt);
         this.func = func;
-        try {
-            var objectMapper = new ObjectMapper();
-            //var stream = getAssets().open("test.json");
-            var stream = "{\n"
-                    + "  \"class\": \"Colored\",\n"
-                    + "  \"color\": -65536,\n"
-                    + "  \"child\": {\n"
-                    + "    \"class\": \"Scaled\",\n"
-                    + "    \"width\": 7,\n"
-                    + "    \"child\": {\n"
-                    + "      \"class\": \"Circle\",\n"
-                    + "      \"center\": {\n"
-                    + "        \"x\": 45.0,\n"
-                    + "        \"y\": 21.0\n"
-                    + "      },\n"
-                    + "      \"radius\": 4.0\n"
-                    + "    }\n"
-                    + "  }\n"
-                    + "}";
-            var dima = objectMapper.readValue(stream, Colored.class);
-            mainCanvas.draw(dima);
-        } catch (IOException e) {
-            System.out.println(e);
-        }
 
         mainCanvas.draw(Colored.from(Color.BLACK, Scaled.from(1, axes)));
         if (isBigCanvas) {
             mainCanvas.draw(Colored.from(Color.BLACK, Scaled.from(LARGE_WIDTH, leftCoast)));
             mainCanvas.draw(Colored.from(Color.BLACK, Scaled.from(LARGE_WIDTH, rightCoast)));
         }
-        mainCanvas.draw(Colored.from(Color.RED, Scaled.from(LARGE_WIDTH, func)));
         mainCanvas.draw(Colored.from(Color.RED, Scaled.from(LARGE_WIDTH, func)));
     }
 

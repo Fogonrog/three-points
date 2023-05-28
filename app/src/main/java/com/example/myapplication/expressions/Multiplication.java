@@ -1,7 +1,13 @@
 package com.example.myapplication.expressions;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+@JsonTypeName("Multiplication")
 public final class Multiplication extends BinaryOperation {
-    public Multiplication(Function left, Function right) {
+    @JsonCreator
+    public Multiplication(@JsonProperty("left") Function left, @JsonProperty("right") Function right) {
         super(left, right, (a, b) -> a * b, "×");
     }
 

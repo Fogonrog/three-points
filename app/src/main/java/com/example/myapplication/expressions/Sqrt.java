@@ -1,8 +1,13 @@
 package com.example.myapplication.expressions;
 
-public final class Sqrt extends UnaryOperation {
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-    public Sqrt(Function function) {
+@JsonTypeName("Sqrt")
+public final class Sqrt extends UnaryOperation {
+    @JsonCreator
+    public Sqrt(@JsonProperty("function") Function function) {
         super(function, (a) -> (float) Math.sqrt(a), "√");
     }
 
