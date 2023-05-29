@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import static com.example.myapplication.expressions.Functions.x;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -12,22 +13,31 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import com.example.myapplication.expressions.Function;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.myapplication.graphics.Drawable;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public final class InputFragment extends DialogFragment {
 
     private TextView textFunction;
     private Draw2D miniCanvas;
-
     private final Draw2D bigCanvas;
+    private final List<Function> functions;
+    private final List<Drawable> environment;
+    private final List<Drawable> requiredObstacles;
+    private final List<Drawable> forbiddenObstacles;
 
-    public InputFragment(Draw2D bigCanvas) {
+    public InputFragment(Draw2D bigCanvas,
+                         List<Function> functions,
+                         List<Drawable> environment,
+                         List<Drawable> requiredObstacles,
+                         List<Drawable> forbiddenObstacles) {
         super();
         this.bigCanvas = bigCanvas;
+        this.functions = functions;
+        this.environment = environment;
+        this.requiredObstacles = requiredObstacles;
+        this.forbiddenObstacles = forbiddenObstacles;
     }
 
     @NonNull
@@ -39,19 +49,12 @@ public final class InputFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_custom, null);
         builder.setView(view);
 
-        List<Function> functions;
-        try {
-            var objectMapper = new ObjectMapper();
-            var stream = readFileInAssets("person.json");
-            functions = objectMapper.readValue(stream, Funci.class).getFunctions();
-            System.out.println(functions);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         textFunction = view.findViewById(R.id.x);
         miniCanvas = view.findViewById(R.id.minicanvas);
         miniCanvas.setFunction(x());
+        miniCanvas.setEnvironment(environment);
+        miniCanvas.setRequiredObstacles(requiredObstacles);
+        miniCanvas.setForbiddenObstacles(forbiddenObstacles);
 
         Button btnOk = view.findViewById(R.id.button_ok);
         btnOk.setOnClickListener(v -> {
@@ -173,21 +176,6 @@ public final class InputFragment extends DialogFragment {
         updateTextView();
         return builder;
     }
-    public String readFileInAssets(String name) {
-
-        byte[] buffer = null;
-        InputStream is;
-        try {
-            is = this.getActivity().getAssets().open(name);
-            int size = is.available();
-            buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new String(buffer);
-    }
 
     private void setFunction(Function function) {
         miniCanvas.setFunction(function);
@@ -195,6 +183,7 @@ public final class InputFragment extends DialogFragment {
         updateTextView();
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateTextView() {
         textFunction.setText("y = " + miniCanvas.getFunction().asString());
     }

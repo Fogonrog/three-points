@@ -15,7 +15,8 @@ public final class Point {
     private final float y;
 
     @JsonCreator
-    public Point(@JsonProperty("strX") String strX, @JsonProperty("strY") String strY) {
+    public Point(@JsonProperty("strX") String strX,
+                 @JsonProperty("strY") String strY) {
         this.x = (float) new ExpressionBuilder(strX)
                 .build()
                 .evaluate();

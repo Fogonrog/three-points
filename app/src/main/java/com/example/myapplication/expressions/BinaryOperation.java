@@ -9,7 +9,10 @@ public abstract class BinaryOperation implements Function {
     private final Combine combine;
     private Function left;
 
-    public BinaryOperation(Function left, Function right, Combine combine, String symbol) {
+    public BinaryOperation(Function left,
+                           Function right,
+                           Combine combine,
+                           String symbol) {
         this.left = left;
         this.right = right;
         this.combine = combine;
@@ -34,7 +37,7 @@ public abstract class BinaryOperation implements Function {
 
     @NonNull
     @Override
-    public Function clone() throws CloneNotSupportedException {
+    public final Function clone() throws CloneNotSupportedException {
         return (Function) super.clone();
     }
 

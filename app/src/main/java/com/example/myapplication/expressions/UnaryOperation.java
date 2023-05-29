@@ -27,7 +27,7 @@ public abstract class UnaryOperation implements Function {
 
     @NonNull
     @Override
-    public Function clone() throws CloneNotSupportedException {
+    public final Function clone() throws CloneNotSupportedException {
         return (Function) super.clone();
     }
 

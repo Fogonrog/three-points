@@ -4,12 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 @JsonTypeName("Tangent")
 public final class Tangent extends UnaryOperation {
     private String strSingleFunction;
@@ -24,6 +18,7 @@ public final class Tangent extends UnaryOperation {
     public Tangent(Function function) {
         super(function, (a) -> (float) Math.tan(a), "tg");
     }
+
     public Function copy() throws CloneNotSupportedException {
         return super.clone();
     }
@@ -32,10 +27,12 @@ public final class Tangent extends UnaryOperation {
     public String asString() {
         return getSymbol() + "(" + getFunction().asString() + ")";
     }
+
     @Override
     public void setCurrentFunction(Function function) {
         setFunction(function);
     }
+
     @Override
     public String getStrSingleFunction() {
         return strSingleFunction;

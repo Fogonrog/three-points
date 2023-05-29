@@ -4,12 +4,6 @@ import androidx.annotation.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 @JsonTypeName("Argument")
 public final class Argument implements Function {
     public Argument() {
@@ -19,6 +13,7 @@ public final class Argument implements Function {
     public String asString() {
         return "x";
     }
+
     @NonNull
     @Override
     public Function clone() throws CloneNotSupportedException {
@@ -34,6 +29,8 @@ public final class Argument implements Function {
     public String getStrSingleFunction() {
         return "x";
     }
+
     @Override
-    public void setCurrentFunction(Function function) {}
+    public void setCurrentFunction(Function function) {
+    }
 }

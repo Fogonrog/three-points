@@ -11,7 +11,7 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 
 @JsonTypeName("Line")
-public final class Line extends Figure implements Drawable {
+public final class Line implements Drawable {
     private final Point a;
     private final Point b;
     private final Path path;
@@ -26,7 +26,10 @@ public final class Line extends Figure implements Drawable {
         path.lineTo(b.x(), b.y());
 
         var geometryFactory = new GeometryFactory();
-        var coordinateList = new Coordinate[]{new Coordinate(a.x(), a.y()), new Coordinate(b.x(), b.y())};
+        var coordinateList = new Coordinate[]{
+                new Coordinate(a.x(), a.y()),
+                new Coordinate(b.x(), b.y())
+        };
         jts = geometryFactory.createLineString(coordinateList);
     }
 
@@ -46,13 +49,13 @@ public final class Line extends Figure implements Drawable {
     }
 
     @Override
-    Geometry jst() {
+    public Geometry jts() {
         return jts;
     }
 
     @Override
-    public boolean intersects(Figure other) {
-        return jts.intersects(other.jst());
+    public boolean intersects(Drawable other) {
+        return jts.intersects(other.jts());
     }
 
     public Point getA() {

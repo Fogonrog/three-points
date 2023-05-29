@@ -3,6 +3,8 @@ package com.example.myapplication.graphics;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import org.locationtech.jts.geom.Geometry;
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "class")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Colored.class, name = "Colored"),
@@ -15,5 +17,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = Polygon.class, name = "Polygon")
 })
 public interface Drawable {
+    Geometry jts();
     void drawOn(Canva canvas);
+    boolean intersects(Drawable other);
 }

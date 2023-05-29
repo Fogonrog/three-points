@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @JsonTypeName("Polygon")
-public final class Polygon extends Figure implements Drawable {
+public final class Polygon implements Drawable {
     private final Path path;
     private final Geometry jts;
     private final List<Point> points;
@@ -31,7 +31,6 @@ public final class Polygon extends Figure implements Drawable {
 
         if (coordinateList.length > 0) {
             path.moveTo((float) coordinateList[0].x, (float) coordinateList[0].y);
-
             Arrays.stream(coordinateList).skip(1)
                     .forEach(c -> path.lineTo((float) c.x, (float) c.y));
         }
@@ -49,13 +48,13 @@ public final class Polygon extends Figure implements Drawable {
     }
 
     @Override
-    Geometry jst() {
+    public Geometry jts() {
         return jts;
     }
 
     @Override
-    public boolean intersects(Figure other) {
-        return jts.intersects(other.jst());
+    public boolean intersects(Drawable other) {
+        return jts.intersects(other.jts());
     }
 
     @Override

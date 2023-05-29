@@ -12,7 +12,7 @@ import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class FunctionGraph extends Figure implements Drawable {
+public final class FunctionGraph implements Drawable {
     private static final float MAX_VALUE_X = 350F;
     private static final float STEP_X = 0.1F;
     private final Function function;
@@ -43,13 +43,13 @@ public final class FunctionGraph extends Figure implements Drawable {
     }
 
     @Override
-    Geometry jst() {
+    public Geometry jts() {
         return jts;
     }
 
     @Override
-    public boolean intersects(Figure other) {
-        return jts.intersects(other.jst());
+    public boolean intersects(Drawable other) {
+        return jts.intersects(other.jts());
     }
 
     @Override

@@ -13,7 +13,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import java.util.List;
 
 @JsonTypeName("BrokenLine")
-public final class BrokenLine extends Figure implements Drawable {
+public final class BrokenLine implements Drawable {
     private final Path path;
     private final Geometry jts;
     private final List<Point> points;
@@ -47,13 +47,13 @@ public final class BrokenLine extends Figure implements Drawable {
     }
 
     @Override
-    Geometry jst() {
+    public Geometry jts() {
         return jts;
     }
 
     @Override
-    public boolean intersects(Figure other) {
-        return jts.intersects(other.jst());
+    public boolean intersects(Drawable other) {
+        return jts.intersects(other.jts());
     }
 
     public List<Point> getPoints() {

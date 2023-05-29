@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("Num")
 public final class Num implements Function {
     private final float number;
+
     @JsonCreator
     public Num(@JsonProperty("number") float number) {
         this.number = number;
@@ -22,6 +23,7 @@ public final class Num implements Function {
             return String.valueOf(number);
         }
     }
+
     @NonNull
     @Override
     public Function clone() throws CloneNotSupportedException {
@@ -37,8 +39,10 @@ public final class Num implements Function {
     public String getStrSingleFunction() {
         return String.valueOf(number);
     }
+
     @Override
-    public void setCurrentFunction(Function function) {}
+    public void setCurrentFunction(Function function) {
+    }
 
     public float getNumber() {
         return number;

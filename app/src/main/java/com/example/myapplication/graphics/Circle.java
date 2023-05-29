@@ -12,7 +12,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.operation.buffer.BufferOp;
 
 @JsonTypeName("Circle")
-public final class Circle extends Figure implements Drawable {
+public final class Circle implements Drawable {
     private static final int DEFINITION = 20;
     private final Point center;
     private final float radius;
@@ -45,13 +45,13 @@ public final class Circle extends Figure implements Drawable {
     }
 
     @Override
-    Geometry jst() {
+    public Geometry jts() {
         return jts;
     }
 
     @Override
-    public boolean intersects(Figure other) {
-        return jts.intersects(other.jst());
+    public boolean intersects(Drawable other) {
+        return jts.intersects(other.jts());
     }
 
     public Point getCenter() {

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import org.locationtech.jts.geom.Geometry;
+
 @JsonTypeName("Colored")
 public final class Colored implements Drawable {
     private final Drawable child;
@@ -18,6 +20,15 @@ public final class Colored implements Drawable {
 
     public static Colored from(int color, Drawable child) {
         return new Colored(color, child);
+    }
+
+    @Override
+    public Geometry jts() {
+        return child.jts();
+    }
+    @Override
+    public boolean intersects(Drawable other) {
+        return child.intersects(other);
     }
 
     public void drawOn(Canva canvas) {

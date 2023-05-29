@@ -5,9 +5,6 @@ import androidx.annotation.NonNull;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import java.io.IOException;
-import java.io.Serializable;
-
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "class")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = AbsoluteValue.class, name = "AbsoluteValue"),
@@ -27,8 +24,12 @@ import java.io.Serializable;
 public interface Function extends Cloneable {
     @NonNull
     Function clone() throws CloneNotSupportedException;
+
     float evaluate(float x);
+
     String asString();
+
     String getStrSingleFunction();
+
     void setCurrentFunction(Function function);
 }
