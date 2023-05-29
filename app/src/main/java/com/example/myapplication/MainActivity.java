@@ -36,7 +36,7 @@ public final class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public String readFileInAssets(String name){
+    public String readFileInAssets(String name) {
 
         String text = name;
         byte[] buffer = null;
@@ -50,7 +50,7 @@ public final class MainActivity extends FragmentActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String str_data = new String(buffer);
-        return str_data;
+        String strData = new String(buffer);
+        return strData;
     }
 }

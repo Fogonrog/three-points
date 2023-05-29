@@ -13,7 +13,8 @@ public final class Level {
     private List<Drawable> forbiddenObstacles;
     private List<Drawable> environment;
 
-    public Level() {}
+    public Level() {
+    }
 
     public List<Function> getFunctions() {
         return functions;

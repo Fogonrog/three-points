@@ -21,11 +21,6 @@ import com.example.myapplication.graphics.Line;
 import com.example.myapplication.graphics.Point;
 import com.example.myapplication.graphics.Polygon;
 import com.example.myapplication.graphics.Scaled;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,15 +1,12 @@
 package com.example.myapplication.expressions;
 
-import com.example.myapplication.graphics.BrokenLine;
-import com.example.myapplication.graphics.Circle;
-import com.example.myapplication.graphics.Colored;
-import com.example.myapplication.graphics.Container;
-import com.example.myapplication.graphics.Line;
-import com.example.myapplication.graphics.Point;
-import com.example.myapplication.graphics.Polygon;
-import com.example.myapplication.graphics.Scaled;
+import androidx.annotation.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import java.io.IOException;
+import java.io.Serializable;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "class")
 @JsonSubTypes({
@@ -27,8 +24,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = Sum.class, name = "Sum"),
         @JsonSubTypes.Type(value = Tangent.class, name = "Tangent")
 })
-public interface Function {
+public interface Function extends Cloneable {
+    @NonNull
+    Function clone() throws CloneNotSupportedException;
     float evaluate(float x);
-
     String asString();
+    String getStrSingleFunction();
+    void setCurrentFunction(Function function);
 }

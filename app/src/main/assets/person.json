@@ -1,10 +1,104 @@
 {
-  "class": "Power",
-  "left": {
-    "class": "Argument"
-  },
-  "right": {
-    "class": "Num",
-    "number": 2.0
-  }
+  "functions": [
+    {
+      "class": "Power",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 2.0
+      },
+      "strFunction": "..²"
+    },
+    {
+      "class": "Power",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 3.0
+      },
+      "strFunction": "..³"
+    },
+    {
+      "class": "Multiplication",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": -1.0
+      },
+      "strFunction": "±"
+    },
+    {
+      "class": "Sum",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 5.0
+      },
+      "strFunction": "+5"
+    },
+    {
+      "class": "Sub",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 7.0
+      },
+      "strFunction": "-7"
+    },
+    {
+      "class": "Division",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 2.0
+      },
+      "strFunction": "/2"
+    },
+    {
+      "class": "Sum",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Multiplication",
+        "left": {
+          "class": "Argument"
+        },
+        "right": {
+          "class": "Num",
+          "number": 7.0
+        }
+      },
+      "strFunction": "+7x"
+    },
+    {
+      "class": "Sub",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Multiplication",
+        "left": {
+          "class": "Argument"
+        },
+        "right": {
+          "class": "Num",
+          "number": 5.0
+        }
+      },
+      "strFunction": "-5x"
+    }
+  ]
 }
