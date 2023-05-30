@@ -26,9 +26,7 @@ public final class Sub extends BinaryOperation {
 
     @Override
     public String asString() {
-        return "(" + left().asString() + " "
-                + symbol() + " "
-                + right().asString() + ")";
+        return String.format("(%s %s %s)", left().asString(), symbol(), right().asString());
     }
 
     @Override

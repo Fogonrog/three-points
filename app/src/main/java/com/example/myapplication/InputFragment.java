@@ -22,22 +22,12 @@ public final class InputFragment extends DialogFragment {
     private TextView textFunction;
     private Draw2D miniCanvas;
     private final Draw2D bigCanvas;
-    private final List<Function> functions;
-    private final List<Drawable> environment;
-    private final List<Drawable> requiredObstacles;
-    private final List<Drawable> forbiddenObstacles;
+    private final Level level;
 
-    public InputFragment(Draw2D bigCanvas,
-                         List<Function> functions,
-                         List<Drawable> environment,
-                         List<Drawable> requiredObstacles,
-                         List<Drawable> forbiddenObstacles) {
+    public InputFragment(Draw2D bigCanvas, Level level) {
         super();
         this.bigCanvas = bigCanvas;
-        this.functions = functions;
-        this.environment = environment;
-        this.requiredObstacles = requiredObstacles;
-        this.forbiddenObstacles = forbiddenObstacles;
+        this.level = level;
     }
 
     @NonNull
@@ -52,9 +42,9 @@ public final class InputFragment extends DialogFragment {
         textFunction = view.findViewById(R.id.x);
         miniCanvas = view.findViewById(R.id.minicanvas);
         miniCanvas.setFunction(x());
-        miniCanvas.setEnvironment(environment);
-        miniCanvas.setRequiredObstacles(requiredObstacles);
-        miniCanvas.setForbiddenObstacles(forbiddenObstacles);
+        miniCanvas.setLevel(level);
+
+        var functions = level.getFunctions();
 
         Button btnOk = view.findViewById(R.id.button_ok);
         btnOk.setOnClickListener(v -> {
@@ -70,108 +60,32 @@ public final class InputFragment extends DialogFragment {
         btnC.setOnClickListener(v -> setFunction(x()));
 
         Button btn2 = view.findViewById(R.id.button2);
-        btn2.setText(functions.get(0).getStrSingleFunction());
-        btn2.setOnClickListener(v -> {
-            Function firstFunc;
-            try {
-                firstFunc = functions.get(0).clone();
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-            firstFunc.setCurrentFunction(miniCanvas.getFunction());
-            setFunction(firstFunc);
-        });
-
         Button btn3 = view.findViewById(R.id.button3);
-        btn3.setText(functions.get(1).getStrSingleFunction());
-        btn3.setOnClickListener(v -> {
-            Function secondFunc;
-            try {
-                secondFunc = functions.get(1).clone();
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-            secondFunc.setCurrentFunction(miniCanvas.getFunction());
-            setFunction(secondFunc);
-        });
-
         Button btn4 = view.findViewById(R.id.button4);
-        btn4.setText(functions.get(2).getStrSingleFunction());
-        btn4.setOnClickListener(v -> {
-            Function thirdFunc;
-            try {
-                thirdFunc = functions.get(2).clone();
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-            thirdFunc.setCurrentFunction(miniCanvas.getFunction());
-            setFunction(thirdFunc);
-        });
-
         Button btn5 = view.findViewById(R.id.button5);
-        btn5.setText(functions.get(3).getStrSingleFunction());
-        btn5.setOnClickListener(v -> {
-            Function fourthFunc;
-            try {
-                fourthFunc = functions.get(3).clone();
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-            fourthFunc.setCurrentFunction(miniCanvas.getFunction());
-            setFunction(fourthFunc);
-        });
-
         Button btn6 = view.findViewById(R.id.button6);
-        btn6.setText(functions.get(4).getStrSingleFunction());
-        btn6.setOnClickListener(v -> {
-            Function fifthFunc;
-            try {
-                fifthFunc = functions.get(4).clone();
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-            fifthFunc.setCurrentFunction(miniCanvas.getFunction());
-            setFunction(fifthFunc);
-        });
-
         Button btn7 = view.findViewById(R.id.button7);
-        btn7.setText(functions.get(5).getStrSingleFunction());
-        btn7.setOnClickListener(v -> {
-            Function sixthFunc;
-            try {
-                sixthFunc = functions.get(5).clone();
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-            sixthFunc.setCurrentFunction(miniCanvas.getFunction());
-            setFunction(sixthFunc);
-        });
-
         Button btn8 = view.findViewById(R.id.button8);
-        btn8.setText(functions.get(6).getStrSingleFunction());
-        btn8.setOnClickListener(v -> {
-            Function seventhFunc;
-            try {
-                seventhFunc = functions.get(6).clone();
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-            seventhFunc.setCurrentFunction(miniCanvas.getFunction());
-            setFunction(seventhFunc);
-        });
-
         Button btn9 = view.findViewById(R.id.button9);
-        btn9.setText(functions.get(7).getStrSingleFunction());
-        btn9.setOnClickListener(v -> {
-            Function eightFunc;
-            try {
-                eightFunc = functions.get(7).clone();
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-            eightFunc.setCurrentFunction(miniCanvas.getFunction());
-            setFunction(eightFunc);
-        });
+
+        List<Button> buttons = List.of(btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9);
+
+        int i = 0;
+        for(Button btn : buttons){
+            btn.setText(functions.get(i).getStrSingleFunction());
+            int finalI = i;
+            btn.setOnClickListener(v -> {
+                Function func;
+                try {
+                    func = functions.get(finalI).clone();
+                } catch (CloneNotSupportedException e) {
+                    throw new RuntimeException(e);
+                }
+                func.setCurrentFunction(miniCanvas.getFunction());
+                setFunction(func);
+            });
+            i++;
+        }
 
         updateTextView();
         return builder;

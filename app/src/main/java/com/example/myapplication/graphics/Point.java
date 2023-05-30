@@ -1,5 +1,7 @@
 package com.example.myapplication.graphics;
 
+import static com.example.myapplication.expressions.Functions.expr;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -17,12 +19,8 @@ public final class Point {
     @JsonCreator
     public Point(@JsonProperty("strX") String strX,
                  @JsonProperty("strY") String strY) {
-        this.x = (float) new ExpressionBuilder(strX)
-                .build()
-                .evaluate();
-        this.y = (float) new ExpressionBuilder(strY)
-                .build()
-                .evaluate();
+        this.x = expr(strX);
+        this.y = expr(strY);
     }
 
     public Point(float x, float y) {

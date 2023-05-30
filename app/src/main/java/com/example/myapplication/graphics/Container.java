@@ -35,7 +35,7 @@ public final class Container implements Drawable {
     public boolean intersects(Drawable other) {
         var result = true;
         for (Drawable child : children) {
-            result = child.intersects(other);
+            result = result && child.intersects(other);
         }
         return result;
     }

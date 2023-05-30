@@ -35,9 +35,10 @@ public final class Draw2D extends View {
     private Drawable axes;
     private FunctionGraph func;
     private Canvas canvas;
-    private List<Drawable> requiredObstacles;
-    private List<Drawable> forbiddenObstacles;
-    private List<Drawable> environment;
+//    private List<Drawable> requiredObstacles;
+//    private List<Drawable> forbiddenObstacles;
+//    private List<Drawable> environment;
+    private Level level;
 
     public Draw2D(Context context) {
         this(context, null);
@@ -48,17 +49,21 @@ public final class Draw2D extends View {
         this.isBigCanvas = getId() == R.id.canvas;
     }
 
-    public void setRequiredObstacles(List<Drawable> requiredObstacles) {
-        this.requiredObstacles = requiredObstacles;
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
-    public void setForbiddenObstacles(List<Drawable> forbiddenObstacles) {
-        this.forbiddenObstacles = forbiddenObstacles;
-    }
-
-    public void setEnvironment(List<Drawable> environment) {
-        this.environment = environment;
-    }
+//    public void setRequiredObstacles(List<Drawable> requiredObstacles) {
+//        this.requiredObstacles = requiredObstacles;
+//    }
+//
+//    public void setForbiddenObstacles(List<Drawable> forbiddenObstacles) {
+//        this.forbiddenObstacles = forbiddenObstacles;
+//    }
+//
+//    public void setEnvironment(List<Drawable> environment) {
+//        this.environment = environment;
+//    }
 
     public Function getFunction() {
         return this.function;
@@ -71,10 +76,10 @@ public final class Draw2D extends View {
 
     public boolean isRightFunction() {
         var result = true;
-        for (var reqObstacle : requiredObstacles) {
+        for (var reqObstacle : level.getRequiredObstacles()) {
             result = result && reqObstacle.intersects(func);
         }
-        for (var forbObstacle : forbiddenObstacles) {
+        for (var forbObstacle : level.getForbiddenObstacles()) {
             result = result && !(forbObstacle.intersects(func));
         }
         return result;
@@ -95,8 +100,8 @@ public final class Draw2D extends View {
 
         mainCanvas.draw(axes);
         if (isBigCanvas) {
-            mainCanvas.draw(environment.get(1));
-            mainCanvas.draw(environment.get(2));
+            mainCanvas.draw(level.getEnvironment().get(1));
+            mainCanvas.draw(level.getEnvironment().get(2));
         }
         mainCanvas.draw(Colored.from(Color.RED, Scaled.from(LARGE_WIDTH, func)));
     }

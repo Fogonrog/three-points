@@ -1,5 +1,7 @@
 package com.example.myapplication.expressions;
 
+import net.objecthunter.exp4j.ExpressionBuilder;
+
 public final class Functions {
     private Functions() { }
     public static Argument x() {
@@ -52,5 +54,10 @@ public final class Functions {
 
     public static Tangent tg(Function function) {
         return new Tangent(function);
+    }
+    public static float expr(String string){
+        return (float) new ExpressionBuilder(string)
+                .build()
+                .evaluate();
     }
 }
