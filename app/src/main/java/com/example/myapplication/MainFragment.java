@@ -1,10 +1,17 @@
 package com.example.myapplication;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.InputStream;
 
 public final class MainFragment extends Fragment {
 
@@ -14,16 +21,19 @@ public final class MainFragment extends Fragment {
         return canvas;
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
+        Level level = getLevel("level-1.json");
 
         var view = inflater.inflate(R.layout.fragment_input, container, false);
         canvas = view.findViewById(R.id.canvas);
+        canvas.setLevel(level);
 
         var btnAddFunction = view.findViewById(R.id.add_function);
         var manager = MainFragment.this.getParentFragmentManager();
         btnAddFunction.setOnClickListener(v -> {
-            var inputFragment = new InputFragment(canvas);
+            var inputFragment = new InputFragment(canvas, level);
             inputFragment.show(manager, "inputFragment");
         });
 
@@ -34,5 +44,44 @@ public final class MainFragment extends Fragment {
         });
 
         return view;
+    }
+    public Level getLevel(String nameJsonFile){
+        var display = this.requireActivity().getWindowManager().getDefaultDisplay();
+        var point = new Point();
+        display.getSize(point);
+        var width = point.x;
+        var height = point.y;
+
+        Level level;
+        try {
+            var objectMapper = new ObjectMapper();
+            var string = readFileInAssets(nameJsonFile);
+            string = string
+                    .replace("{{WIDTH_PLACEHOLDER}}", String.valueOf(width))
+                    .replace("{{HEIGHT_PLACEHOLDER}}", String.valueOf(height))
+                    .replace("{{WIDTH_HALF}}", String.valueOf(width / 2))
+                    .replace("{{HEIGHT_HALF}}", String.valueOf(height / 2))
+                    .replace("{{INDENT}}", String.valueOf(20));
+            level = objectMapper.readValue(string, Level.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return level;
+    }
+
+    public String readFileInAssets(String name) {
+
+        byte[] buffer;
+        InputStream is;
+        try {
+            is = this.requireActivity().getAssets().open(name);
+            int size = is.available();
+            buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return new String(buffer);
     }
 }

@@ -27,7 +27,7 @@ public final class RunFragment extends DialogFragment {
         builder.setTitle("Подтверждение")
                 .setMessage("Вы хотите продолжить?")
                 .setPositiveButton(yes, (dialog, id) -> {
-                    Toast.makeText(getActivity(), "" + bigCanvas.isRightFunction(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "" + bigCanvas.isRightFunction(), Toast.LENGTH_SHORT).show();
                     dialog.cancel();
                 })
                 .setNegativeButton(no, (dialog, id) -> dialog.cancel())

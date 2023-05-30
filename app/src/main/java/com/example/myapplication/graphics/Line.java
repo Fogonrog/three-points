@@ -2,18 +2,23 @@ package com.example.myapplication.graphics;
 
 import android.graphics.Path;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.LineString;
 
-public final class Line extends Figure implements Drawable {
+@JsonTypeName("Line")
+public final class Line implements Drawable {
     private final Point a;
     private final Point b;
     private final Path path;
     private final Geometry jts;
 
-    private Line(Point a, Point b) {
+    @JsonCreator
+    private Line(@JsonProperty("a") Point a, @JsonProperty("b") Point b) {
         this.a = a;
         this.b = b;
         this.path = new Path();
@@ -21,7 +26,10 @@ public final class Line extends Figure implements Drawable {
         path.lineTo(b.x(), b.y());
 
         var geometryFactory = new GeometryFactory();
-        var coordinateList = new Coordinate[]{new Coordinate(a.x(), a.y()), new Coordinate(b.x(), b.y())};
+        var coordinateList = new Coordinate[]{
+                new Coordinate(a.x(), a.y()),
+                new Coordinate(b.x(), b.y())
+        };
         jts = geometryFactory.createLineString(coordinateList);
     }
 
@@ -41,12 +49,20 @@ public final class Line extends Figure implements Drawable {
     }
 
     @Override
-    Geometry jst() {
+    public Geometry jts() {
         return jts;
     }
 
     @Override
-    public boolean intersects(Figure other) {
-        return jts.intersects(other.jst());
+    public boolean intersects(Drawable other) {
+        return jts.intersects(other.jts());
+    }
+
+    public Point getA() {
+        return a;
+    }
+
+    public Point getB() {
+        return b;
     }
 }
