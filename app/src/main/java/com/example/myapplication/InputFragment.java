@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import com.example.myapplication.expressions.Function;
-import com.example.myapplication.graphics.Drawable;
 
 import java.util.List;
 

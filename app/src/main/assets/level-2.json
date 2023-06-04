@@ -1,5 +1,5 @@
 {
-  "level": 1,
+  "level": 2,
   "functions": [
     {
       "class": "Power",
@@ -142,7 +142,28 @@
       }
     }
   ],
-  "forbiddenObstacles": [],
+  "forbiddenObstacles": [
+    {
+      "class": "Colored",
+      "color": -16776961,
+      "child": {
+        "class": "Scaled",
+        "width": 10,
+        "child": {
+          "class": "Filled",
+          "filled": true,
+          "child": {
+            "class": "Circle",
+            "center": {
+              "strX": "-30",
+              "strY": "100"
+            },
+            "radius": 150.0
+          }
+        }
+      }
+    }
+  ],
   "environment": [
     {
       "class": "Colored",

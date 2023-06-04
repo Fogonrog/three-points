@@ -1,21 +1,19 @@
 package com.example.myapplication;
 
 import static com.example.myapplication.expressions.Functions.x;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-
 import androidx.annotation.Nullable;
-
 import com.example.myapplication.expressions.Function;
 import com.example.myapplication.graphics.Canva;
 import com.example.myapplication.graphics.Colored;
 import com.example.myapplication.graphics.Container;
 import com.example.myapplication.graphics.Drawable;
+import com.example.myapplication.graphics.Filled;
 import com.example.myapplication.graphics.FunctionGraph;
 import com.example.myapplication.graphics.Line;
 import com.example.myapplication.graphics.Point;
@@ -35,9 +33,6 @@ public final class Draw2D extends View {
     private Drawable axes;
     private FunctionGraph func;
     private Canvas canvas;
-//    private List<Drawable> requiredObstacles;
-//    private List<Drawable> forbiddenObstacles;
-//    private List<Drawable> environment;
     private Level level;
 
     public Draw2D(Context context) {
@@ -52,21 +47,11 @@ public final class Draw2D extends View {
     public void setLevel(Level level) {
         this.level = level;
     }
-
-//    public void setRequiredObstacles(List<Drawable> requiredObstacles) {
-//        this.requiredObstacles = requiredObstacles;
-//    }
-//
-//    public void setForbiddenObstacles(List<Drawable> forbiddenObstacles) {
-//        this.forbiddenObstacles = forbiddenObstacles;
-//    }
-//
-//    public void setEnvironment(List<Drawable> environment) {
-//        this.environment = environment;
-//    }
-
     public Function getFunction() {
         return this.function;
+    }
+    public float getWidthMlt() {
+        return this.widthMlt;
     }
 
     public void setFunction(Function function) {
@@ -102,8 +87,18 @@ public final class Draw2D extends View {
         if (isBigCanvas) {
             mainCanvas.draw(level.getEnvironment().get(1));
             mainCanvas.draw(level.getEnvironment().get(2));
+            if (level.getRequiredObstacles().size() > 0){
+                for (Drawable reqObstacle : level.getRequiredObstacles()){
+                    mainCanvas.draw(reqObstacle);
+                }
+            }
+            if (level.getForbiddenObstacles().size() > 0){
+                for (Drawable forbObstacle : level.getForbiddenObstacles()){
+                    mainCanvas.draw(forbObstacle);
+                }
+            }
         }
-        mainCanvas.draw(Colored.from(Color.RED, Scaled.from(LARGE_WIDTH, func)));
+        mainCanvas.draw(Colored.from(Color.RED, Scaled.from(LARGE_WIDTH, Filled.from(false,func))));
     }
 
     private void initialCanvasPreparation(Canvas canvas) {
@@ -134,7 +129,7 @@ public final class Draw2D extends View {
         var l = -width / NUM_FOUR - NUM_FOUR;
         // пусть мы считаем, что в точке l должнa быть координаты x = -a
         // тогда масштаб
-        widthMlt = -l / A;
+        this.widthMlt = -l / A;
     }
 
     private void moveStartingPoint(Canvas canvas) {

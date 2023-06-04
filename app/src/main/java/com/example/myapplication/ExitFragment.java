@@ -1,25 +1,16 @@
 package com.example.myapplication;
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-
-public final class RunFragment extends DialogFragment {
-
-    private final Draw2D bigCanvas;
-    private final int level;
-
-    public RunFragment(Draw2D bigCanvas, int level) {
+public final class ExitFragment extends DialogFragment {
+    public ExitFragment() {
         super();
-        this.bigCanvas = bigCanvas;
-        this.level = level;
     }
 
     @NonNull
@@ -30,16 +21,14 @@ public final class RunFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Подтверждение")
-                .setMessage("Вы хотите продолжить?")
+                .setMessage("Вы точно хотите выйти?")
                 .setPositiveButton(yes, (dialog, id) -> {
-                    var result = bigCanvas.isRightFunction();
-                    Toast.makeText(getActivity(), "" + result, Toast.LENGTH_SHORT).show();
-                    if (result) {
-                        ChooseLevelActivity.saveProgress(level);
-                        var intent = new Intent(getContext(), ChooseLevelActivity.class);
-                        startActivity(intent);
-                    }
                     dialog.cancel();
+                    Intent intent = new Intent(requireActivity(), MenuActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    requireActivity().finishAffinity();
+                    System.exit(0);
                 })
                 .setNegativeButton(no, (dialog, id) -> dialog.cancel())
                 .setCancelable(true);
