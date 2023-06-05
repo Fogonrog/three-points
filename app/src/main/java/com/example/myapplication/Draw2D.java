@@ -1,91 +1,141 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.expressions.Functions.x;
+
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
-public class Draw2D extends View {
+import com.example.myapplication.expressions.Function;
+import com.example.myapplication.graphics.Canva;
+import com.example.myapplication.graphics.Colored;
+import com.example.myapplication.graphics.Container;
+import com.example.myapplication.graphics.Drawable;
+import com.example.myapplication.graphics.Filled;
+import com.example.myapplication.graphics.FunctionGraph;
+import com.example.myapplication.graphics.Line;
+import com.example.myapplication.graphics.Point;
+import com.example.myapplication.graphics.Scaled;
+
+import java.util.List;
+
+public final class Draw2D extends View {
+
+    private static final float A = 7.0f;
+    private static final float INDENT = 20F;
+    private static final float NUM_FOUR = 4F;
+    private static final int LARGE_WIDTH = 8;
+    private final boolean isBigCanvas;
     private final Paint paint = new Paint();
-    private final Bitmap bitmap;
+    private float widthMlt;
+    private Function function = x();
+    private Drawable axes;
+    private FunctionGraph func;
     private Canvas canvas;
+    private Level level;
 
     public Draw2D(Context context) {
-        super(context);
-        // Выводим значок из ресурсов
-        Resources res = this.getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.first);
+        this(context, null);
     }
 
     public Draw2D(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        Resources res = this.getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.first);
+        this.isBigCanvas = getId() == R.id.canvas;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    public Function getFunction() {
+        return this.function;
+    }
+
+    public void setFunction(Function function) {
+        this.function = function;
+        invalidate();
+    }
+
+    public float getWidthMlt() {
+        return this.widthMlt;
+    }
+
+    public boolean isRightFunction() {
+        var result = true;
+        for (var reqObstacle : level.getRequiredObstacles()) {
+            result = result && reqObstacle.intersects(func);
+        }
+        for (var forbObstacle : level.getForbiddenObstacles()) {
+            result = result && !(forbObstacle.intersects(func));
+        }
+        return result;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         this.canvas = canvas;
+        if (axes == null) {
+            lazyInit();
+        }
+        moveStartingPoint(canvas);
+        initialCanvasPreparation(canvas);
+        var mainCanvas = Canva.from(canvas, paint);
+        var func = FunctionGraph.from(function, widthMlt);
+        this.func = func;
 
-
-        int width = getWidth();
-        int height = getHeight();
-        moveStartingPoin(width,height);
-        initialСanvasPreparation();
-
-        //drawBackground(rotatedBitmap(bitmap),width,height);
-
-        drawAxes(Color.BLACK,width,height);
-
-        drawParabola(Color.RED);
-
+        mainCanvas.draw(axes);
+        if (isBigCanvas) {
+            mainCanvas.draw(level.getEnvironment().get(1));
+            mainCanvas.draw(level.getEnvironment().get(2));
+            for (Drawable reqObstacle : level.getRequiredObstacles()) {
+                mainCanvas.draw(reqObstacle);
+            }
+            for (Drawable forbObstacle : level.getForbiddenObstacles()) {
+                mainCanvas.draw(forbObstacle);
+            }
+        }
+        mainCanvas.draw(Colored.from("#FFFF0000", Scaled.from(LARGE_WIDTH, Filled.from(false, func))));
     }
 
-    private void drawBackground(Bitmap bitmap, int width, int height) {
-        Rect dstRect = new Rect(width / -2, height / -2,width / 2, height / 2);
-        canvas.drawBitmap(bitmap, null, dstRect, null);
-    }
-
-    private Bitmap rotatedBitmap(Bitmap bitmap) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(180);
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-    }
-
-    private void drawAxes(int color,int width,int height) {
-        paint.setColor(color);
-        canvas.drawRect(1,height/2,-1,-height/2,paint);
-        canvas.drawRect(width/2,1,-width/2,-1,paint);
-    }
-
-    private void initialСanvasPreparation() {
-        paint.setStyle(Paint.Style.FILL);
+    private void initialCanvasPreparation(Canvas canvas) {
+        paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.WHITE);
         canvas.drawPaint(paint);
         paint.setAntiAlias(true);
     }
 
-    private void moveStartingPoin(int width,int height) {
-        canvas.translate(width/2,height/2);
-        canvas.scale(1f, -1f);
+    private void lazyInit() {
+        float width = getWidth();
+        float height = getHeight();
+        axes = Colored.from("#FF000000", Scaled.from(1, Container.from(List.of(
+                Line.of(Point.of(0F, height / 2),
+                        Point.of(0F, -height / 2)),
+                Line.of(Point.of(width / 2, 0F),
+                        Point.of(-width / 2, 0F)),
+                Line.of(Point.of(INDENT, (height / 2 - INDENT)),
+                        Point.of(0F, height / 2)),
+                Line.of(Point.of(-INDENT, (height / 2 - INDENT)),
+                        Point.of(0F, height / 2)),
+                Line.of(Point.of((width / 2 - INDENT), -INDENT),
+                        Point.of(width / 2, 0F)),
+                Line.of(Point.of((width / 2 - INDENT), INDENT),
+                        Point.of(width / 2, 0F))
+        ))));
+        // посчитаем масштаб
+        var l = -width / NUM_FOUR - NUM_FOUR;
+        // пусть мы считаем, что в точке l должнa быть координаты x = -a
+        // тогда масштаб
+        this.widthMlt = -l / A;
     }
 
-    private void drawParabola(int color) {
-        paint.setColor(color);
-        for (float i = 0F; i < 20; i += 0.01F) {
-            canvas.drawCircle(i*10, (float) (i*i), 3, paint);
-            canvas.drawCircle(-i*10, (float) (i*i), 3, paint);
-        }
+    private void moveStartingPoint(Canvas canvas) {
+        canvas.translate((float) getWidth() / 2, (float) getHeight() / 2);
+        canvas.scale(1f, -1f);
     }
 }
