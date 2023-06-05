@@ -1,0 +1,416 @@
+{
+  "level": 3,
+  "functions": [
+    {
+      "class": "Power",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 2.0
+      },
+      "strFunction": "..²"
+    },
+    {
+      "class": "Multiplication",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": -1.0
+      },
+      "strFunction": "±"
+    },
+    {
+      "class": "Sum",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 5.0
+      },
+      "strFunction": "+5"
+    },
+    {
+      "class": "Sub",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 7.0
+      },
+      "strFunction": "-7"
+    },
+    {
+      "class": "Division",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 2.0
+      },
+      "strFunction": "/2"
+    },
+    {
+      "class": "Multiplication",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 7.0
+      },
+      "strFunction": "*7"
+    },
+    {
+      "class": "AbsoluteValue",
+      "function": {
+        "class": "Argument"
+      },
+      "strFunction": "|..|"
+    },
+    {
+      "class": "Division",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 5.0
+      },
+      "strFunction": "/5"
+    }
+  ],
+  "requiredObstacles": [
+    {
+      "class": "Colored",
+      "color": "#FF000000",
+      "child": {
+        "class": "Scaled",
+        "width": 1,
+        "child": {
+          "class": "Line",
+          "a": {
+            "strX": "-{{HEIGHT_HALF}}",
+            "strY": "-{{INDENT}}"
+          },
+          "b": {
+            "strX": "-{{WIDTH_PLACEHOLDER}}/4-4",
+            "strY": "-{{INDENT}}"
+          }
+        }
+      }
+    },
+    {
+      "class": "Colored",
+      "color": "#FF000000",
+      "child": {
+        "class": "Scaled",
+        "width": 1,
+        "child": {
+          "class": "Line",
+          "a": {
+            "strX": "{{HEIGHT_HALF}}",
+            "strY": "-{{INDENT}}"
+          },
+          "b": {
+            "strX": "{{WIDTH_PLACEHOLDER}}/4+4",
+            "strY": "-{{INDENT}}"
+          }
+        }
+      }
+    }
+  ],
+  "forbiddenObstacles": [
+    {
+      "class": "Colored",
+      "color": "#FF3F48CC",
+      "child": {
+        "class": "Scaled",
+        "width": 10,
+        "child": {
+          "class": "Filled",
+          "filled": true,
+          "child": {
+            "class":"Polygon",
+            "points":[
+              {
+                "strX": "-295",
+                "strY": "60"
+              },
+              {
+                "strX": "-270",
+                "strY": "150"
+              },
+              {
+                "strX": "-325",
+                "strY": "200"
+              },
+              {
+                "strX": "-245",
+                "strY": "200"
+              },
+              {
+                "strX": "-210",
+                "strY": "280"
+              },
+              {
+                "strX": "-175",
+                "strY": "200"
+              },
+              {
+                "strX": "-90",
+                "strY": "200"
+              },
+              {
+                "strX": "-150",
+                "strY": "150"
+              },
+              {
+                "strX": "-130",
+                "strY": "60"
+              },
+              {
+                "strX": "-210",
+                "strY": "95"
+              },
+              {
+                "strX": "-295",
+                "strY": "60"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "class": "Colored",
+      "color": "#FFA349A4",
+      "child": {
+        "class": "Scaled",
+        "width": 10,
+        "child": {
+          "class": "Filled",
+          "filled": true,
+          "child": {
+            "class": "Polygon",
+            "points":[
+              {
+                "strX": "-60",
+                "strY": "270"
+              },
+              {
+                "strX": "150",
+                "strY": "430"
+              },
+              {
+                "strX": "200",
+                "strY": "160"
+              },
+              {
+                "strX": "-60",
+                "strY": "270"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "class": "Colored",
+      "color": "#FF7092BE",
+      "child": {
+        "class": "Scaled",
+        "width": 10,
+        "child": {
+          "class": "Filled",
+          "filled": true,
+          "child": {
+            "class": "Circle",
+            "center": {
+              "strX": "0",
+              "strY": "-50"
+            },
+            "radius": 125.0
+          }
+        }
+      }
+    }
+  ],
+  "environment": [
+    {
+      "class": "Colored",
+      "color": "#FF000000",
+      "child": {
+        "class": "Scaled",
+        "width": 1,
+        "child": {
+          "class": "Container",
+          "children": [
+            {
+              "class": "Line",
+              "a": {
+                "strX": "0",
+                "strY": "{{HEIGHT_HALF}}"
+              },
+              "b": {
+                "strX": "0",
+                "strY": "-{{HEIGHT_HALF}}"
+              }
+            },
+            {
+              "class": "Line",
+              "a": {
+                "strX": "{{WIDTH_HALF}}",
+                "strY": "0"
+              },
+              "b": {
+                "strX": "-{{WIDTH_HALF}}",
+                "strY": "0"
+              }
+            },
+            {
+              "class": "Line",
+              "a": {
+                "strX": "{{INDENT}}",
+                "strY": "{{HEIGHT_HALF}}-{{INDENT}}"
+              },
+              "b": {
+                "strX": "0",
+                "strY": "{{HEIGHT_HALF}}"
+              }
+            },
+            {
+              "class": "Line",
+              "a": {
+                "strX": "-{{INDENT}}",
+                "strY": "{{HEIGHT_HALF}}-{{INDENT}}"
+              },
+              "b": {
+                "strX": "0",
+                "strY": "{{HEIGHT_HALF}}"
+              }
+            },
+            {
+              "class": "Line",
+              "a": {
+                "strX": "{{WIDTH_HALF}}-{{INDENT}}",
+                "strY": "-{{INDENT}}"
+              },
+              "b": {
+                "strX": "{{WIDTH_HALF}}",
+                "strY": "0"
+              }
+            },
+            {
+              "class": "Line",
+              "a": {
+                "strX": "{{WIDTH_HALF}}-{{INDENT}}",
+                "strY": "{{INDENT}}"
+              },
+              "b": {
+                "strX": "{{WIDTH_HALF}}",
+                "strY": "0"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "class": "Colored",
+      "color": "#FF000000",
+      "child": {
+        "class": "Scaled",
+        "width": 8,
+        "child": {
+          "class":"Polygon",
+          "points":[
+            {
+              "strX": "-{{WIDTH_HALF}}",
+              "strY": "-{{INDENT}}"
+            },
+            {
+              "strX": "-{{WIDTH_PLACEHOLDER}}/4-4",
+              "strY": "-{{INDENT}}"
+            },
+            {
+              "strX": "-{{WIDTH_PLACEHOLDER}}/3",
+              "strY": "-{{HEIGHT_PLACEHOLDER}}/3"
+            },
+            {
+              "strX": "-{{WIDTH_PLACEHOLDER}}/4-4",
+              "strY": "-{{INDENT}}"
+            },
+            {
+              "strX": "-{{WIDTH_PLACEHOLDER}}/3",
+              "strY": "-{{HEIGHT_PLACEHOLDER}}/3"
+            },
+            {
+              "strX": "-{{WIDTH_PLACEHOLDER}}/4-2*{{INDENT}}",
+              "strY": "-{{HEIGHT_HALF}}"
+            },
+            {
+              "strX": "-{{WIDTH_HALF}}",
+              "strY": "-{{HEIGHT_HALF}}"
+            },
+            {
+              "strX": "-{{WIDTH_HALF}}",
+              "strY": "-{{INDENT}}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "class": "Colored",
+      "color": "#FF000000",
+      "child": {
+        "class": "Scaled",
+        "width": 8,
+        "child": {
+          "class":"Polygon",
+          "points":[
+            {
+              "strX": "{{WIDTH_HALF}}",
+              "strY": "-{{INDENT}}"
+            },
+            {
+              "strX": "{{WIDTH_PLACEHOLDER}}/4+4",
+              "strY": "-{{INDENT}}"
+            },
+            {
+              "strX": "{{WIDTH_PLACEHOLDER}}/3",
+              "strY": "-{{HEIGHT_PLACEHOLDER}}/3"
+            },
+            {
+              "strX": "{{WIDTH_PLACEHOLDER}}/4+4",
+              "strY": "-{{INDENT}}"
+            },
+            {
+              "strX": "{{WIDTH_PLACEHOLDER}}/3",
+              "strY": "-{{HEIGHT_PLACEHOLDER}}/3"
+            },
+            {
+              "strX": "{{WIDTH_PLACEHOLDER}}/4+2*{{INDENT}}",
+              "strY": "-{{HEIGHT_HALF}}"
+            },
+            {
+              "strX": "{{WIDTH_HALF}}",
+              "strY": "-{{HEIGHT_HALF}}"
+            },
+            {
+              "strX": "{{WIDTH_HALF}}",
+              "strY": "-{{INDENT}}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -8,14 +8,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.io.InputStream;
 
-public final class MainFragment extends Fragment {
-
+public final class LevelFragment extends Fragment {
+    private static FragmentManager manager;
     private Draw2D canvas;
+
+    public static void showVictoryFragment(int level) {
+        var victoryFragment = new VictoryFragment(level);
+        victoryFragment.show(manager, "victoryFragment");
+    }
 
     public View getCanvas() {
         return canvas;
@@ -24,14 +31,21 @@ public final class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        Level level = getLevel("level-1.json");
+        var display = this.requireActivity().getWindowManager().getDefaultDisplay();
+        var point = new Point();
+        display.getSize(point);
+        var width = point.x;
+        var height = point.y;
+
+        var nameLevel = requireActivity().getIntent().getStringExtra("level");
+        var level = getLevel(nameLevel, width, height);
 
         var view = inflater.inflate(R.layout.fragment_input, container, false);
         canvas = view.findViewById(R.id.canvas);
         canvas.setLevel(level);
 
         var btnAddFunction = view.findViewById(R.id.add_function);
-        var manager = MainFragment.this.getParentFragmentManager();
+        manager = LevelFragment.this.getParentFragmentManager();
         btnAddFunction.setOnClickListener(v -> {
             var inputFragment = new InputFragment(canvas, level);
             inputFragment.show(manager, "inputFragment");
@@ -39,19 +53,20 @@ public final class MainFragment extends Fragment {
 
         var btnRun = view.findViewById(R.id.runbutton);
         btnRun.setOnClickListener(v -> {
-            var runFragment = new RunFragment(canvas);
+            var runFragment = new RunFragment(canvas, level.getLevel());
             runFragment.show(manager, "runFragment");
+        });
+
+        var btnPause = view.findViewById(R.id.pausebutton);
+        btnPause.setOnClickListener(v -> {
+            var pauseFragment = new PauseFragment();
+            pauseFragment.show(manager, "pauseFragment");
         });
 
         return view;
     }
-    public Level getLevel(String nameJsonFile){
-        var display = this.requireActivity().getWindowManager().getDefaultDisplay();
-        var point = new Point();
-        display.getSize(point);
-        var width = point.x;
-        var height = point.y;
 
+    public Level getLevel(String nameJsonFile, float width, float height) {
         Level level;
         try {
             var objectMapper = new ObjectMapper();

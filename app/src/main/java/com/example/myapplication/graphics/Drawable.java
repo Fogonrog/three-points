@@ -14,7 +14,8 @@ import org.locationtech.jts.geom.Geometry;
         @JsonSubTypes.Type(value = BrokenLine.class, name = "BrokenLine"),
         @JsonSubTypes.Type(value = Container.class, name = "Container"),
         @JsonSubTypes.Type(value = Line.class, name = "Line"),
-        @JsonSubTypes.Type(value = Polygon.class, name = "Polygon")
+        @JsonSubTypes.Type(value = Polygon.class, name = "Polygon"),
+        @JsonSubTypes.Type(value = Filled.class, name = "Filled")
 })
 public interface Drawable {
     Geometry jts();

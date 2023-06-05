@@ -1,4 +1,5 @@
 {
+  "level": 1,
   "functions": [
     {
       "class": "Power",
@@ -10,17 +11,6 @@
         "number": 2.0
       },
       "strFunction": "..²"
-    },
-    {
-      "class": "Power",
-      "left": {
-        "class": "Argument"
-      },
-      "right": {
-        "class": "Num",
-        "number": 3.0
-      },
-      "strFunction": "..³"
     },
     {
       "class": "Multiplication",
@@ -67,6 +57,17 @@
       "strFunction": "/2"
     },
     {
+      "class": "Multiplication",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 7.0
+      },
+      "strFunction": "*7"
+    },
+    {
       "class": "Sum",
       "left": {
         "class": "Argument"
@@ -104,7 +105,7 @@
   "requiredObstacles": [
     {
       "class": "Colored",
-      "color": -16777216,
+      "color": "#FF000000",
       "child": {
         "class": "Scaled",
         "width": 1,
@@ -123,7 +124,7 @@
     },
     {
       "class": "Colored",
-      "color": -16777216,
+      "color": "#FF000000",
       "child": {
         "class": "Scaled",
         "width": 1,
@@ -145,7 +146,7 @@
   "environment": [
     {
       "class": "Colored",
-      "color": -16777216,
+      "color": "#FF000000",
       "child": {
         "class": "Scaled",
         "width": 1,
@@ -224,7 +225,7 @@
     },
     {
       "class": "Colored",
-      "color": -16777216,
+      "color": "#FF000000",
       "child": {
         "class": "Scaled",
         "width": 8,
@@ -269,7 +270,7 @@
     },
     {
       "class": "Colored",
-      "color": -16777216,
+      "color": "#FF000000",
       "child": {
         "class": "Scaled",
         "width": 8,

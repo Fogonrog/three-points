@@ -1,5 +1,7 @@
 package com.example.myapplication.graphics;
 
+import android.graphics.Color;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -12,13 +14,13 @@ public final class Colored implements Drawable {
     private final int color;
 
     @JsonCreator
-    public Colored(@JsonProperty("color") int color,
+    public Colored(@JsonProperty("color") String color,
                    @JsonProperty("child") Drawable child) {
-        this.color = color;
+        this.color = Color.parseColor(color);
         this.child = child;
     }
 
-    public static Colored from(int color, Drawable child) {
+    public static Colored from(String color, Drawable child) {
         return new Colored(color, child);
     }
 

@@ -11,4 +11,14 @@
         android:fontWeight="100"
         android:font="@font/oswald"
         />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="100"
+        android:font="@font/oswald_light"
+        />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="100"
+        android:font="@font/oswald_reg"
+        />
 </font-family>
