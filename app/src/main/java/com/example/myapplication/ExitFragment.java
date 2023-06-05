@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,19 +15,15 @@ public final class ExitFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        var yes = "Да";
-        var no = "Нет";
+        final var yes = "Да";
+        final var no = "Нет";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Подтверждение")
                 .setMessage("Вы точно хотите выйти?")
                 .setPositiveButton(yes, (dialog, id) -> {
                     dialog.cancel();
-                    Intent intent = new Intent(requireActivity(), MenuActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    requireActivity().finishAffinity();
-                    System.exit(0);
+                    requireActivity().finish();
                 })
                 .setNegativeButton(no, (dialog, id) -> dialog.cancel())
                 .setCancelable(true);

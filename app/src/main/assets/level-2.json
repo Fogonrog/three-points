@@ -13,17 +13,6 @@
       "strFunction": "..²"
     },
     {
-      "class": "Power",
-      "left": {
-        "class": "Argument"
-      },
-      "right": {
-        "class": "Num",
-        "number": 3.0
-      },
-      "strFunction": "..³"
-    },
-    {
       "class": "Multiplication",
       "left": {
         "class": "Argument"
@@ -68,6 +57,17 @@
       "strFunction": "/2"
     },
     {
+      "class": "Multiplication",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 7.0
+      },
+      "strFunction": "*7"
+    },
+    {
       "class": "Sum",
       "left": {
         "class": "Argument"
@@ -105,7 +105,7 @@
   "requiredObstacles": [
     {
       "class": "Colored",
-      "color": -16777216,
+      "color": "#FF000000",
       "child": {
         "class": "Scaled",
         "width": 1,
@@ -124,7 +124,7 @@
     },
     {
       "class": "Colored",
-      "color": -16777216,
+      "color": "#FF000000",
       "child": {
         "class": "Scaled",
         "width": 1,
@@ -140,23 +140,21 @@
           }
         }
       }
-    }
-  ],
-  "forbiddenObstacles": [
+    },
     {
       "class": "Colored",
-      "color": -16776961,
+      "color": "#FF3F48CC",
       "child": {
         "class": "Scaled",
         "width": 10,
         "child": {
           "class": "Filled",
-          "filled": true,
+          "filled": false,
           "child": {
             "class": "Circle",
             "center": {
-              "strX": "-30",
-              "strY": "100"
+              "strX": "0",
+              "strY": "200"
             },
             "radius": 150.0
           }
@@ -164,10 +162,11 @@
       }
     }
   ],
+  "forbiddenObstacles": [],
   "environment": [
     {
       "class": "Colored",
-      "color": -16777216,
+      "color": "#FF000000",
       "child": {
         "class": "Scaled",
         "width": 1,
@@ -246,7 +245,7 @@
     },
     {
       "class": "Colored",
-      "color": -16777216,
+      "color": "#FF000000",
       "child": {
         "class": "Scaled",
         "width": 8,
@@ -291,7 +290,7 @@
     },
     {
       "class": "Colored",
-      "color": -16777216,
+      "color": "#FF000000",
       "child": {
         "class": "Scaled",
         "width": 8,

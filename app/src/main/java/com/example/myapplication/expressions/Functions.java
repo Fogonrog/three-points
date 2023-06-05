@@ -20,6 +20,10 @@ public final class Functions {
         return new AbsoluteValue(function);
     }
 
+    public static Exp exp(Function function) {
+        return new Exp(function);
+    }
+
     public static Cosine cos(Function function) {
         return new Cosine(function);
     }
@@ -55,7 +59,7 @@ public final class Functions {
     public static Tangent tg(Function function) {
         return new Tangent(function);
     }
-    public static float expr(String string){
+    public static float expr(String string) {
         return (float) new ExpressionBuilder(string)
                 .build()
                 .evaluate();

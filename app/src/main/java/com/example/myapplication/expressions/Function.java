@@ -19,7 +19,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = Sqrt.class, name = "Sqrt"),
         @JsonSubTypes.Type(value = Sub.class, name = "Sub"),
         @JsonSubTypes.Type(value = Sum.class, name = "Sum"),
-        @JsonSubTypes.Type(value = Tangent.class, name = "Tangent")
+        @JsonSubTypes.Type(value = Tangent.class, name = "Tangent"),
+        @JsonSubTypes.Type(value = Exp.class, name = "Exp")
 })
 public interface Function extends Cloneable {
     @NonNull

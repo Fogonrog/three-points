@@ -5,17 +5,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.io.InputStream;
 
 public final class LevelFragment extends Fragment {
+    private static FragmentManager manager;
     private Draw2D canvas;
+
+    public static void showVictoryFragment(int level) {
+        var victoryFragment = new VictoryFragment(level);
+        victoryFragment.show(manager, "victoryFragment");
+    }
 
     public View getCanvas() {
         return canvas;
@@ -38,7 +45,7 @@ public final class LevelFragment extends Fragment {
         canvas.setLevel(level);
 
         var btnAddFunction = view.findViewById(R.id.add_function);
-        var manager = LevelFragment.this.getParentFragmentManager();
+        manager = LevelFragment.this.getParentFragmentManager();
         btnAddFunction.setOnClickListener(v -> {
             var inputFragment = new InputFragment(canvas, level);
             inputFragment.show(manager, "inputFragment");
@@ -50,17 +57,16 @@ public final class LevelFragment extends Fragment {
             runFragment.show(manager, "runFragment");
         });
 
-        ImageView image = view.findViewById(R.id.photo);
-        var train = new Train(canvas, image);
-
         var btnPause = view.findViewById(R.id.pausebutton);
         btnPause.setOnClickListener(v -> {
-            train.startAnimation();
+            var pauseFragment = new PauseFragment();
+            pauseFragment.show(manager, "pauseFragment");
         });
 
         return view;
     }
-    public Level getLevel(String nameJsonFile, float  width, float height){
+
+    public Level getLevel(String nameJsonFile, float width, float height) {
         Level level;
         try {
             var objectMapper = new ObjectMapper();

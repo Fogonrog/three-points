@@ -10,18 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+
 import com.example.myapplication.expressions.Function;
 
 import java.util.List;
 
 public final class InputFragment extends DialogFragment {
 
-    private TextView textFunction;
-    private Draw2D miniCanvas;
     private final Draw2D bigCanvas;
     private final Level level;
+    private TextView textFunction;
+    private Draw2D miniCanvas;
 
     public InputFragment(Draw2D bigCanvas, Level level) {
         super();
@@ -67,10 +69,10 @@ public final class InputFragment extends DialogFragment {
         Button btn8 = view.findViewById(R.id.button8);
         Button btn9 = view.findViewById(R.id.button9);
 
-        List<Button> buttons = List.of(btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9);
+        List<Button> buttons = List.of(btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9);
 
         int i = 0;
-        for(Button btn : buttons){
+        for (Button btn : buttons) {
             btn.setText(functions.get(i).getStrSingleFunction());
             int finalI = i;
             btn.setOnClickListener(v -> {

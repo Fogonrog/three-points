@@ -1,5 +1,5 @@
 {
-  "level": 3,
+  "level": 5,
   "functions": [
     {
       "class": "Power",
@@ -11,6 +11,17 @@
         "number": 2.0
       },
       "strFunction": "..²"
+    },
+    {
+      "class": "Power",
+      "left": {
+        "class": "Argument"
+      },
+      "right": {
+        "class": "Num",
+        "number": 3.0
+      },
+      "strFunction": "..³"
     },
     {
       "class": "Multiplication",
@@ -73,17 +84,6 @@
         "class": "Argument"
       },
       "strFunction": "|..|"
-    },
-    {
-      "class": "Division",
-      "left": {
-        "class": "Argument"
-      },
-      "right": {
-        "class": "Num",
-        "number": 5.0
-      },
-      "strFunction": "/5"
     }
   ],
   "requiredObstacles": [
@@ -116,132 +116,17 @@
           "class": "Line",
           "a": {
             "strX": "{{HEIGHT_HALF}}",
-            "strY": "-{{INDENT}}"
+            "strY": "-{{INDENT}}+300"
           },
           "b": {
             "strX": "{{WIDTH_PLACEHOLDER}}/4+4",
-            "strY": "-{{INDENT}}"
+            "strY": "-{{INDENT}}+300"
           }
         }
       }
     }
   ],
-  "forbiddenObstacles": [
-    {
-      "class": "Colored",
-      "color": "#FF3F48CC",
-      "child": {
-        "class": "Scaled",
-        "width": 10,
-        "child": {
-          "class": "Filled",
-          "filled": true,
-          "child": {
-            "class":"Polygon",
-            "points":[
-              {
-                "strX": "-295",
-                "strY": "60"
-              },
-              {
-                "strX": "-270",
-                "strY": "150"
-              },
-              {
-                "strX": "-325",
-                "strY": "200"
-              },
-              {
-                "strX": "-245",
-                "strY": "200"
-              },
-              {
-                "strX": "-210",
-                "strY": "280"
-              },
-              {
-                "strX": "-175",
-                "strY": "200"
-              },
-              {
-                "strX": "-90",
-                "strY": "200"
-              },
-              {
-                "strX": "-150",
-                "strY": "150"
-              },
-              {
-                "strX": "-130",
-                "strY": "60"
-              },
-              {
-                "strX": "-210",
-                "strY": "95"
-              },
-              {
-                "strX": "-295",
-                "strY": "60"
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "class": "Colored",
-      "color": "#FFA349A4",
-      "child": {
-        "class": "Scaled",
-        "width": 10,
-        "child": {
-          "class": "Filled",
-          "filled": true,
-          "child": {
-            "class": "Polygon",
-            "points":[
-              {
-                "strX": "-60",
-                "strY": "270"
-              },
-              {
-                "strX": "150",
-                "strY": "430"
-              },
-              {
-                "strX": "200",
-                "strY": "160"
-              },
-              {
-                "strX": "-60",
-                "strY": "270"
-              }
-            ]
-          }
-        }
-      }
-    },
-    {
-      "class": "Colored",
-      "color": "#FF7092BE",
-      "child": {
-        "class": "Scaled",
-        "width": 10,
-        "child": {
-          "class": "Filled",
-          "filled": true,
-          "child": {
-            "class": "Circle",
-            "center": {
-              "strX": "0",
-              "strY": "-50"
-            },
-            "radius": 125.0
-          }
-        }
-      }
-    }
-  ],
+  "forbiddenObstacles": [],
   "environment": [
     {
       "class": "Colored",
@@ -378,23 +263,23 @@
           "points":[
             {
               "strX": "{{WIDTH_HALF}}",
-              "strY": "-{{INDENT}}"
+              "strY": "-{{INDENT}}+300"
             },
             {
               "strX": "{{WIDTH_PLACEHOLDER}}/4+4",
-              "strY": "-{{INDENT}}"
+              "strY": "-{{INDENT}}+300"
             },
             {
               "strX": "{{WIDTH_PLACEHOLDER}}/3",
-              "strY": "-{{HEIGHT_PLACEHOLDER}}/3"
+              "strY": "-{{HEIGHT_PLACEHOLDER}}/3+300"
             },
             {
               "strX": "{{WIDTH_PLACEHOLDER}}/4+4",
-              "strY": "-{{INDENT}}"
+              "strY": "-{{INDENT}}+300"
             },
             {
               "strX": "{{WIDTH_PLACEHOLDER}}/3",
-              "strY": "-{{HEIGHT_PLACEHOLDER}}/3"
+              "strY": "-{{HEIGHT_PLACEHOLDER}}/3+300"
             },
             {
               "strX": "{{WIDTH_PLACEHOLDER}}/4+2*{{INDENT}}",
@@ -406,7 +291,7 @@
             },
             {
               "strX": "{{WIDTH_HALF}}",
-              "strY": "-{{INDENT}}"
+              "strY": "-{{INDENT}}+300"
             }
           ]
         }

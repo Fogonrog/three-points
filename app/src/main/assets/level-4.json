@@ -1,5 +1,5 @@
 {
-  "level": 3,
+  "level": 4,
   "functions": [
     {
       "class": "Power",
@@ -68,22 +68,18 @@
       "strFunction": "*7"
     },
     {
-      "class": "AbsoluteValue",
+      "class": "Sinus",
       "function": {
         "class": "Argument"
       },
-      "strFunction": "|..|"
+      "strFunction": "sin"
     },
     {
-      "class": "Division",
-      "left": {
+      "class": "Cosine",
+      "function": {
         "class": "Argument"
       },
-      "right": {
-        "class": "Num",
-        "number": 5.0
-      },
-      "strFunction": "/5"
+      "strFunction": "cоs"
     }
   ],
   "requiredObstacles": [
@@ -140,48 +136,24 @@
             "class":"Polygon",
             "points":[
               {
-                "strX": "-295",
-                "strY": "60"
+                "strX": "-230",
+                "strY": "420"
               },
               {
-                "strX": "-270",
-                "strY": "150"
+                "strX": "-80",
+                "strY": "610"
               },
               {
-                "strX": "-325",
-                "strY": "200"
+                "strX": "230",
+                "strY": "320"
               },
               {
-                "strX": "-245",
-                "strY": "200"
+                "strX": "100",
+                "strY": "170"
               },
               {
-                "strX": "-210",
-                "strY": "280"
-              },
-              {
-                "strX": "-175",
-                "strY": "200"
-              },
-              {
-                "strX": "-90",
-                "strY": "200"
-              },
-              {
-                "strX": "-150",
-                "strY": "150"
-              },
-              {
-                "strX": "-130",
-                "strY": "60"
-              },
-              {
-                "strX": "-210",
-                "strY": "95"
-              },
-              {
-                "strX": "-295",
-                "strY": "60"
+                "strX": "-230",
+                "strY": "420"
               }
             ]
           }
@@ -201,20 +173,20 @@
             "class": "Polygon",
             "points":[
               {
-                "strX": "-60",
-                "strY": "270"
+                "strX": "60",
+                "strY": "70"
               },
               {
-                "strX": "150",
-                "strY": "430"
+                "strX": "-20",
+                "strY": "-290"
               },
               {
-                "strX": "200",
-                "strY": "160"
+                "strX": "110",
+                "strY": "-290"
               },
               {
-                "strX": "-60",
-                "strY": "270"
+                "strX": "60",
+                "strY": "70"
               }
             ]
           }
@@ -231,12 +203,25 @@
           "class": "Filled",
           "filled": true,
           "child": {
-            "class": "Circle",
-            "center": {
-              "strX": "0",
-              "strY": "-50"
-            },
-            "radius": 125.0
+            "class": "Polygon",
+            "points":[
+              {
+                "strX": "-110",
+                "strY": "70"
+              },
+              {
+                "strX": "-190",
+                "strY": "-290"
+              },
+              {
+                "strX": "-110",
+                "strY": "-290"
+              },
+              {
+                "strX": "-110",
+                "strY": "70"
+              }
+            ]
           }
         }
       }

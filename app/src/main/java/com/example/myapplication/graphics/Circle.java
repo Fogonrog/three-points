@@ -27,7 +27,8 @@ public final class Circle implements Drawable {
         this.radius = radius;
         path.addCircle(center.x(), center.y(), radius, Path.Direction.CW);
         var geometryFactory = new GeometryFactory();
-        var centerPoint = geometryFactory.createPoint(new Coordinate(center.x(), center.y()));
+        var centerPoint = geometryFactory.createPoint(new Coordinate(
+                center.x(), center.y()));
         this.jts = BufferOp.bufferOp(centerPoint, radius, DEFINITION);
     }
 
