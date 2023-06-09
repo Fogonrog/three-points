@@ -2,6 +2,8 @@ package com.example.myapplication.logic.model;
 
 import com.example.myapplication.repository.entity.CampaignEntity;
 
+import java.util.Optional;
+
 public final class Campaign {
     private final long id;
     private final String name;

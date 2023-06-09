@@ -50,10 +50,8 @@ public final class Train {
                 var angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
 
                 if (y1 > y2) {
-//                    if (!flag) {
-//                        x1 -= 100;
-//                        y1 -= 50;
-//                    }
+                    x1 -= 100;
+                    y1 -= 50;
                     x2 -= 100;
                     y2 -= 50;
                 }

@@ -10,7 +10,11 @@ import com.example.myapplication.R;
 import com.example.myapplication.logic.CampaignService;
 import com.example.myapplication.logic.model.Campaign;
 import com.example.myapplication.repository.database.AppDatabase;
+import com.example.myapplication.repository.entity.CampaignEntity;
 import com.example.myapplication.view.fragments.ExitFragment;
+
+import java.util.List;
+import java.util.UUID;
 
 public final class MenuActivity extends AppCompatActivity {
     @Override
@@ -24,8 +28,13 @@ public final class MenuActivity extends AppCompatActivity {
         var db = AppDatabase.getDatabase(this);
         var campaignService = new CampaignService(db);
         AppDatabase.execute(() -> {
-            System.out.println(campaignService.getAllCampaigns());
+            List<Campaign> list = campaignService.getAllCampaigns();
+            System.out.println(list);
+//            campaignService.createCampaign(new Campaign(UUID.randomUUID().toString()., "third_tempt"));
+            var t3 = campaignService.isCampaignExists("third_tempt");
+            var t2 = campaignService.isCampaignExists("second_tempt");
         });
+
 
         var btnPlay = findViewById(R.id.play);
         btnPlay.setOnClickListener(v -> {

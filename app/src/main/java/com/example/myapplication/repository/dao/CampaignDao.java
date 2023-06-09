@@ -7,6 +7,7 @@ import androidx.room.Query;
 import com.example.myapplication.repository.entity.CampaignEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Dao
 public interface CampaignDao {
@@ -21,4 +22,7 @@ public interface CampaignDao {
 
     @Query("SELECT * FROM campaigns WHERE name = :name")
     CampaignEntity getCampaignByName(String name);
+
+    @Query("SELECT COUNT(*) FROM campaigns WHERE name = :name")
+    int isCampaignExists(String name);
 }

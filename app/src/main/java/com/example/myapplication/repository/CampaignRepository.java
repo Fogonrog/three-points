@@ -7,6 +7,7 @@ import com.example.myapplication.repository.entity.CampaignEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public final class CampaignRepository {
     private final CampaignDao campaignDao;
@@ -28,11 +29,15 @@ public final class CampaignRepository {
         return Campaign.fromEntity(campaignDao.getCampaignById(id));
     }
 
-    public Campaign getCampaignByName(String name) {
+    public  Campaign getCampaignByName(String name) {
         return Campaign.fromEntity(campaignDao.getCampaignByName(name));
     }
 
     public long insertCampaign(Campaign campaign) {
         return campaignDao.insertCampaign(new CampaignEntity(campaign.getId(), campaign.getName()));
+    }
+
+    public int isCampaignExists(String name) {
+        return campaignDao.isCampaignExists(name);
     }
 }

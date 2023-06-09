@@ -14,7 +14,7 @@ public final class CampaignService {
     }
 
     public boolean isCampaignExists(String campaignName) {
-        return campaignRepository.getCampaignByName(campaignName) != null;
+        return campaignRepository.isCampaignExists(campaignName) > 0;
     }
 
     public List<Campaign> getAllCampaigns() {
