@@ -10,12 +10,11 @@ import com.example.myapplication.repository.entity.LevelEntity;
 
 import java.util.List;
 
-public class LevelRepository {
+public final class LevelRepository {
     private final LevelDao levelDao;
     private final CampaignDao campaignDao;
 
-    public LevelRepository(Application application) {
-        var db = AppDatabase.getDatabase(application);
+    public LevelRepository(AppDatabase db) {
         levelDao = db.levelDao();
         campaignDao = db.campaignDao();
     }
@@ -29,9 +28,9 @@ public class LevelRepository {
     }
 
     public long insertLevel(LevelEntity levelEntity) {
-        if (campaignDao.getCampaignById(levelEntity.campaignId) == null) {
-            var id = levelEntity.campaignId;
-            var name = levelEntity.campaignName;
+        if (campaignDao.getCampaignById(levelEntity.getCampaignId()) == null) {
+            var id = levelEntity.getCampaignId();
+            var name = levelEntity.getCampaignName();
             var campaignEntity = new CampaignEntity(id, name);
             campaignDao.insertCampaign(campaignEntity);
         }

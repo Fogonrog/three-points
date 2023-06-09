@@ -4,13 +4,21 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "campaigns")
-public class CampaignEntity {
+public final class CampaignEntity {
     @PrimaryKey(autoGenerate = true)
-    public long id;
-    public String name;
+    private final long id;
+    private final String name;
 
     public CampaignEntity(long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }

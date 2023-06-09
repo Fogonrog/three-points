@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.myapplication.StageJSON;
+import com.example.myapplication.serialization.StageJSON;
 import com.example.myapplication.R;
 import com.example.myapplication.logic.expressions.Function;
 import com.example.myapplication.view.Draw2D;

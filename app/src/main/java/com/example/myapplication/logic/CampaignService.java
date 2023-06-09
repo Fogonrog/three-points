@@ -1,21 +1,16 @@
 package com.example.myapplication.logic;
 
-import android.app.Application;
-
-import androidx.lifecycle.Transformations;
-
 import com.example.myapplication.logic.model.Campaign;
 import com.example.myapplication.repository.CampaignRepository;
-import com.example.myapplication.repository.entity.CampaignEntity;
+import com.example.myapplication.repository.database.AppDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CampaignService {
-    CampaignRepository campaignRepository;
+public final class CampaignService {
+    private final CampaignRepository campaignRepository;
 
-    public CampaignService(Application application) {
-        campaignRepository = new CampaignRepository(application);
+    public CampaignService(AppDatabase db) {
+        campaignRepository = new CampaignRepository(db);
     }
 
     public boolean isCampaignExists(String campaignName) {
@@ -23,16 +18,14 @@ public class CampaignService {
     }
 
     public List<Campaign> getAllCampaigns() {
-        List<CampaignEntity> entities = campaignRepository.getAllCampaigns();
-        List<Campaign> campaigns = new ArrayList<>();
-        for (CampaignEntity entity : entities) {
-            campaigns.add(Campaign.fromEntity(entity));
-        }
-        return campaigns;
+        return campaignRepository.getAllCampaigns();
     }
 
     public long createCampaign(Campaign draft) {
-        CampaignEntity entity = new CampaignEntity(draft.id, draft.name);
-        return campaignRepository.insertCampaign(entity);
+        return campaignRepository.insertCampaign(draft);
+    }
+
+    public CampaignRepository getCampaignRepository() {
+        return campaignRepository;
     }
 }

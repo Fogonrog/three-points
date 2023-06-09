@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.serialization;
 
 import com.example.myapplication.logic.expressions.Function;
 import com.example.myapplication.logic.graphics.Drawable;

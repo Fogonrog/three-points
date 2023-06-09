@@ -11,11 +11,11 @@ import java.util.List;
 @Dao
 public interface LevelDao {
     @Insert
-    public long insertLevel(LevelEntity levelEntity);
+    long insertLevel(LevelEntity levelEntity);
 
     @Query("SELECT * FROM levels WHERE campaignId = :campaignId")
-    public List<LevelEntity> getAllLevelsByCampaignId(long campaignId);
+    List<LevelEntity> getAllLevelsByCampaignId(long campaignId);
 
     @Query("SELECT * FROM levels WHERE campaignName = :campaignName")
-    public List<LevelEntity> getAllLevelsByCampaignName(String campaignName);
+    List<LevelEntity> getAllLevelsByCampaignName(String campaignName);
 }

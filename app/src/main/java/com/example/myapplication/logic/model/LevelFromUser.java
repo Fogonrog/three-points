@@ -1,11 +1,11 @@
 package com.example.myapplication.logic.model;
 
-import com.example.myapplication.LevelInfoJSON;
+import com.example.myapplication.serialization.LevelInfoJSON;
 
-public class LevelFromUser {
-    public Stage stage;
-    public String campaignName;
-    public int number;
+public final class LevelFromUser {
+    private Stage stage;
+    private String campaignName;
+    private int number;
 
     public LevelFromUser(Stage stage, String campaignName, int number) {
         this.stage = stage;
@@ -15,5 +15,17 @@ public class LevelFromUser {
 
     public static LevelFromUser from(LevelInfoJSON levelInfo, Stage stage) {
         return new LevelFromUser(stage, levelInfo.getCampaignName(), levelInfo.getLevel());
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public String getCampaignName() {
+        return campaignName;
+    }
+
+    public int getNumber() {
+        return number;
     }
 }

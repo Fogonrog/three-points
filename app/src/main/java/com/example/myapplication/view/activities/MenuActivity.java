@@ -7,6 +7,9 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.logic.CampaignService;
+import com.example.myapplication.logic.model.Campaign;
+import com.example.myapplication.repository.database.AppDatabase;
 import com.example.myapplication.view.fragments.ExitFragment;
 
 public final class MenuActivity extends AppCompatActivity {
@@ -17,6 +20,12 @@ public final class MenuActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        var db = AppDatabase.getDatabase(this);
+        var campaignService = new CampaignService(db);
+        AppDatabase.execute(() -> {
+            System.out.println(campaignService.getAllCampaigns());
+        });
 
         var btnPlay = findViewById(R.id.play);
         btnPlay.setOnClickListener(v -> {

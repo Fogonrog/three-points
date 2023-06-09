@@ -1,34 +1,38 @@
 package com.example.myapplication.repository;
 
-import android.app.Application;
-
+import com.example.myapplication.logic.model.Campaign;
 import com.example.myapplication.repository.dao.CampaignDao;
 import com.example.myapplication.repository.database.AppDatabase;
 import com.example.myapplication.repository.entity.CampaignEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CampaignRepository {
+public final class CampaignRepository {
     private final CampaignDao campaignDao;
 
-    public CampaignRepository(Application application) {
-        AppDatabase db = AppDatabase.getDatabase(application);
+    public CampaignRepository(AppDatabase db) {
         campaignDao = db.campaignDao();
     }
 
-    public List<CampaignEntity> getAllCampaigns() {
-        return campaignDao.getAllCampaigns();
+    public List<Campaign> getAllCampaigns() {
+        var entities = campaignDao.getAllCampaigns();
+        List<Campaign> campaigns = new ArrayList<>();
+        for (CampaignEntity entity : entities) {
+            campaigns.add(Campaign.fromEntity(entity));
+        }
+        return campaigns;
     }
 
-    public CampaignEntity getCampaignById(long id) {
-        return campaignDao.getCampaignById(id);
+    public Campaign getCampaignById(long id) {
+        return Campaign.fromEntity(campaignDao.getCampaignById(id));
     }
 
-    public CampaignEntity getCampaignByName(String id) {
-        return campaignDao.getCampaignByName(id);
+    public Campaign getCampaignByName(String name) {
+        return Campaign.fromEntity(campaignDao.getCampaignByName(name));
     }
 
-    public long insertCampaign(CampaignEntity campaignEntity) {
-        return campaignDao.insertCampaign(campaignEntity);
+    public long insertCampaign(Campaign campaign) {
+        return campaignDao.insertCampaign(new CampaignEntity(campaign.getId(), campaign.getName()));
     }
 }

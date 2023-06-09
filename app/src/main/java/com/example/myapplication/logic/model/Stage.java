@@ -1,17 +1,17 @@
 package com.example.myapplication.logic.model;
 
-import com.example.myapplication.StageJSON;
+import com.example.myapplication.serialization.StageJSON;
 import com.example.myapplication.logic.expressions.Function;
 import com.example.myapplication.logic.graphics.Drawable;
 
 import java.util.List;
 import java.util.Set;
 
-public class Stage {
-    public Set<Drawable> obstacles; // intersects(other)
-    public Set<Drawable> checkpoints;
-    public List<Drawable> background;
-    public List<Function> functions;
+public final class Stage {
+    private final Set<Drawable> obstacles; // intersects(other)
+    private final Set<Drawable> checkpoints;
+    private final List<Drawable> background;
+    private final List<Function> functions;
 
     public Stage(Set<Drawable> obstacles, Set<Drawable> checkpoints, List<Drawable> background, List<Function> functions) {
         this.obstacles = obstacles;
@@ -25,5 +25,21 @@ public class Stage {
                 stageJSON.getRequiredObstacles(),
                 stageJSON.getBackground(),
                 stageJSON.getFunctions());
+    }
+
+    public Set<Drawable> getObstacles() {
+        return obstacles;
+    }
+
+    public Set<Drawable> getCheckpoints() {
+        return checkpoints;
+    }
+
+    public List<Drawable> getBackground() {
+        return background;
+    }
+
+    public List<Function> getFunctions() {
+        return functions;
     }
 }

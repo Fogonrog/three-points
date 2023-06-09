@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.myapplication.LevelInfoJSON;
-import com.example.myapplication.StageJSON;
+import com.example.myapplication.serialization.LevelInfoJSON;
+import com.example.myapplication.serialization.StageJSON;
 import com.example.myapplication.R;
 import com.example.myapplication.view.Draw2D;
 import com.fasterxml.jackson.databind.ObjectMapper;
