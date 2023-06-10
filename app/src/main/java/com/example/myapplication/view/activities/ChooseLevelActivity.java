@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ChooseLevelActivity extends AppCompatActivity {
+    public static final int requestKey = 1;
     private static SharedPreferences prefs;
     private static int highestLevel;
 
@@ -77,18 +78,16 @@ public final class ChooseLevelActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("*/*");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(Intent.createChooser(intent, "Выберите файлы"), 1);
+            startActivityForResult(Intent.createChooser(intent, "Выберите файлы"), requestKey);
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 1) {
-            if (data != null) {
-                Uri uri = data.getData();
-                System.out.println(uri);
-            }
+        if (resultCode == RESULT_OK && requestCode == requestKey && data != null) {
+            Uri uri = data.getData();
+            System.out.println(uri);
         }
     }
 

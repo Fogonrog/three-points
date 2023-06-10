@@ -32,17 +32,18 @@ public final class LevelRepository {
 
     public long insertLevel(LevelFromUser level) {
         var random = new Random();
-        if (campaignDao.getCampaignByName(level.getCampaignName()) == null) {
+        if (campaignDao.countCampaignByName(level.getCampaignName()) <= 0) {
             var name = level.getCampaignName();
             var campaignEntity = new CampaignEntity(random.nextLong(), name);
             campaignDao.insertCampaign(campaignEntity);
         }
         var id = random.nextLong();
-        var campaignId = campaignDao.getCampaignByName(level.getCampaignName()).getId();
+        var campaignId = campaignDao.getCampaignByName(level.getCampaignName()).get().getId();
         var campaignName = level.getCampaignName();
         var number = level.getNumber();
         var stage = level.getStage().toString();
-        var levelEntity = new LevelEntity(id, campaignId, campaignName, number, stage, false);
+        var done = false;
+        var levelEntity = new LevelEntity(id, campaignId, campaignName, number, stage, done);
 
         return levelDao.insertLevel(levelEntity);
     }

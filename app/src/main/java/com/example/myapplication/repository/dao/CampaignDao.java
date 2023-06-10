@@ -18,10 +18,10 @@ public interface CampaignDao {
     List<CampaignEntity> getAllCampaigns();
 
     @Query("SELECT * FROM campaigns WHERE id = :id")
-    CampaignEntity getCampaignById(long id);
+    Optional<CampaignEntity> getCampaignById(long id);
 
     @Query("SELECT * FROM campaigns WHERE name = :name")
-    CampaignEntity getCampaignByName(String name);
+    Optional<CampaignEntity> getCampaignByName(String name);
 
     @Query("SELECT COUNT(*) FROM campaigns WHERE name = :name")
     int countCampaignByName(String name);
