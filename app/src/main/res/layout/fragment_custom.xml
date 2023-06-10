@@ -28,7 +28,7 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-        <com.example.myapplication.Draw2D
+        <com.example.myapplication.view.Draw2D
             android:id="@+id/minicanvas"
             android:layout_width="wrap_content"
             android:layout_height="300dp"

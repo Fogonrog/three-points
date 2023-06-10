@@ -30,6 +30,8 @@ android {
 }
 
 dependencies {
+    implementation "androidx.room:room-runtime:2.3.0"
+    annotationProcessor "androidx.room:room-compiler:2.3.0"
     implementation 'net.objecthunter:exp4j:0.4.8'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
     implementation 'org.locationtech.jts:jts-core:1.16.0'
