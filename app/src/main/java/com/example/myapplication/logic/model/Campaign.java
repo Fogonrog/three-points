@@ -13,8 +13,8 @@ public final class Campaign {
         this.name = name;
     }
 
-    public static Campaign fromEntity(CampaignEntity entity) {
-        return new Campaign(entity.getId(), entity.getName());
+    public static Optional<Campaign> fromEntity(CampaignEntity entity) {
+        return Optional.of(new Campaign(entity.getId(), entity.getName()));
     }
 
     public long getId() {

@@ -20,24 +20,24 @@ public final class CampaignRepository {
         var entities = campaignDao.getAllCampaigns();
         List<Campaign> campaigns = new ArrayList<>();
         for (CampaignEntity entity : entities) {
-            campaigns.add(Campaign.fromEntity(entity));
+            campaigns.add(Campaign.fromEntity(entity).get());
         }
         return campaigns;
     }
 
-    public Campaign getCampaignById(long id) {
+    public Optional<Campaign> getCampaignById(long id) {
         return Campaign.fromEntity(campaignDao.getCampaignById(id));
     }
 
     public  Campaign getCampaignByName(String name) {
-        return Campaign.fromEntity(campaignDao.getCampaignByName(name));
+        return Campaign.fromEntity(campaignDao.getCampaignByName(name)).get();
     }
 
     public long insertCampaign(Campaign campaign) {
         return campaignDao.insertCampaign(new CampaignEntity(campaign.getId(), campaign.getName()));
     }
 
-    public int isCampaignExists(String name) {
-        return campaignDao.isCampaignExists(name);
+    public boolean isCampaignExists(String name) {
+        return campaignDao.countCampaignByName(name) > 0;
     }
 }

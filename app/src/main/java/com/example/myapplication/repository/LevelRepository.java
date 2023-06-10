@@ -2,6 +2,7 @@ package com.example.myapplication.repository;
 
 import android.app.Application;
 
+import com.example.myapplication.logic.model.LevelFromUser;
 import com.example.myapplication.repository.dao.CampaignDao;
 import com.example.myapplication.repository.dao.LevelDao;
 import com.example.myapplication.repository.database.AppDatabase;
@@ -9,6 +10,8 @@ import com.example.myapplication.repository.entity.CampaignEntity;
 import com.example.myapplication.repository.entity.LevelEntity;
 
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 public final class LevelRepository {
     private final LevelDao levelDao;
@@ -27,13 +30,20 @@ public final class LevelRepository {
         return levelDao.getAllLevelsByCampaignName(name);
     }
 
-    public long insertLevel(LevelEntity levelEntity) {
-        if (campaignDao.getCampaignById(levelEntity.getCampaignId()) == null) {
-            var id = levelEntity.getCampaignId();
-            var name = levelEntity.getCampaignName();
-            var campaignEntity = new CampaignEntity(id, name);
+    public long insertLevel(LevelFromUser level) {
+        var random = new Random();
+        if (campaignDao.getCampaignByName(level.getCampaignName()) == null) {
+            var name = level.getCampaignName();
+            var campaignEntity = new CampaignEntity(random.nextLong(), name);
             campaignDao.insertCampaign(campaignEntity);
         }
+        var id = random.nextLong();
+        var campaignId = campaignDao.getCampaignByName(level.getCampaignName()).getId();
+        var campaignName = level.getCampaignName();
+        var number = level.getNumber();
+        var stage = level.getStage().toString();
+        var levelEntity = new LevelEntity(id, campaignId, campaignName, number, stage, false);
+
         return levelDao.insertLevel(levelEntity);
     }
 }

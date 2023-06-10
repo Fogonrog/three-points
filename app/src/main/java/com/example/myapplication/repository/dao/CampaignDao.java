@@ -24,5 +24,5 @@ public interface CampaignDao {
     CampaignEntity getCampaignByName(String name);
 
     @Query("SELECT COUNT(*) FROM campaigns WHERE name = :name")
-    int isCampaignExists(String name);
+    int countCampaignByName(String name);
 }

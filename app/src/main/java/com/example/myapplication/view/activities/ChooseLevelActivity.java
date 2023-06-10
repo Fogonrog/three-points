@@ -2,10 +2,12 @@ package com.example.myapplication.view.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
@@ -69,6 +71,25 @@ public final class ChooseLevelActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(R.anim.left_in, R.anim.right_out);
         });
+
+        var testBtn = findViewById(R.id.testButton);
+        testBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(Intent.createChooser(intent, "Выберите файлы"), 1);
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            if (data != null) {
+                Uri uri = data.getData();
+                System.out.println(uri);
+            }
+        }
     }
 
     public void onBackPressed() {

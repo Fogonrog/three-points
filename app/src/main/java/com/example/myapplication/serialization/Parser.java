@@ -9,7 +9,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 public class Parser {
-    public static Stage parseStage(String text, float width, float height) { // text <- LevelEntity::stage
+    private final float height;
+    private final float width;
+
+    public Parser(float width, float height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public Stage parseStage(String text) { // text <- LevelEntity::stage
         ObjectMapper objectMapper = new ObjectMapper();
         StageJSON stageJSON;
         try {
@@ -21,9 +29,9 @@ public class Parser {
         return Stage.fromJSON(stageJSON);
     }
 
-    public static LevelFromUser parseLevel(String text, float width, float height) {
+    public LevelFromUser parseLevel(String text) {
         ObjectMapper objectMapper = new ObjectMapper();
-        var stage = parseStage(text, width, height);
+        var stage = parseStage(text);
         LevelInfoJSON levelInfo;
         try {
             text = replace(text, width, height);
