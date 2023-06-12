@@ -28,7 +28,7 @@ public class LevelService {
         return new Level(info, stage);
     }
 
-        public List<Level> getAllLevelsByCampaignId(long campaignId) {
+    public List<Level> getAllLevelsByCampaignId(long campaignId) {
         List<LevelEntity> entity = levelRepository.getAllLevelsByCampaignId(campaignId);
         List<Level> levels = new ArrayList<>();
         for (LevelEntity levelEntity : entity) {
@@ -54,4 +54,7 @@ public class LevelService {
         return levelRepository.insertLevel(draft);
     }
 
+    public boolean isLevelExists(int number, String campaignName) {
+        return levelRepository.isLevelExists(number, campaignName);
+    }
 }

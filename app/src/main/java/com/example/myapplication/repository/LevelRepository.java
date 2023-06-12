@@ -51,4 +51,8 @@ public final class LevelRepository {
 
         return levelDao.insertLevel(levelEntity);
     }
+
+    public boolean isLevelExists(int number, String campaignName) {
+        return levelDao.countLevelByNumber(number, campaignName) > 0;
+    }
 }

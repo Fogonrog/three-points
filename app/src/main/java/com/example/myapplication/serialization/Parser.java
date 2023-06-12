@@ -46,14 +46,7 @@ public class Parser {
 
     public LevelFromUser parseLevel(String text) {
         ObjectMapper objectMapper = new ObjectMapper();
-        var stage = parseStage(text);
-        LevelInfoJSON levelInfo;
-        try {
-            text = replace(text, width, height);
-            levelInfo = objectMapper.readValue(text, LevelInfoJSON.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return LevelFromUser.from(levelInfo, stage);
+        var info = parseInfo(text);
+        return LevelFromUser.from(info, text);
     }
 }

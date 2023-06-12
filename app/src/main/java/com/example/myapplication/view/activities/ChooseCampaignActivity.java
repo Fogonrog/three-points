@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,8 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
     private AppDatabase db;
     private CampaignService campaignService;
     private LevelService levelService;
+    private Parser parser;
+
 
     public static void saveProgress(int level) {
         if (level > highestLevel) {
@@ -61,7 +64,7 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
         display.getSize(point);
         var width = point.x;
         var height = point.y;
-        var parser = new Parser(width, height);
+        parser = new Parser(width, height);
 
         db = AppDatabase.getDatabase(this);
         campaignService = new CampaignService(db);
@@ -72,7 +75,6 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
                 campaignService.createCampaign(campaign);
                 for (int i = 1; i <= 5; i++) {
                     var string = readFileInAssets("level-" + i + ".json");
-                    System.out.println("---------------------------------------------------------------------------------------------------------");
                     var info = new LevelInfoJSON(i, "Туториал");
                     var draft = LevelFromUser.from(info, string);
                     levelService.createLevel(draft);
@@ -89,6 +91,7 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
             var intent = new Intent(ChooseCampaignActivity.this, ChooseLevelActivity.class);
             intent.putExtra("campaign", name);
             startActivity(intent);
+            overridePendingTransition(R.anim.right_in, R.anim.left_out);
         });
         lv.setAdapter(adapter);
 
@@ -119,9 +122,24 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            String jsonString = new BufferedReader(new InputStreamReader(inputStream))
-                    .lines().collect(Collectors.joining("\n"));
-            System.out.println(jsonString);
+            try {
+                String jsonString = new BufferedReader(new InputStreamReader(inputStream))
+                        .lines().collect(Collectors.joining("\n"));
+                var level = parser.parseLevel(jsonString);
+                var campaignName = level.getCampaignName();
+                AppDatabase.execute(() -> {
+                    if (!campaignService.isCampaignExists(campaignName) && !campaignName.equals("")) {
+                        var campaign = Campaign.fromEntity(new CampaignEntity(-777, campaignName));
+                        campaignService.createCampaign(campaign);
+                    }
+                    if (!levelService.isLevelExists(level.getNumber(), level.getCampaignName()) && level.getNumber() != 0) {
+                        levelService.createLevel(level);
+                    }
+                });
+            }catch (Exception e) {
+                Toast.makeText(this, "Упс... , кажется в вашем файле есть ошибка", Toast.LENGTH_SHORT).show();
+            }
+            recreate();
         }
     }
 
@@ -135,7 +153,6 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
     }
 
     public String readFileInAssets(String name) {
-
         byte[] buffer;
         InputStream is;
         try {

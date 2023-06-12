@@ -17,6 +17,8 @@ import com.example.myapplication.repository.database.AppDatabase;
 import com.example.myapplication.serialization.Parser;
 import com.example.myapplication.view.adapter.LevelAdapter;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -43,9 +45,8 @@ public final class ChooseLevelActivity extends AppCompatActivity {
         levelService = new LevelService(db, parser);
 
         var levels = getLevels(campaign);
-        System.out.println(levels);
+        levels.sort(Comparator.comparingInt(o -> o.getInfo().getNumber()));
 
-//      Cортировка
         var adapter = new LevelAdapter(this, levels);
         var lv = (ListView) findViewById(R.id.level_list);
         lv.setOnItemClickListener((parent, view, position, id) -> {
@@ -55,6 +56,13 @@ public final class ChooseLevelActivity extends AppCompatActivity {
             startActivity(intent);
         });
         lv.setAdapter(adapter);
+
+        var btnBack = findViewById(R.id.back);
+        btnBack.setOnClickListener(v -> {
+            var intent = new Intent(ChooseLevelActivity.this, ChooseCampaignActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.left_in, R.anim.right_out);
+        });
     }
     private List<Level> getLevels(String campaignName) {
         CompletableFuture<List<Level>> future = new CompletableFuture<>();

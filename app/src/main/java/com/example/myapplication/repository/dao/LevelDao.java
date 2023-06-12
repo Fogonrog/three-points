@@ -20,4 +20,7 @@ public interface LevelDao {
 
     @Query("SELECT * FROM levels WHERE campaignName = :campaignName")
     List<LevelEntity> getAllLevelsByCampaignName(String campaignName);
+
+    @Query("SELECT COUNT(*) FROM levels WHERE campaignName = :campaignName AND number = :number")
+    int countLevelByNumber(int number, String campaignName);
 }
