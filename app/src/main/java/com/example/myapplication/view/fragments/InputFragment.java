@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.myapplication.logic.model.Level;
 import com.example.myapplication.serialization.StageJSON;
 import com.example.myapplication.R;
 import com.example.myapplication.logic.expressions.Function;
@@ -24,14 +25,14 @@ import java.util.List;
 public final class InputFragment extends DialogFragment {
 
     private final Draw2D bigCanvas;
-    private final StageJSON stageJSON;
+    private final Level level;
     private TextView textFunction;
     private Draw2D miniCanvas;
 
-    public InputFragment(Draw2D bigCanvas, StageJSON stageJSON) {
+    public InputFragment(Draw2D bigCanvas, Level level) {
         super();
         this.bigCanvas = bigCanvas;
-        this.stageJSON = stageJSON;
+        this.level = level;
     }
 
     @NonNull
@@ -46,9 +47,9 @@ public final class InputFragment extends DialogFragment {
         textFunction = view.findViewById(R.id.x);
         miniCanvas = view.findViewById(R.id.minicanvas);
         miniCanvas.setFunction(x());
-        miniCanvas.setLevel(stageJSON);
+        miniCanvas.setLevel(level);
 
-        var functions = stageJSON.getFunctions();
+        var functions = level.getStage().getFunctions();
 
         Button btnOk = view.findViewById(R.id.button_ok);
         btnOk.setOnClickListener(v -> {

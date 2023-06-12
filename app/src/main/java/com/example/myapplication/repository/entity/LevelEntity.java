@@ -3,10 +3,11 @@ package com.example.myapplication.repository.entity;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = @ForeignKey(entity = CampaignEntity.class, parentColumns = "id", childColumns = "campaignId"),
-        tableName = "levels")
+        tableName = "levels", indices = {@Index("campaignId")})
 public final class LevelEntity {
     @PrimaryKey(autoGenerate = true)
     private final long id;

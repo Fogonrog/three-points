@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.view.activities.ChooseLevelActivity;
+import com.example.myapplication.view.activities.ChooseCampaignActivity;
 import com.example.myapplication.view.activities.MenuActivity;
 
 public final class VictoryFragment extends DialogFragment {
@@ -54,7 +54,7 @@ public final class VictoryFragment extends DialogFragment {
 
         Button btnNext = view.findViewById(R.id.next);
         btnNext.setOnClickListener(v -> {
-            var intent = new Intent(getContext(), ChooseLevelActivity.class);
+            var intent = new Intent(getContext(), ChooseCampaignActivity.class);
             startActivity(intent);
             requireActivity().overridePendingTransition(R.anim.left_in, R.anim.right_out);
         });

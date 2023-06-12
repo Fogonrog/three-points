@@ -10,7 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.myapplication.logic.LevelService;
+import com.example.myapplication.logic.model.Level;
+import com.example.myapplication.repository.database.AppDatabase;
 import com.example.myapplication.serialization.LevelInfoJSON;
+import com.example.myapplication.serialization.Parser;
 import com.example.myapplication.serialization.StageJSON;
 import com.example.myapplication.R;
 import com.example.myapplication.view.Draw2D;
@@ -18,10 +22,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public final class LevelFragment extends Fragment {
     private static FragmentManager manager;
     private Draw2D canvas;
+    private AppDatabase db;
+    private LevelService levelService;
 
     public static void showVictoryFragment(int level) {
         var victoryFragment = new VictoryFragment(level);
@@ -41,8 +49,12 @@ public final class LevelFragment extends Fragment {
         var width = point.x;
         var height = point.y;
 
-        var nameLevel = requireActivity().getIntent().getStringExtra("level");
-        var level = getLevel(nameLevel, width, height);
+        var parser = new Parser(width, height);
+        db = AppDatabase.getDatabase(requireActivity());
+        levelService = new LevelService(db, parser);
+
+        var levelId = requireActivity().getIntent().getLongExtra("level", 0);
+        var level = getLevel(levelId);
 
         var view = inflater.inflate(R.layout.fragment_input, container, false);
         canvas = view.findViewById(R.id.canvas);
@@ -57,7 +69,7 @@ public final class LevelFragment extends Fragment {
 
         var btnRun = view.findViewById(R.id.runbutton);
         btnRun.setOnClickListener(v -> {
-            var runFragment = new RunFragment(canvas, level.getLevel());
+            var runFragment = new RunFragment(canvas, level.getInfo().getNumber());
             runFragment.show(manager, "runFragment");
         });
 
@@ -70,40 +82,12 @@ public final class LevelFragment extends Fragment {
         return view;
     }
 
-    public StageJSON getLevel(String nameJsonFile, float width, float height) {
-        StageJSON stageJSON;
-        LevelInfoJSON levelInfoJSON;
-        try {
-            var objectMapper = new ObjectMapper();
-            var string = readFileInAssets(nameJsonFile);
-            string = string
-                    .replace("{{WIDTH_PLACEHOLDER}}", String.valueOf(width))
-                    .replace("{{HEIGHT_PLACEHOLDER}}", String.valueOf(height))
-                    .replace("{{WIDTH_HALF}}", String.valueOf(width / 2))
-                    .replace("{{HEIGHT_HALF}}", String.valueOf(height / 2))
-                    .replace("{{INDENT}}", String.valueOf(20));
-            levelInfoJSON = objectMapper.readValue(string, LevelInfoJSON.class);
-            System.out.println(levelInfoJSON.getLevel() + levelInfoJSON.getCampaignName());
-            stageJSON = objectMapper.readValue(string, StageJSON.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return stageJSON;
-    }
-
-    public String readFileInAssets(String name) {
-
-        byte[] buffer;
-        InputStream is;
-        try {
-            is = this.requireActivity().getAssets().open(name);
-            int size = is.available();
-            buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return new String(buffer);
+    private Level getLevel(long levelId) {
+        CompletableFuture<Level> future = new CompletableFuture<>();
+        AppDatabase.execute(() -> {
+            var level = levelService.getLevelById(levelId);
+            future.complete(level);
+        });
+        return future.join();
     }
 }

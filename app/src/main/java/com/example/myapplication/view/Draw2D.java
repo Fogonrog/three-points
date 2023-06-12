@@ -11,7 +11,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import com.example.myapplication.serialization.StageJSON;
+import com.example.myapplication.logic.model.Level;
 import com.example.myapplication.R;
 import com.example.myapplication.logic.expressions.Function;
 import com.example.myapplication.logic.graphics.Canva;
@@ -38,8 +38,7 @@ public final class Draw2D extends View {
     private Function function = x();
     private Drawable axes;
     private FunctionGraph func;
-    private Canvas canvas;
-    private StageJSON stageJSON;
+    private Level level;
 
     public Draw2D(Context context) {
         this(context, null);
@@ -50,8 +49,8 @@ public final class Draw2D extends View {
         this.isBigCanvas = getId() == R.id.canvas;
     }
 
-    public void setLevel(StageJSON stageJSON) {
-        this.stageJSON = stageJSON;
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
     public Function getFunction() {
@@ -69,10 +68,10 @@ public final class Draw2D extends View {
 
     public boolean isRightFunction() {
         var result = true;
-        for (var reqObstacle : stageJSON.getRequiredObstacles()) {
+        for (var reqObstacle : level.getStage().getCheckpoints()) {
             result = result && reqObstacle.intersects(func);
         }
-        for (var forbObstacle : stageJSON.getForbiddenObstacles()) {
+        for (var forbObstacle : level.getStage().getObstacles()) {
             result = result && !(forbObstacle.intersects(func));
         }
         return result;
@@ -81,7 +80,6 @@ public final class Draw2D extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        this.canvas = canvas;
         if (axes == null) {
             lazyInit();
         }
@@ -93,13 +91,13 @@ public final class Draw2D extends View {
 
         mainCanvas.draw(axes);
         if (isBigCanvas) {
-            for (Drawable background : stageJSON.getBackground()) {
+            for (Drawable background : level.getStage().getBackground()) {
                 mainCanvas.draw(background);
             }
-            for (Drawable reqObstacle : stageJSON.getRequiredObstacles()) {
+            for (Drawable reqObstacle : level.getStage().getCheckpoints()) {
                 mainCanvas.draw(reqObstacle);
             }
-            for (Drawable forbObstacle : stageJSON.getForbiddenObstacles()) {
+            for (Drawable forbObstacle : level.getStage().getObstacles()) {
                 mainCanvas.draw(forbObstacle);
             }
         }
@@ -130,10 +128,7 @@ public final class Draw2D extends View {
                 Line.of(Point.of((width / 2 - INDENT), INDENT),
                         Point.of(width / 2, 0F))
         ))));
-        // посчитаем масштаб
         var l = -width / NUM_FOUR - NUM_FOUR;
-        // пусть мы считаем, что в точке l должнa быть координаты x = -a
-        // тогда масштаб
         this.widthMlt = -l / A;
     }
 

@@ -15,6 +15,8 @@ public interface LevelDao {
 
     @Query("SELECT * FROM levels WHERE campaignId = :campaignId")
     List<LevelEntity> getAllLevelsByCampaignId(long campaignId);
+    @Query("SELECT * FROM levels WHERE id = :id")
+    LevelEntity getLevelById(long id);
 
     @Query("SELECT * FROM levels WHERE campaignName = :campaignName")
     List<LevelEntity> getAllLevelsByCampaignName(String campaignName);

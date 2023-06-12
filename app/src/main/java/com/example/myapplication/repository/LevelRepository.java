@@ -22,6 +22,10 @@ public final class LevelRepository {
         campaignDao = db.campaignDao();
     }
 
+    public LevelEntity getLevelById(long id) {
+        return levelDao.getLevelById(id);
+    }
+
     public List<LevelEntity> getAllLevelsByCampaignId(long campaignId) {
         return levelDao.getAllLevelsByCampaignId(campaignId);
     }

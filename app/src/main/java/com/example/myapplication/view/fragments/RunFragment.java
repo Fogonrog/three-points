@@ -12,7 +12,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.view.Train;
-import com.example.myapplication.view.activities.ChooseLevelActivity;
+import com.example.myapplication.view.activities.ChooseCampaignActivity;
 import com.example.myapplication.view.Draw2D;
 
 
@@ -40,7 +40,7 @@ public final class RunFragment extends DialogFragment {
                 .setPositiveButton(yes, (dialog, id) -> {
                     var result = bigCanvas.isRightFunction();
                     if (result) {
-                        ChooseLevelActivity.saveProgress(level);
+                        ChooseCampaignActivity.saveProgress(level);
                         var btnAddFunction = requireActivity().findViewById(R.id.add_function);
                         btnAddFunction.setEnabled(false);
 
