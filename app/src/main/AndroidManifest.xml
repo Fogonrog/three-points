@@ -22,6 +22,11 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name=".view.activities.AuthorActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".view.activities.LevelActivity"
             android:exported="false"
             android:screenOrientation="portrait">

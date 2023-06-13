@@ -1,6 +1,7 @@
 package com.example.myapplication.repository.entity;
 
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
@@ -10,12 +11,12 @@ import androidx.room.PrimaryKey;
         tableName = "levels", indices = {@Index("campaignId")})
 public final class LevelEntity {
     @PrimaryKey(autoGenerate = true)
-    private final long id;
-    private final long campaignId;
+    private long id;
+    private long campaignId;
     private final String campaignName;
     private final int number;
     private final String stage;
-    private final boolean done;
+    private boolean done;
 
     public LevelEntity(long id, long campaignId, String campaignName, int number, String stage, boolean done) {
         this.id = id;
@@ -24,6 +25,10 @@ public final class LevelEntity {
         this.number = number;
         this.stage = stage;
         this.done = done;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {

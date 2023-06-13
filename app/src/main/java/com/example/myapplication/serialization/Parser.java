@@ -24,7 +24,6 @@ public class Parser {
         StageJSON stageJSON;
         try {
             text = replace(text, width, height);
-            System.out.println(text);
             stageJSON = objectMapper.readValue(text, StageJSON.class);
         } catch (IOException e) {
             throw new RuntimeException(e);

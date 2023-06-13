@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.view.fragments.ExitFragment;
 
 public final class MenuActivity extends AppCompatActivity {
     @Override
@@ -23,13 +22,6 @@ public final class MenuActivity extends AppCompatActivity {
             var intent = new Intent(MenuActivity.this, ChooseCampaignActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.right_in, R.anim.left_out);
-        });
-
-        var btnExit = findViewById(R.id.exit);
-        var manager = getSupportFragmentManager();
-        btnExit.setOnClickListener(v -> {
-            var exitFragment = new ExitFragment();
-            exitFragment.show(manager, "exitFragment");
         });
 
         var btnTutor = findViewById(R.id.tutor);

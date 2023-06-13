@@ -3,6 +3,7 @@ package com.example.myapplication.view.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.media.tv.TvView;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +34,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public final class ChooseCampaignActivity extends AppCompatActivity {
-    public static final int requestKey = 1;
+    public static final int REQUEST_KEY = 1;
     private static SharedPreferences prefs;
     private static int highestLevel;
     private AppDatabase db;
@@ -71,7 +72,7 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
         levelService = new LevelService(db, parser);
         AppDatabase.execute(() -> {
             if (!campaignService.isCampaignExists("Туториал")) {
-                var campaign = Campaign.fromEntity(new CampaignEntity(-2, "Туториал"));
+                var campaign = Campaign.fromEntity(new CampaignEntity(-1, "Туториал"));
                 campaignService.createCampaign(campaign);
                 for (int i = 1; i <= 5; i++) {
                     var string = readFileInAssets("level-" + i + ".json");
@@ -83,7 +84,6 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
         });
 
         var campaigns = getCampaigns();
-        System.out.println(campaigns);
         var adapter = new CampaignAdapter(this, campaigns);
         var lv = (ListView) findViewById(R.id.campaign_list);
         lv.setOnItemClickListener((parent, view, position, id) -> {
@@ -107,14 +107,14 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("application/json");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(Intent.createChooser(intent, "Выберите файл"), requestKey);
+            startActivityForResult(Intent.createChooser(intent, "Выберите файл"), REQUEST_KEY);
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == requestKey && data != null) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_KEY && data != null) {
             Uri uri = data.getData();
             InputStream inputStream;
             try {
@@ -128,12 +128,12 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
                 var level = parser.parseLevel(jsonString);
                 var campaignName = level.getCampaignName();
                 AppDatabase.execute(() -> {
-                    if (!campaignService.isCampaignExists(campaignName) && !campaignName.equals("")) {
+                    if (!campaignService.isCampaignExists(campaignName) && campaignName != null) {
                         var campaign = Campaign.fromEntity(new CampaignEntity(-777, campaignName));
                         campaignService.createCampaign(campaign);
-                    }
-                    if (!levelService.isLevelExists(level.getNumber(), level.getCampaignName()) && level.getNumber() != 0) {
-                        levelService.createLevel(level);
+                        if (!levelService.isLevelExists(level.getNumber(), level.getCampaignName()) && level.getNumber() != 0) {
+                            levelService.createLevel(level);
+                        }
                     }
                 });
             }catch (Exception e) {
@@ -160,7 +160,6 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
             int size = is.available();
             buffer = new byte[size];
             is.read(buffer);
-            is.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -46,7 +46,6 @@ public final class ChooseLevelActivity extends AppCompatActivity {
 
         var levels = getLevels(campaign);
         levels.sort(Comparator.comparingInt(o -> o.getInfo().getNumber()));
-
         var adapter = new LevelAdapter(this, levels);
         var lv = (ListView) findViewById(R.id.level_list);
         lv.setOnItemClickListener((parent, view, position, id) -> {

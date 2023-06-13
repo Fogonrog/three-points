@@ -40,7 +40,6 @@ public final class CampaignRepository {
         var id = random.nextLong();
         var name = campaign.getName();
         var campaignEntity = new CampaignEntity(id, name);
-
         return campaignDao.insertCampaign(campaignEntity);
     }
 

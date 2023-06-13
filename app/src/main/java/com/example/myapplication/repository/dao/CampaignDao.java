@@ -17,7 +17,7 @@ public interface CampaignDao {
     @Query("SELECT * FROM campaigns")
     List<CampaignEntity> getAllCampaigns();
 
-    @Query("SELECT * FROM campaigns WHERE id = :id")
+    @Query("SELECT * FROM campaigns WHERE rowid = :id")
     Optional<CampaignEntity> getCampaignById(long id);
 
     @Query("SELECT * FROM campaigns WHERE name = :name")
