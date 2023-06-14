@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-    <fragment class="com.example.myapplication.InputFragment"
+    tools:context=".LevelActivity">
+    <fragment class="com.example.myapplication.LevelFragment"
         android:id="@+id/fragment_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
