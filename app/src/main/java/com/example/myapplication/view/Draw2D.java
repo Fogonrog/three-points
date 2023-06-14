@@ -1,6 +1,6 @@
 package com.example.myapplication.view;
 
-import static com.example.myapplication.logic.expressions.Functions.x;
+import static com.example.myapplication.logic.expression.Functions.x;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.example.myapplication.logic.model.Level;
 import com.example.myapplication.R;
-import com.example.myapplication.logic.expressions.Function;
+import com.example.myapplication.logic.expression.Function;
 import com.example.myapplication.logic.graphics.Canva;
 import com.example.myapplication.logic.graphics.Colored;
 import com.example.myapplication.logic.graphics.Container;

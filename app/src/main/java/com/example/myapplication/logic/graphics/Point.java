@@ -1,6 +1,6 @@
 package com.example.myapplication.logic.graphics;
 
-import static com.example.myapplication.logic.expressions.Functions.expr;
+import static com.example.myapplication.logic.expression.Functions.expr;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

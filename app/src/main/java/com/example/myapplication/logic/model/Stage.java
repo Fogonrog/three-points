@@ -3,7 +3,7 @@ package com.example.myapplication.logic.model;
 import com.example.myapplication.repository.entity.LevelEntity;
 import com.example.myapplication.serialization.Parser;
 import com.example.myapplication.serialization.StageJSON;
-import com.example.myapplication.logic.expressions.Function;
+import com.example.myapplication.logic.expression.Function;
 import com.example.myapplication.logic.graphics.Drawable;
 
 import java.util.List;
