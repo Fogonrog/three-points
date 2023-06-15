@@ -38,20 +38,20 @@ import androidx.room.PrimaryKey;
     public long getCampaignId() {
         return campaignId;
     }
-//
-//    public String getCampaignName() {
-//        return campaignName;
-//    }
-//
-//    public int getNumber() {
-//        return number;
-//    }
-//
-//    public String getStage() {
-//        return stage;
-//    }
-//
-//    public boolean isDone() {
-//        return done;
-//    }
+
+    public String getCampaignName() {
+        return campaignName;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
 }
