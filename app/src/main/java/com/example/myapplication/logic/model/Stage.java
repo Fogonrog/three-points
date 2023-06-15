@@ -15,7 +15,10 @@ public final class Stage {
     private final List<Drawable> background;
     private final List<Function> functions;
 
-    public Stage(Set<Drawable> obstacles, Set<Drawable> checkpoints, List<Drawable> background, List<Function> functions) {
+    public Stage(Set<Drawable> obstacles,
+                 Set<Drawable> checkpoints,
+                 List<Drawable> background,
+                 List<Function> functions) {
         this.obstacles = obstacles;
         this.checkpoints = checkpoints;
         this.background = background;

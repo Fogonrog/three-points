@@ -2,15 +2,13 @@ package com.example.myapplication.serialization;
 
 import static com.example.myapplication.serialization.Template.replace;
 
-import com.example.myapplication.logic.model.Level;
 import com.example.myapplication.logic.model.LevelFromUser;
-import com.example.myapplication.logic.model.LevelInfo;
 import com.example.myapplication.logic.model.Stage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
-public class Parser {
+public final class Parser {
     private final float height;
     private final float width;
 

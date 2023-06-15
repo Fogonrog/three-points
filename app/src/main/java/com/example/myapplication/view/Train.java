@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
@@ -14,6 +15,9 @@ import java.util.List;
 
 public final class Train {
     private static final int MAX_VALUE_X = 500;
+    private static final int MIN_VALUE_X = -100;
+    private static final int LIFTING_SPEED = 400;
+    private static final int DESCENDING_SPEED = 300;
     private final ImageView photo;
     private final Draw2D canvas;
     private final int level;
@@ -32,36 +36,40 @@ public final class Train {
         this.width = canvas.getWidth();
         this.height = canvas.getHeight();
         var currentAngle = 0.0;
-        photo.setVisibility(View.VISIBLE);
-
         List<Animator> translateAnimators = new ArrayList<>();
         List<Animator> rotateAnimators = new ArrayList<>();
+        photo.setVisibility(View.VISIBLE);
+        var vto = photo.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int height = photo.getHeight();
+                photo.setPivotY(height);
+                photo.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            }
+        });
 
-        var flag = true;
-        for (float i = -MAX_VALUE_X; i < MAX_VALUE_X; i += 1) {
+
+
+        for (float i = MIN_VALUE_X; i < MAX_VALUE_X; i += 1) {
             if (convertY(function.evaluate(i) * widthMlt) <= height + 650
                     && convertY(function.evaluate(i) * widthMlt) >= -400
                     && convertX(i * widthMlt) >= -200
-                    && convertX(i * widthMlt) <= width + 300) {
+                    && convertX(i * widthMlt) <= width + 150) {
                 var y1 = convertY(function.evaluate(i) * widthMlt);
                 var y2 = convertY(function.evaluate(i + 1) * widthMlt);
                 var x1 = convertX(i * widthMlt);
                 var x2 = convertX((i + 1) * widthMlt);
                 var angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
 
-                if (y1 > y2) {
-                    x1 -= 100;
-                    y1 -= 50;
-                    x2 -= 100;
-                    y2 -= 50;
-                }
-                var rotAnimator = ObjectAnimator.ofFloat(photo, "rotation", (float) currentAngle, (float) angle);
+                var rotAnimator = ObjectAnimator.ofFloat(photo,
+                        "rotation", (float) currentAngle, (float) angle);
                 var xAnimator = ObjectAnimator.ofFloat(photo, "translationX", x1, x2);
                 var yAnimator = ObjectAnimator.ofFloat(photo, "translationY", y1, y2);
                 xAnimator.setInterpolator(new LinearInterpolator());
                 yAnimator.setInterpolator(new LinearInterpolator());
 
-                var duration = (y1 < y2) ? (400) : (300);
+                var duration = (y1 < y2) ? (LIFTING_SPEED) : (DESCENDING_SPEED);
                 xAnimator.setDuration(duration);
                 yAnimator.setDuration(duration);
                 rotAnimator.setDuration(duration);

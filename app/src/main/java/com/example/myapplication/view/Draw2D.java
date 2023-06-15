@@ -101,7 +101,9 @@ public final class Draw2D extends View {
                 mainCanvas.draw(forbObstacle);
             }
         }
-        mainCanvas.draw(Colored.from("#FFFF0000", Scaled.from(LARGE_WIDTH, Filled.from(false, func))));
+        mainCanvas.draw(Colored.from("#FFFF0000",
+                Scaled.from(LARGE_WIDTH,
+                        Filled.from(false, func))));
     }
 
     private void initialCanvasPreparation(Canvas canvas) {
