@@ -1,5 +1,5 @@
 {
-  "campaign": "1",
+  "campaign": "Испытание XYZ",
   "level": 1,
   "functions": [
     {
@@ -138,6 +138,26 @@
           "b": {
             "strX": "{{WIDTH_PLACEHOLDER}}/4+4",
             "strY": "-{{INDENT}}"
+          }
+        }
+      }
+    },
+    {
+      "class": "Colored",
+      "color": "#FF3F48CC",
+      "child": {
+        "class": "Scaled",
+        "width": 10,
+        "child": {
+          "class": "Filled",
+          "filled": false,
+          "child": {
+            "class": "Circle",
+            "center": {
+              "strX": "0",
+              "strY": "200"
+            },
+            "radius": 150.0
           }
         }
       }
