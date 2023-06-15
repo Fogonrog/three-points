@@ -14,7 +14,9 @@ import com.example.myapplication.repository.entity.LevelEntity;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-@Database(entities = {CampaignEntity.class, LevelEntity.class}, version = 3, exportSchema = false)
+@Database(entities = {CampaignEntity.class, LevelEntity.class},
+        version = 3,
+        exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase instance;
     private static final Executor EXECUTOR = Executors.newSingleThreadExecutor();

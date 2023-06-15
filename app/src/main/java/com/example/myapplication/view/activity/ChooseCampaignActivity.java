@@ -128,14 +128,15 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
                 var campaignName = level.getCampaignName();
                 AppDatabase.execute(() -> {
                     if (!campaignService.isCampaignExists(campaignName) && campaignName != null) {
-                        var campaign = Campaign.fromEntity(new CampaignEntity(-777, campaignName));
+                        var campaign = Campaign.fromEntity(new CampaignEntity(-1, campaignName));
                         campaignService.createCampaign(campaign);
-                        if (!levelService.isLevelExists(level.getNumber(), level.getCampaignName()) && level.getNumber() != 0) {
+                        if (!levelService.isLevelExists(level.getNumber(), level.getCampaignName())
+                                && level.getNumber() != 0) {
                             levelService.createLevel(level);
                         }
                     }
                 });
-            }catch (Exception e) {
+            } catch (Exception e) {
                 Toast.makeText(this, "Упс... , кажется в вашем файле есть ошибка", Toast.LENGTH_SHORT).show();
             }
             recreate();

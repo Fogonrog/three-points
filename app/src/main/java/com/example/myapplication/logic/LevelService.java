@@ -12,7 +12,7 @@ import com.example.myapplication.serialization.Parser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelService {
+public final class LevelService {
     private final LevelRepository levelRepository;
     private final Parser parser;
 

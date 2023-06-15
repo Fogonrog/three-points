@@ -46,7 +46,8 @@ public final class ChooseLevelActivity extends AppCompatActivity {
         var adapter = new LevelAdapter(this, levels);
         var lv = (ListView) findViewById(R.id.level_list);
         lv.setOnItemClickListener((parent, view, position, id) -> {
-            var level = ((Level) parent.getItemAtPosition(position)).getInfo().getId();
+            var level = ((Level) parent.getItemAtPosition(position))
+                    .getInfo().getId();
             var intent = new Intent(ChooseLevelActivity.this, LevelActivity.class);
             intent.putExtra("level", level);
             startActivity(intent);

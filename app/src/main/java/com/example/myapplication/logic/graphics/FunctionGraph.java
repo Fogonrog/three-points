@@ -28,7 +28,8 @@ public final class FunctionGraph implements Drawable {
         path.moveTo(-MAX_VALUE_X, (float) (function.evaluate(-MAX_VALUE_X)));
         for (float i = -MAX_VALUE_X + STEP_X; i < MAX_VALUE_X; i += STEP_X) {
             path.lineTo(i * widthMlt, function.evaluate(i) * widthMlt);
-            pointList.add(new Coordinate(i * widthMlt, function.evaluate(i) * widthMlt));
+            pointList.add(new Coordinate(i * widthMlt,
+                    function.evaluate(i) * widthMlt));
         }
         this.jts = geometryFactory.createLineString(
                 new CoordinateArraySequence(pointList.toArray(new Coordinate[0])));

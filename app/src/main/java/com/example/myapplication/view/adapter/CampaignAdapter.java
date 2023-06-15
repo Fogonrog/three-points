@@ -12,7 +12,7 @@ import com.example.myapplication.logic.model.Campaign;
 
 import java.util.List;
 
-public class CampaignAdapter extends ArrayAdapter<Campaign> {
+public final class CampaignAdapter extends ArrayAdapter<Campaign> {
 
     public CampaignAdapter(Context context, List<Campaign> list) {
         super(context, R.layout.adapter_item, list);
@@ -23,7 +23,8 @@ public class CampaignAdapter extends ArrayAdapter<Campaign> {
         final Campaign campaign = getItem(position);
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_item,null);
+            convertView = LayoutInflater.from(getContext())
+                    .inflate(R.layout.adapter_item, null);
         }
         ((TextView) convertView.findViewById(R.id.name)).setText(campaign.getName());
         return convertView;

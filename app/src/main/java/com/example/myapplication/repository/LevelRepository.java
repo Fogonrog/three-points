@@ -1,7 +1,5 @@
 package com.example.myapplication.repository;
 
-import android.app.Application;
-
 import com.example.myapplication.logic.model.LevelFromUser;
 import com.example.myapplication.repository.dao.CampaignDao;
 import com.example.myapplication.repository.dao.LevelDao;
@@ -11,7 +9,6 @@ import com.example.myapplication.repository.entity.LevelEntity;
 
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 public final class LevelRepository {
     private final LevelDao levelDao;
@@ -47,7 +44,8 @@ public final class LevelRepository {
         var number = level.getNumber();
         var stage = level.getStage();
         var done = false;
-        var levelEntity = new LevelEntity(id, campaignId, campaignName, number, stage, done);
+        var levelEntity = new LevelEntity(id,
+                campaignId, campaignName, number, stage, done);
 
         return levelDao.insertLevel(levelEntity);
     }

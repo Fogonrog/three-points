@@ -4,11 +4,9 @@ import com.example.myapplication.logic.model.Campaign;
 import com.example.myapplication.repository.dao.CampaignDao;
 import com.example.myapplication.repository.database.AppDatabase;
 import com.example.myapplication.repository.entity.CampaignEntity;
-import com.example.myapplication.repository.entity.LevelEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 public final class CampaignRepository {
@@ -32,7 +30,10 @@ public final class CampaignRepository {
     }
 
     public  Campaign getCampaignByName(String name) {
-        return campaignDao.getCampaignByName(name).map(Campaign::fromEntity).get();
+        return campaignDao
+                .getCampaignByName(name)
+                .map(Campaign::fromEntity)
+                .get();
     }
 
     public long insertCampaign(Campaign campaign) {
