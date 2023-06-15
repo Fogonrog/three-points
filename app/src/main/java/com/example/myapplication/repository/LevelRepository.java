@@ -22,6 +22,10 @@ public final class LevelRepository {
         campaignDao = db.campaignDao();
     }
 
+    public LevelEntity getLevelById(long id) {
+        return levelDao.getLevelById(id);
+    }
+
     public List<LevelEntity> getAllLevelsByCampaignId(long campaignId) {
         return levelDao.getAllLevelsByCampaignId(campaignId);
     }
@@ -37,14 +41,18 @@ public final class LevelRepository {
             var campaignEntity = new CampaignEntity(random.nextLong(), name);
             campaignDao.insertCampaign(campaignEntity);
         }
-        var id = random.nextLong();
+        var id = random.nextInt();
         var campaignId = campaignDao.getCampaignByName(level.getCampaignName()).get().getId();
         var campaignName = level.getCampaignName();
         var number = level.getNumber();
-        var stage = level.getStage().toString();
+        var stage = level.getStage();
         var done = false;
         var levelEntity = new LevelEntity(id, campaignId, campaignName, number, stage, done);
 
         return levelDao.insertLevel(levelEntity);
+    }
+
+    public boolean isLevelExists(int number, String campaignName) {
+        return levelDao.countLevelByNumber(number, campaignName) > 0;
     }
 }

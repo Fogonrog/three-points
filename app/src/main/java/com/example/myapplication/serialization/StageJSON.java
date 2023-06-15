@@ -1,6 +1,6 @@
 package com.example.myapplication.serialization;
 
-import com.example.myapplication.logic.expressions.Function;
+import com.example.myapplication.logic.expression.Function;
 import com.example.myapplication.logic.graphics.Drawable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -1,6 +1,9 @@
 package com.example.myapplication.logic.model;
 
 import com.example.myapplication.repository.entity.LevelEntity;
+import com.example.myapplication.serialization.LevelInfoJSON;
+
+import java.util.Random;
 
 public final class LevelInfo {
     private final long id;
@@ -17,6 +20,10 @@ public final class LevelInfo {
 
     public static LevelInfo fromEntity(LevelEntity entity) {
         return new LevelInfo(entity.getId(), entity.getCampaignId(), entity.getNumber(), entity.isDone());
+    }
+
+    public static LevelInfo fromJSON(LevelInfoJSON infoJSON) {
+        return new LevelInfo(-1, -1, infoJSON.getLevel(), false);
     }
 
     public long getId() {

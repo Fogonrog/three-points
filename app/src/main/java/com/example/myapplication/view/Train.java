@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
-import com.example.myapplication.view.fragments.LevelFragment;
+import com.example.myapplication.view.fragment.LevelFragment;
 
 import java.util.ArrayList;
 import java.util.List;

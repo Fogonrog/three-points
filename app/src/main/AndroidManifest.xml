@@ -12,17 +12,27 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".view.activities.ChooseLevelActivity"
+            android:name=".view.activity.ChooseCampaignActivity"
             android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".view.activities.LevelActivity"
+            android:name=".view.activity.ChooseLevelActivity"
             android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".view.activities.MenuActivity"
+            android:name=".view.activity.AuthorActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".view.activity.LevelActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".view.activity.MenuActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activities.TutorActivity"
+            android:name=".view.activity.TutorActivity"
             android:exported="false"
             android:screenOrientation="portrait">
         </activity>

@@ -14,24 +14,27 @@ import com.example.myapplication.repository.entity.LevelEntity;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-@Database(entities = {CampaignEntity.class, LevelEntity.class}, version = 1)
+@Database(entities = {CampaignEntity.class, LevelEntity.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
-    private static volatile AppDatabase INSTANCE;
-    private static final Executor executor = Executors.newSingleThreadExecutor();
+    private static volatile AppDatabase instance;
+    private static final Executor EXECUTOR = Executors.newSingleThreadExecutor();
 
     public static AppDatabase getDatabase(Context context) {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (AppDatabase.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app_database").build();
+                if (instance == null) {
+                    instance = Room.databaseBuilder(context.getApplicationContext(),
+                                    AppDatabase.class, "app_database")
+                            .fallbackToDestructiveMigration()
+                            .build();
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public static void execute(Runnable runnable) {
-        executor.execute(runnable);
+        EXECUTOR.execute(runnable);
     }
 
     public abstract CampaignDao campaignDao();

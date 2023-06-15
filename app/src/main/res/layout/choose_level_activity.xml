@@ -3,8 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activities.ChooseLevelActivity">
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/level_list"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/back"
@@ -20,88 +28,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.147"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/startLevel1"
-        android:layout_width="93dp"
-        android:layout_height="96dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="48dp"
-        android:src="@drawable/first_level"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@drawable/first_level" />
-
-    <ImageView
-        android:id="@+id/startLevel2"
-        android:src="@drawable/second_level"
-        android:layout_width="93dp"
-        android:layout_height="96dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="76dp"
-        android:contentDescription="@drawable/second_level"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.217"
-        app:layout_constraintStart_toEndOf="@+id/startLevel1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/startLevel3"
-        android:src="@drawable/third_level"
-        android:contentDescription="@drawable/third_level"
-        android:layout_width="93dp"
-        android:layout_height="96dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="46dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startLevel1"/>
-
-    <ImageView
-        android:id="@+id/startLevel4"
-        android:src="@drawable/fourth_level"
-        android:contentDescription="@drawable/fourth_level"
-        android:layout_width="93dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="46dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.369"
-        app:layout_constraintStart_toEndOf="@+id/startLevel3"
-        app:layout_constraintTop_toBottomOf="@+id/startLevel2"/>
-
-    <ImageView
-        android:id="@+id/startLevel5"
-        android:src="@drawable/fifth_level"
-        android:contentDescription="@drawable/fifth_level"
-        android:layout_width="93dp"
-        android:layout_height="96dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="46dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startLevel3"/>
-
-    <ImageView
-        android:id="@+id/startLevel6"
-        android:src="@drawable/sixth_level"
-        android:textSize="50sp"
-        android:layout_width="93dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="46dp"
-        android:contentDescription="@drawable/sixth_level"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.369"
-        app:layout_constraintStart_toEndOf="@+id/startLevel5"
-        app:layout_constraintTop_toBottomOf="@+id/startLevel4"/>
-
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="150dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

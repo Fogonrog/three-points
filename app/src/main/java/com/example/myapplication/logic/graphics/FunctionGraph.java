@@ -2,7 +2,7 @@ package com.example.myapplication.logic.graphics;
 
 import android.graphics.Path;
 
-import com.example.myapplication.logic.expressions.Function;
+import com.example.myapplication.logic.expression.Function;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;

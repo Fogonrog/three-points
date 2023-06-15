@@ -4,21 +4,31 @@ import com.example.myapplication.serialization.LevelInfoJSON;
 
 public final class LevelFromUser {
     private Stage stage;
-    private String campaignName;
-    private int number;
+    private String strStage;
+    private final String campaignName;
+    private final int number;
 
+    public LevelFromUser(String strStage, String campaignName, int number) {
+        this.strStage = strStage;
+        this.campaignName = campaignName;
+        this.number = number;
+    }
     public LevelFromUser(Stage stage, String campaignName, int number) {
         this.stage = stage;
         this.campaignName = campaignName;
         this.number = number;
     }
 
+    public static LevelFromUser from(LevelInfoJSON levelInfo, String stage) {
+        return new LevelFromUser(stage, levelInfo.getCampaignName(), levelInfo.getLevel());
+    }
+
     public static LevelFromUser from(LevelInfoJSON levelInfo, Stage stage) {
         return new LevelFromUser(stage, levelInfo.getCampaignName(), levelInfo.getLevel());
     }
 
-    public Stage getStage() {
-        return stage;
+    public String getStage() {
+        return strStage;
     }
 
     public String getCampaignName() {
