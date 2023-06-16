@@ -30,6 +30,13 @@ public final class MenuActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(R.anim.left_in, R.anim.right_out);
         });
+
+        var btnAuthor = findViewById(R.id.author);
+        btnAuthor.setOnClickListener(v -> {
+            var intent = new Intent(MenuActivity.this, AuthorActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.up_in, R.anim.down_out);
+        });
     }
 
     public void onBackPressed() {

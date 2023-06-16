@@ -63,7 +63,7 @@ public final class LevelFragment extends Fragment {
 
         var btnRun = view.findViewById(R.id.runbutton);
         btnRun.setOnClickListener(v -> {
-            var runFragment = new RunFragment(canvas, level.getInfo().getNumber());
+            var runFragment = new RunFragment(canvas, level.getInfo().getNumber(), level.getInfo().getCampaignName());
             runFragment.show(manager, "runFragment");
         });
 
