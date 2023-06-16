@@ -43,7 +43,7 @@ public final class VictoryFragment extends DialogFragment {
         btnPause.setEnabled(true);
 
         TextView twLevel = view.findViewById(R.id.level);
-        twLevel.setText("Уровень " + level);
+        twLevel.setText(getString(R.string.level) + level);
 
         Button btnMenu = view.findViewById(R.id.menu);
         btnMenu.setOnClickListener(v -> {

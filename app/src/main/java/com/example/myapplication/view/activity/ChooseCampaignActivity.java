@@ -1,7 +1,7 @@
 package com.example.myapplication.view.activity;
 
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,20 +34,10 @@ import java.util.stream.Collectors;
 
 public final class ChooseCampaignActivity extends AppCompatActivity {
     public static final int REQUEST_KEY = 1;
-    private static SharedPreferences prefs;
-    private static int highestLevel;
     private AppDatabase db;
     private CampaignService campaignService;
     private LevelService levelService;
     private Parser parser;
-
-
-    public static void saveProgress(int level) {
-        if (level > highestLevel) {
-            highestLevel = level;
-            prefs.edit().putInt("highestLevel", highestLevel).apply();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +47,6 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
-        prefs = getSharedPreferences("checkout", MODE_PRIVATE);
-        highestLevel = prefs.getInt("highestLevel", 0);
         var display = this.getWindowManager().getDefaultDisplay();
         var point = new Point();
         display.getSize(point);
@@ -106,7 +94,7 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("application/json");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(Intent.createChooser(intent, "Выберите файл"), REQUEST_KEY);
+            startActivityForResult(Intent.createChooser(intent, getString(R.string.chooseFile)), REQUEST_KEY);
         });
     }
 
@@ -137,7 +125,7 @@ public final class ChooseCampaignActivity extends AppCompatActivity {
                     }
                 });
             } catch (Exception e) {
-                Toast.makeText(this, "Упс... , кажется в вашем файле есть ошибка", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.JSONerror), Toast.LENGTH_SHORT).show();
             }
             recreate();
         }
