@@ -26,6 +26,7 @@ public final class LevelAdapter extends ArrayAdapter<Level> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_item, null);
         }
+
         ((TextView) convertView
                 .findViewById(R.id.name))
                 .setText(String.format(Locale.getDefault(),

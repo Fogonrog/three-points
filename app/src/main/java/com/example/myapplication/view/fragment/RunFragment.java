@@ -12,35 +12,37 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.view.Train;
-import com.example.myapplication.view.activity.ChooseCampaignActivity;
 import com.example.myapplication.view.Draw2D;
+import com.example.myapplication.view.activity.ChooseLevelActivity;
 
 
 public final class RunFragment extends DialogFragment {
 
     private final Draw2D bigCanvas;
-    private final int level;
+    private int level;
+    private final String campaignName;
 
-    public RunFragment(Draw2D bigCanvas, int level) {
+    public RunFragment(Draw2D bigCanvas, int level, String campaignName) {
         super();
         this.bigCanvas = bigCanvas;
         this.level = level;
+        this.campaignName = campaignName;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final var yes = "Да";
-        final var no = "Нет";
+        final var yes = getString(R.string.yes);
+        final var no = getString(R.string.no);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Подтверждение")
+        builder.setTitle(getString(R.string.confirmation))
                 .setCancelable(false)
-                .setMessage("Вы хотите продолжить?")
+                .setMessage(getString(R.string.wantToContinue))
                 .setPositiveButton(yes, (dialog, id) -> {
                     var result = bigCanvas.isRightFunction();
                     if (result) {
-                        ChooseCampaignActivity.saveProgress(level);
+                        ChooseLevelActivity.saveProgress(campaignName, level);
                         var btnAddFunction = requireActivity().findViewById(R.id.add_function);
                         btnAddFunction.setEnabled(false);
 
@@ -54,7 +56,7 @@ public final class RunFragment extends DialogFragment {
                         var train = new Train(bigCanvas, image, level);
                         train.startAnimation();
                     } else {
-                        Toast.makeText(getActivity(), "Неправильная функция", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.wrongFunction), Toast.LENGTH_SHORT).show();
                     }
                     dialog.cancel();
                 })

@@ -1,21 +1,31 @@
 <resources>
-    <string name="app_name">Три точки</string>
-    <string name="input_your_name">input your name</string>
-    <string name="button_1">Button 1</string>
-    <string name="button_2">Button 2</string>
-    <string name="button_3">Button 3</string>
-    <string name="button_4">Button 4</string>
-    <string name="button_5">Button 5</string>
-    <string name="greetings">Привет, добро пожаловать в игру Три точки!
-В этой игре ваша задача соединить два берега, используя математические функции.</string>
-    <string name="first_help">     1. Для добаления функции нажмите на кнопку в виде плюса, которая расположена внизу экрана. Это откроет всплывающее окно с кнопками математических операций и текущим значением функции.</string>
-    <string name="second_help">     2. После этого выберите операцию, которую вы хотите совершить к текущей функции и она сразу же отобразится на уменьшенной версии графика функций.</string>
-    <string name="third_help">     3. Эксперементируй! Пробуй комбинировать разные математические операции, чтобы получить интересные решения.</string>
-    <string name="fourth_help">     4. Если вас устраивает введённая вами функция, вы можете нажать на кнопку "Готово", и новая функция отобразится на главном графике.</string>
-    <string name="fifth_help">     5. Когда вы закончите работу над задачей, нажмите на кнопку треугольной формы, находящуюся в верхней части экрана, чтобы проверить ваше решение. Она запустит поезд, который проедет по-вашей функции.</string>
-    <string name="sixth_help">     6. На более высоких уровнях игры ты можешь столкнуться с пустыми фигурами, которые имеют только контур. Эти фигуры являются чекпойнтами - объектами, через которые функция должна обязательно пройти. </string>
-    <string name="seventh_help">     7. В то же время на пути построения функции ты можешь столкнуться с препятствиями - заполненными фигурами, которые функция не должна пересекать. Будь внимателен и учти эти объекты, чтобы правильно построить функцию и соединить оба берега реки.</string>
-    <string name="parting">Надеемся, что эти советы помогут вам в прохождении игры. Изучайте функции, экспериментируйте и стройте мост через берега! Удачи!</string>
+    <string name="app_name">Three Points</string>
+    <string name="greetings">Hello, welcome to the Three Points game!
+In this game your job is to connect two shores using mathematical functions.</string>
+    <string name="first_help">     1. To add a function, tap the plus button located at the bottom of your screen. This will bring up Math Operation buttons and the current function value.</string>
+    <string name="second_help">     2. Then, select an operation you want to perform on the current function and it will immediately display a shrunken version of the functions graph.</string>
+    <string name="third_help">     3. Experiment! Try out different mathematical operations to get interesting solutions.</string>
+    <string name="fourth_help">     4. When youre satisfied with your function, you can tap the "Done" button and your new function will display on the main graph.</string>
+    <string name="fifth_help">     5. When youre finished with your task, tap the triangle button located at the top of your screen to check your solution. It will launch a train running through your function.</string>
+    <string name="sixth_help">     6. At higher levels of the game, you may encounter empty figures, which are contour objects for which the function must pass. </string>
+    <string name="seventh_help">     7. At the same time along the path to building of the function which may encounter obstacles - filled figures, which the function should not cross. Pay attention and take these objects into account in order to properly build a function and connect the two riverbanks.</string>
+    <string name="parting">We hope these tips will help you in passing the game. Study functions, experiment and build a bridge across the shores! Good luck!</string>
+    <string name="completePreviousLevels">Complete previous levels</string>
+    <string name="tutor">Tutorial</string>
+    <string name="JSONerror">Oops… it looks like there is an error in your file</string>
+    <string name="chooseFile">Choose file</string>
+    <string name="back">Back</string>
+    <string name="level">"Level "</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="wantToContinue">Do you want to continue</string>
+    <string name="wrongFunction">"Wrong function"</string>
+    <string name="pause">Pause</string>
+    <string name="menu">Menu</string>
+    <string name="play">Play</string>
+    <string name="aboutAuthor">About author</string>
+    <string name="complete">Completed!</string>
+    <string name="next">Next</string>
 </resources>
-
 
